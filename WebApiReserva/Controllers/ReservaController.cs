@@ -86,7 +86,7 @@ namespace WebApiReserva.Controllers
 
         //POST: api/Reserva
         [HttpPost]
-        [ResponseType(typeof(ReservaPersonas))]
+        //[ResponseType(typeof(ReservaPersonas))]
         [ActionName("Add")]
         public IHttpActionResult AddReserva([FromBody] ReservaPersonas reservaP)
         {
@@ -96,10 +96,11 @@ namespace WebApiReserva.Controllers
                 db.SaveChanges();
                 Good(log);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 log.Ok = false;
-                log.ErrorMessage = "Error al agregar la reserva ";
+                log.ErrorMessage = "Error al agregar la reserva " + ex;
+                return Ok(log);
             }
 
             if (reservaP.idPersonas.Count != 0)
@@ -134,6 +135,7 @@ namespace WebApiReserva.Controllers
             {
                 log.Ok = false;
                 log.ErrorMessage = "El usuario no ha hecho una reserva";
+                return Ok(log);
             }
 
             try
