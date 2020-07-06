@@ -1,0 +1,1393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ReservaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCarrera">
+          <Key>
+            <PropertyRef Name="idCarrera" />
+          </Key>
+          <Property Name="idCarrera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTipoCarrera" Type="int" Nullable="false" />
+          <Property Name="Carrera" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="tblClase">
+          <Key>
+            <PropertyRef Name="idClase" />
+          </Key>
+          <Property Name="idClase" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDocente" Type="int" Nullable="false" />
+          <Property Name="idCurso" Type="int" Nullable="false" />
+          <Property Name="idDias" Type="tinyint" Nullable="false" />
+          <Property Name="idHoraIn" Type="tinyint" Nullable="false" />
+          <Property Name="idHoraF" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCurso">
+          <Key>
+            <PropertyRef Name="idCurso" />
+          </Key>
+          <Property Name="idCurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEdificio" Type="tinyint" Nullable="false" />
+          <Property Name="NumCurso" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDias">
+          <Key>
+            <PropertyRef Name="idDias" />
+          </Key>
+          <Property Name="idDias" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dias" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDocente">
+          <Key>
+            <PropertyRef Name="idDocente" />
+          </Key>
+          <Property Name="idDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPersona" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEdificio">
+          <Key>
+            <PropertyRef Name="idEdificio" />
+          </Key>
+          <Property Name="idEdificio" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Edificio" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEstudiante">
+          <Key>
+            <PropertyRef Name="idEstudiante" />
+          </Key>
+          <Property Name="idEstudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPersona" Type="int" Nullable="false" />
+          <Property Name="idCarrera" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblGrupoReserva">
+          <Key>
+            <PropertyRef Name="idGrupoReserva" />
+          </Key>
+          <Property Name="idGrupoReserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPersona" Type="int" Nullable="false" />
+          <Property Name="idReserva" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblHoras">
+          <Key>
+            <PropertyRef Name="idHoras" />
+          </Key>
+          <Property Name="idHoras" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Horas" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPersona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTipoEstado" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Pass" Type="char" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPersonaTipo">
+          <Key>
+            <PropertyRef Name="idPersonaTipo" />
+          </Key>
+          <Property Name="idPersonaTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPersona" Type="int" Nullable="false" />
+          <Property Name="idTipo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblReserva">
+          <Key>
+            <PropertyRef Name="idReserva" />
+          </Key>
+          <Property Name="idReserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCurso" Type="int" Nullable="false" />
+          <Property Name="idSemana" Type="tinyint" Nullable="false" />
+          <Property Name="idDias" Type="tinyint" Nullable="false" />
+          <Property Name="idHoraIn" Type="tinyint" Nullable="false" />
+          <Property Name="idHoraF" Type="tinyint" Nullable="false" />
+          <Property Name="FechaReserva" Type="datetime" Nullable="false" />
+          <Property Name="idReservante" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSemana">
+          <Key>
+            <PropertyRef Name="idSemana" />
+          </Key>
+          <Property Name="idSemana" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Semana" Type="char" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTipo">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTipoTipo" Type="int" Nullable="false" />
+          <Property Name="descTipo" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTipoTipo">
+          <Key>
+            <PropertyRef Name="idTipoTipo" />
+          </Key>
+          <Property Name="idTipoTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descTipoTipo" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblCarrer__idTip__6A30C649">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblCarrera" Type="Self.tblCarrera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblCarrera">
+              <PropertyRef Name="idTipoCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idCurs__6E01572D">
+          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCurso">
+              <PropertyRef Name="idCurso" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idDias__6EF57B66">
+          <End Role="tblDias" Type="Self.tblDias" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDias">
+              <PropertyRef Name="idDias" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idDias" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idDoce__6D0D32F4">
+          <End Role="tblDocente" Type="Self.tblDocente" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDocente">
+              <PropertyRef Name="idDocente" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idHora__6B24EA82">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idHoraIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idHora__6C190EBB">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idHoraF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblCurso__idEdif__6FE99F9F">
+          <End Role="tblEdificio" Type="Self.tblEdificio" Multiplicity="1" />
+          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEdificio">
+              <PropertyRef Name="idEdificio" />
+            </Principal>
+            <Dependent Role="tblCurso">
+              <PropertyRef Name="idEdificio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDocent__idPer__70DDC3D8">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblDocente" Type="Self.tblDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblDocente">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEstudi__idCar__71D1E811">
+          <End Role="tblCarrera" Type="Self.tblCarrera" Multiplicity="1" />
+          <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCarrera">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="tblEstudiante">
+              <PropertyRef Name="idCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEstudi__idPer__72C60C4A">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblEstudiante">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGrupoR__idPer__73BA3083">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblGrupoReserva" Type="Self.tblGrupoReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblGrupoReserva">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGrupoR__idRes__74AE54BC">
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="1" />
+          <End Role="tblGrupoReserva" Type="Self.tblGrupoReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblReserva">
+              <PropertyRef Name="idReserva" />
+            </Principal>
+            <Dependent Role="tblGrupoReserva">
+              <PropertyRef Name="idReserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPerson__idPer__76969D2E">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblPersonaTipo" Type="Self.tblPersonaTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblPersonaTipo">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPerson__idTip__75A278F5">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblPersona">
+              <PropertyRef Name="idTipoEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPerson__idTip__778AC167">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblPersonaTipo" Type="Self.tblPersonaTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblPersonaTipo">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idCur__7A672E12">
+          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCurso">
+              <PropertyRef Name="idCurso" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idDia__7B5B524B">
+          <End Role="tblDias" Type="Self.tblDias" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDias">
+              <PropertyRef Name="idDias" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idDias" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idHor__787EE5A0">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idHoraIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idHor__797309D9">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idHoraF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idRes__0D7A0286">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idReservante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idSem__7C4F7684">
+          <End Role="tblSemana" Type="Self.tblSemana" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSemana">
+              <PropertyRef Name="idSemana" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idSemana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTipo__idTipoT__7D439ABD">
+          <End Role="tblTipoTipo" Type="Self.tblTipoTipo" Multiplicity="1" />
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipoTipo">
+              <PropertyRef Name="idTipoTipo" />
+            </Principal>
+            <Dependent Role="tblTipo">
+              <PropertyRef Name="idTipoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetCursoEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEdificio" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idMatricula" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersona" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetReservaById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReserva" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetReservaSemana" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="numeroSemana" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ReservaModelStoreContainer">
+          <EntitySet Name="tblCarrera" EntityType="Self.tblCarrera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClase" EntityType="Self.tblClase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCurso" EntityType="Self.tblCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDias" EntityType="Self.tblDias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDocente" EntityType="Self.tblDocente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEdificio" EntityType="Self.tblEdificio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEstudiante" EntityType="Self.tblEstudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGrupoReserva" EntityType="Self.tblGrupoReserva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHoras" EntityType="Self.tblHoras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPersona" EntityType="Self.tblPersona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPersonaTipo" EntityType="Self.tblPersonaTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReserva" EntityType="Self.tblReserva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSemana" EntityType="Self.tblSemana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTipo" EntityType="Self.tblTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTipoTipo" EntityType="Self.tblTipoTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__tblCarrer__idTip__6A30C649" Association="Self.FK__tblCarrer__idTip__6A30C649">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblCarrera" EntitySet="tblCarrera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idCurs__6E01572D" Association="Self.FK__tblClase__idCurs__6E01572D">
+            <End Role="tblCurso" EntitySet="tblCurso" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idDias__6EF57B66" Association="Self.FK__tblClase__idDias__6EF57B66">
+            <End Role="tblDias" EntitySet="tblDias" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idDoce__6D0D32F4" Association="Self.FK__tblClase__idDoce__6D0D32F4">
+            <End Role="tblDocente" EntitySet="tblDocente" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idHora__6B24EA82" Association="Self.FK__tblClase__idHora__6B24EA82">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idHora__6C190EBB" Association="Self.FK__tblClase__idHora__6C190EBB">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblCurso__idEdif__6FE99F9F" Association="Self.FK__tblCurso__idEdif__6FE99F9F">
+            <End Role="tblEdificio" EntitySet="tblEdificio" />
+            <End Role="tblCurso" EntitySet="tblCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDocent__idPer__70DDC3D8" Association="Self.FK__tblDocent__idPer__70DDC3D8">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblDocente" EntitySet="tblDocente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEstudi__idCar__71D1E811" Association="Self.FK__tblEstudi__idCar__71D1E811">
+            <End Role="tblCarrera" EntitySet="tblCarrera" />
+            <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEstudi__idPer__72C60C4A" Association="Self.FK__tblEstudi__idPer__72C60C4A">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGrupoR__idPer__73BA3083" Association="Self.FK__tblGrupoR__idPer__73BA3083">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblGrupoReserva" EntitySet="tblGrupoReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGrupoR__idRes__74AE54BC" Association="Self.FK__tblGrupoR__idRes__74AE54BC">
+            <End Role="tblReserva" EntitySet="tblReserva" />
+            <End Role="tblGrupoReserva" EntitySet="tblGrupoReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPerson__idPer__76969D2E" Association="Self.FK__tblPerson__idPer__76969D2E">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblPersonaTipo" EntitySet="tblPersonaTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPerson__idTip__75A278F5" Association="Self.FK__tblPerson__idTip__75A278F5">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblPersona" EntitySet="tblPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPerson__idTip__778AC167" Association="Self.FK__tblPerson__idTip__778AC167">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblPersonaTipo" EntitySet="tblPersonaTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idCur__7A672E12" Association="Self.FK__tblReserv__idCur__7A672E12">
+            <End Role="tblCurso" EntitySet="tblCurso" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idDia__7B5B524B" Association="Self.FK__tblReserv__idDia__7B5B524B">
+            <End Role="tblDias" EntitySet="tblDias" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idHor__787EE5A0" Association="Self.FK__tblReserv__idHor__787EE5A0">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idHor__797309D9" Association="Self.FK__tblReserv__idHor__797309D9">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idRes__0D7A0286" Association="Self.FK__tblReserv__idRes__0D7A0286">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idSem__7C4F7684" Association="Self.FK__tblReserv__idSem__7C4F7684">
+            <End Role="tblSemana" EntitySet="tblSemana" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTipo__idTipoT__7D439ABD" Association="Self.FK__tblTipo__idTipoT__7D439ABD">
+            <End Role="tblTipoTipo" EntitySet="tblTipoTipo" />
+            <End Role="tblTipo" EntitySet="tblTipo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReservaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCarrera">
+          <Key>
+            <PropertyRef Name="idCarrera" />
+          </Key>
+          <Property Name="idCarrera" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipoCarrera" Type="Int32" Nullable="false" />
+          <Property Name="Carrera" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblTipo" Relationship="Self.FK__tblCarrer__idTip__6A30C649" FromRole="tblCarrera" ToRole="tblTipo" />
+          <NavigationProperty Name="tblEstudiante" Relationship="Self.FK__tblEstudi__idCar__71D1E811" FromRole="tblCarrera" ToRole="tblEstudiante" />
+        </EntityType>
+        <EntityType Name="tblClase">
+          <Key>
+            <PropertyRef Name="idClase" />
+          </Key>
+          <Property Name="idClase" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDocente" Type="Int32" Nullable="false" />
+          <Property Name="idCurso" Type="Int32" Nullable="false" />
+          <Property Name="idDias" Type="Byte" Nullable="false" />
+          <Property Name="idHoraIn" Type="Byte" Nullable="false" />
+          <Property Name="idHoraF" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tblCurso" Relationship="Self.FK__tblClase__idCurs__6E01572D" FromRole="tblClase" ToRole="tblCurso" />
+          <NavigationProperty Name="tblDias" Relationship="Self.FK__tblClase__idDias__6EF57B66" FromRole="tblClase" ToRole="tblDias" />
+          <NavigationProperty Name="tblDocente" Relationship="Self.FK__tblClase__idDoce__6D0D32F4" FromRole="tblClase" ToRole="tblDocente" />
+          <NavigationProperty Name="tblHoras" Relationship="Self.FK__tblClase__idHora__6B24EA82" FromRole="tblClase" ToRole="tblHoras" />
+          <NavigationProperty Name="tblHoras1" Relationship="Self.FK__tblClase__idHora__6C190EBB" FromRole="tblClase" ToRole="tblHoras" />
+        </EntityType>
+        <EntityType Name="tblCurso">
+          <Key>
+            <PropertyRef Name="idCurso" />
+          </Key>
+          <Property Name="idCurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEdificio" Type="Byte" Nullable="false" />
+          <Property Name="NumCurso" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblClase" Relationship="Self.FK__tblClase__idCurs__6E01572D" FromRole="tblCurso" ToRole="tblClase" />
+          <NavigationProperty Name="tblEdificio" Relationship="Self.FK__tblCurso__idEdif__6FE99F9F" FromRole="tblCurso" ToRole="tblEdificio" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__idCur__7A672E12" FromRole="tblCurso" ToRole="tblReserva" />
+        </EntityType>
+        <EntityType Name="tblDias">
+          <Key>
+            <PropertyRef Name="idDias" />
+          </Key>
+          <Property Name="idDias" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dias" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblClase" Relationship="Self.FK__tblClase__idDias__6EF57B66" FromRole="tblDias" ToRole="tblClase" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__idDia__7B5B524B" FromRole="tblDias" ToRole="tblReserva" />
+        </EntityType>
+        <EntityType Name="tblDocente">
+          <Key>
+            <PropertyRef Name="idDocente" />
+          </Key>
+          <Property Name="idDocente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPersona" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblClase" Relationship="Self.FK__tblClase__idDoce__6D0D32F4" FromRole="tblDocente" ToRole="tblClase" />
+          <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblDocent__idPer__70DDC3D8" FromRole="tblDocente" ToRole="tblPersona" />
+        </EntityType>
+        <EntityType Name="tblEdificio">
+          <Key>
+            <PropertyRef Name="idEdificio" />
+          </Key>
+          <Property Name="idEdificio" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Edificio" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblCurso" Relationship="Self.FK__tblCurso__idEdif__6FE99F9F" FromRole="tblEdificio" ToRole="tblCurso" />
+        </EntityType>
+        <EntityType Name="tblEstudiante">
+          <Key>
+            <PropertyRef Name="idEstudiante" />
+          </Key>
+          <Property Name="idEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPersona" Type="Int32" Nullable="false" />
+          <Property Name="idCarrera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCarrera" Relationship="Self.FK__tblEstudi__idCar__71D1E811" FromRole="tblEstudiante" ToRole="tblCarrera" />
+          <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblEstudi__idPer__72C60C4A" FromRole="tblEstudiante" ToRole="tblPersona" />
+        </EntityType>
+        <EntityType Name="tblGrupoReserva">
+          <Key>
+            <PropertyRef Name="idGrupoReserva" />
+          </Key>
+          <Property Name="idGrupoReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPersona" Type="Int32" Nullable="false" />
+          <Property Name="idReserva" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblGrupoR__idPer__73BA3083" FromRole="tblGrupoReserva" ToRole="tblPersona" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblGrupoR__idRes__74AE54BC" FromRole="tblGrupoReserva" ToRole="tblReserva" />
+        </EntityType>
+        <EntityType Name="tblHoras">
+          <Key>
+            <PropertyRef Name="idHoras" />
+          </Key>
+          <Property Name="idHoras" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Horas" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tblClase" Relationship="Self.FK__tblClase__idHora__6B24EA82" FromRole="tblHoras" ToRole="tblClase" />
+          <NavigationProperty Name="tblClase1" Relationship="Self.FK__tblClase__idHora__6C190EBB" FromRole="tblHoras" ToRole="tblClase" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__idHor__787EE5A0" FromRole="tblHoras" ToRole="tblReserva" />
+          <NavigationProperty Name="tblReserva1" Relationship="Self.FK__tblReserv__idHor__797309D9" FromRole="tblHoras" ToRole="tblReserva" />
+        </EntityType>
+        <EntityType Name="tblPersona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipoEstado" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="64" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblDocente" Relationship="Self.FK__tblDocent__idPer__70DDC3D8" FromRole="tblPersona" ToRole="tblDocente" />
+          <NavigationProperty Name="tblEstudiante" Relationship="Self.FK__tblEstudi__idPer__72C60C4A" FromRole="tblPersona" ToRole="tblEstudiante" />
+          <NavigationProperty Name="tblGrupoReserva" Relationship="Self.FK__tblGrupoR__idPer__73BA3083" FromRole="tblPersona" ToRole="tblGrupoReserva" />
+          <NavigationProperty Name="tblPersonaTipo" Relationship="Self.FK__tblPerson__idPer__76969D2E" FromRole="tblPersona" ToRole="tblPersonaTipo" />
+          <NavigationProperty Name="tblTipo" Relationship="Self.FK__tblPerson__idTip__75A278F5" FromRole="tblPersona" ToRole="tblTipo" />
+          <NavigationProperty Name="tblReserva" Relationship="ReservaModel.FK__tblReserv__idRes__0D7A0286" FromRole="tblPersona" ToRole="tblReserva" />
+        </EntityType>
+        <EntityType Name="tblPersonaTipo">
+          <Key>
+            <PropertyRef Name="idPersonaTipo" />
+          </Key>
+          <Property Name="idPersonaTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPersona" Type="Int32" Nullable="false" />
+          <Property Name="idTipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblPerson__idPer__76969D2E" FromRole="tblPersonaTipo" ToRole="tblPersona" />
+          <NavigationProperty Name="tblTipo" Relationship="Self.FK__tblPerson__idTip__778AC167" FromRole="tblPersonaTipo" ToRole="tblTipo" />
+        </EntityType>
+        <EntityType Name="tblReserva">
+          <Key>
+            <PropertyRef Name="idReserva" />
+          </Key>
+          <Property Name="idReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idReservante" Type="Int32" Nullable="false" />
+          <Property Name="idCurso" Type="Int32" Nullable="false" />
+          <Property Name="idSemana" Type="Byte" Nullable="false" />
+          <Property Name="idDias" Type="Byte" Nullable="false" />
+          <Property Name="idHoraIn" Type="Byte" Nullable="false" />
+          <Property Name="idHoraF" Type="Byte" Nullable="false" />
+          <Property Name="FechaReserva" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblCurso" Relationship="Self.FK__tblReserv__idCur__7A672E12" FromRole="tblReserva" ToRole="tblCurso" />
+          <NavigationProperty Name="tblDias" Relationship="Self.FK__tblReserv__idDia__7B5B524B" FromRole="tblReserva" ToRole="tblDias" />
+          <NavigationProperty Name="tblGrupoReserva" Relationship="Self.FK__tblGrupoR__idRes__74AE54BC" FromRole="tblReserva" ToRole="tblGrupoReserva" />
+          <NavigationProperty Name="tblHoras" Relationship="Self.FK__tblReserv__idHor__787EE5A0" FromRole="tblReserva" ToRole="tblHoras" />
+          <NavigationProperty Name="tblHoras1" Relationship="Self.FK__tblReserv__idHor__797309D9" FromRole="tblReserva" ToRole="tblHoras" />
+          <NavigationProperty Name="tblSemana" Relationship="Self.FK__tblReserv__idSem__7C4F7684" FromRole="tblReserva" ToRole="tblSemana" />
+          <NavigationProperty Name="tblPersona" Relationship="ReservaModel.FK__tblReserv__idRes__0D7A0286" FromRole="tblReserva" ToRole="tblPersona" />
+        </EntityType>
+        <EntityType Name="tblSemana">
+          <Key>
+            <PropertyRef Name="idSemana" />
+          </Key>
+          <Property Name="idSemana" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Semana" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__idSem__7C4F7684" FromRole="tblSemana" ToRole="tblReserva" />
+        </EntityType>
+        <EntityType Name="tblTipo">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipoTipo" Type="Int32" Nullable="false" />
+          <Property Name="descTipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblCarrera" Relationship="Self.FK__tblCarrer__idTip__6A30C649" FromRole="tblTipo" ToRole="tblCarrera" />
+          <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblPerson__idTip__75A278F5" FromRole="tblTipo" ToRole="tblPersona" />
+          <NavigationProperty Name="tblPersonaTipo" Relationship="Self.FK__tblPerson__idTip__778AC167" FromRole="tblTipo" ToRole="tblPersonaTipo" />
+          <NavigationProperty Name="tblTipoTipo" Relationship="Self.FK__tblTipo__idTipoT__7D439ABD" FromRole="tblTipo" ToRole="tblTipoTipo" />
+        </EntityType>
+        <EntityType Name="tblTipoTipo">
+          <Key>
+            <PropertyRef Name="idTipoTipo" />
+          </Key>
+          <Property Name="idTipoTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descTipoTipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblTipo" Relationship="Self.FK__tblTipo__idTipoT__7D439ABD" FromRole="tblTipoTipo" ToRole="tblTipo" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK__tblCarrer__idTip__6A30C649">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblCarrera" Type="Self.tblCarrera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblCarrera">
+              <PropertyRef Name="idTipoCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEstudi__idCar__71D1E811">
+          <End Role="tblCarrera" Type="Self.tblCarrera" Multiplicity="1" />
+          <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCarrera">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="tblEstudiante">
+              <PropertyRef Name="idCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idCurs__6E01572D">
+          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCurso">
+              <PropertyRef Name="idCurso" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idDias__6EF57B66">
+          <End Role="tblDias" Type="Self.tblDias" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDias">
+              <PropertyRef Name="idDias" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idDias" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idDoce__6D0D32F4">
+          <End Role="tblDocente" Type="Self.tblDocente" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDocente">
+              <PropertyRef Name="idDocente" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idHora__6B24EA82">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idHoraIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClase__idHora__6C190EBB">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblClase">
+              <PropertyRef Name="idHoraF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblCurso__idEdif__6FE99F9F">
+          <End Role="tblEdificio" Type="Self.tblEdificio" Multiplicity="1" />
+          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEdificio">
+              <PropertyRef Name="idEdificio" />
+            </Principal>
+            <Dependent Role="tblCurso">
+              <PropertyRef Name="idEdificio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idCur__7A672E12">
+          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCurso">
+              <PropertyRef Name="idCurso" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idDia__7B5B524B">
+          <End Role="tblDias" Type="Self.tblDias" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDias">
+              <PropertyRef Name="idDias" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idDias" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDocent__idPer__70DDC3D8">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblDocente" Type="Self.tblDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblDocente">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEstudi__idPer__72C60C4A">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblEstudiante">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGrupoR__idPer__73BA3083">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblGrupoReserva" Type="Self.tblGrupoReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblGrupoReserva">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGrupoR__idRes__74AE54BC">
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="1" />
+          <End Role="tblGrupoReserva" Type="Self.tblGrupoReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblReserva">
+              <PropertyRef Name="idReserva" />
+            </Principal>
+            <Dependent Role="tblGrupoReserva">
+              <PropertyRef Name="idReserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idHor__787EE5A0">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idHoraIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idHor__797309D9">
+          <End Role="tblHoras" Type="Self.tblHoras" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHoras">
+              <PropertyRef Name="idHoras" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idHoraF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPerson__idPer__76969D2E">
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="1" />
+          <End Role="tblPersonaTipo" Type="Self.tblPersonaTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblPersonaTipo">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPerson__idTip__75A278F5">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblPersona">
+              <PropertyRef Name="idTipoEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPerson__idTip__778AC167">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblPersonaTipo" Type="Self.tblPersonaTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblPersonaTipo">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__idSem__7C4F7684">
+          <End Role="tblSemana" Type="Self.tblSemana" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSemana">
+              <PropertyRef Name="idSemana" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idSemana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTipo__idTipoT__7D439ABD">
+          <End Role="tblTipoTipo" Type="Self.tblTipoTipo" Multiplicity="1" />
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipoTipo">
+              <PropertyRef Name="idTipoTipo" />
+            </Principal>
+            <Dependent Role="tblTipo">
+              <PropertyRef Name="idTipoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReservaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCarrera" EntityType="Self.tblCarrera" />
+          <EntitySet Name="tblClase" EntityType="Self.tblClase" />
+          <EntitySet Name="tblCurso" EntityType="Self.tblCurso" />
+          <EntitySet Name="tblDias" EntityType="Self.tblDias" />
+          <EntitySet Name="tblDocente" EntityType="Self.tblDocente" />
+          <EntitySet Name="tblEdificio" EntityType="Self.tblEdificio" />
+          <EntitySet Name="tblEstudiante" EntityType="Self.tblEstudiante" />
+          <EntitySet Name="tblGrupoReserva" EntityType="Self.tblGrupoReserva" />
+          <EntitySet Name="tblHoras" EntityType="Self.tblHoras" />
+          <EntitySet Name="tblPersona" EntityType="Self.tblPersona" />
+          <EntitySet Name="tblPersonaTipo" EntityType="Self.tblPersonaTipo" />
+          <EntitySet Name="tblReserva" EntityType="Self.tblReserva" />
+          <EntitySet Name="tblSemana" EntityType="Self.tblSemana" />
+          <EntitySet Name="tblTipo" EntityType="Self.tblTipo" />
+          <EntitySet Name="tblTipoTipo" EntityType="Self.tblTipoTipo" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+          <AssociationSet Name="FK__tblCarrer__idTip__6A30C649" Association="Self.FK__tblCarrer__idTip__6A30C649">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblCarrera" EntitySet="tblCarrera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEstudi__idCar__71D1E811" Association="Self.FK__tblEstudi__idCar__71D1E811">
+            <End Role="tblCarrera" EntitySet="tblCarrera" />
+            <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idCurs__6E01572D" Association="Self.FK__tblClase__idCurs__6E01572D">
+            <End Role="tblCurso" EntitySet="tblCurso" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idDias__6EF57B66" Association="Self.FK__tblClase__idDias__6EF57B66">
+            <End Role="tblDias" EntitySet="tblDias" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idDoce__6D0D32F4" Association="Self.FK__tblClase__idDoce__6D0D32F4">
+            <End Role="tblDocente" EntitySet="tblDocente" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idHora__6B24EA82" Association="Self.FK__tblClase__idHora__6B24EA82">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClase__idHora__6C190EBB" Association="Self.FK__tblClase__idHora__6C190EBB">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblClase" EntitySet="tblClase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblCurso__idEdif__6FE99F9F" Association="Self.FK__tblCurso__idEdif__6FE99F9F">
+            <End Role="tblEdificio" EntitySet="tblEdificio" />
+            <End Role="tblCurso" EntitySet="tblCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idCur__7A672E12" Association="Self.FK__tblReserv__idCur__7A672E12">
+            <End Role="tblCurso" EntitySet="tblCurso" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idDia__7B5B524B" Association="Self.FK__tblReserv__idDia__7B5B524B">
+            <End Role="tblDias" EntitySet="tblDias" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDocent__idPer__70DDC3D8" Association="Self.FK__tblDocent__idPer__70DDC3D8">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblDocente" EntitySet="tblDocente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEstudi__idPer__72C60C4A" Association="Self.FK__tblEstudi__idPer__72C60C4A">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGrupoR__idPer__73BA3083" Association="Self.FK__tblGrupoR__idPer__73BA3083">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblGrupoReserva" EntitySet="tblGrupoReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGrupoR__idRes__74AE54BC" Association="Self.FK__tblGrupoR__idRes__74AE54BC">
+            <End Role="tblReserva" EntitySet="tblReserva" />
+            <End Role="tblGrupoReserva" EntitySet="tblGrupoReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idHor__787EE5A0" Association="Self.FK__tblReserv__idHor__787EE5A0">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idHor__797309D9" Association="Self.FK__tblReserv__idHor__797309D9">
+            <End Role="tblHoras" EntitySet="tblHoras" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPerson__idPer__76969D2E" Association="Self.FK__tblPerson__idPer__76969D2E">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblPersonaTipo" EntitySet="tblPersonaTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPerson__idTip__75A278F5" Association="Self.FK__tblPerson__idTip__75A278F5">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblPersona" EntitySet="tblPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPerson__idTip__778AC167" Association="Self.FK__tblPerson__idTip__778AC167">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblPersonaTipo" EntitySet="tblPersonaTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__idSem__7C4F7684" Association="Self.FK__tblReserv__idSem__7C4F7684">
+            <End Role="tblSemana" EntitySet="tblSemana" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTipo__idTipoT__7D439ABD" Association="Self.FK__tblTipo__idTipoT__7D439ABD">
+            <End Role="tblTipoTipo" EntitySet="tblTipoTipo" />
+            <End Role="tblTipo" EntitySet="tblTipo" />
+          </AssociationSet>
+          <FunctionImport Name="GetCursoEdificio" ReturnType="Collection(ReservaModel.GetCursoEdificio_sp)">
+          <Parameter Name="idEdificio" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPassword" ReturnType="Collection(String)">
+          <Parameter Name="idMatricula" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReserva" ReturnType="Collection(ReservaModel.GetReserva_sp)">
+          <Parameter Name="idPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReservaById" ReturnType="Collection(ReservaModel.GetReservaById_sp)">
+          <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReservaSemana" ReturnType="Collection(ReservaModel.GetReservaSemana_sp)">
+          <Parameter Name="numeroSemana" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetUsuario" ReturnType="Collection(ReservaModel.GetUsuario_sp)">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK__tblReserv__idRes__0D7A0286" Association="ReservaModel.FK__tblReserv__idRes__0D7A0286">
+            <End Role="tblPersona" EntitySet="tblPersona" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="GetCursoEdificio_sp">
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="String" Name="NumCurso" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="GetReserva_sp">
+          <Property Type="Int32" Name="idGrupoReserva" Nullable="false" />
+          <Property Type="Int32" Name="idPersona" Nullable="false" />
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReservaById_sp">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idSemana" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="idGrupoReserva" Nullable="false" />
+          <Property Type="Int32" Name="idPersona" Nullable="false" />
+          <Property Type="Int32" Name="idReserva1" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReservaSemana_sp">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idSemana" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetUsuario_sp">
+          <Property Type="Int32" Name="idPersona" Nullable="false" />
+          <Property Type="Int32" Name="idTipoEstado" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Pass" Nullable="false" MaxLength="64" />
+        </ComplexType>
+        <Association Name="FK__tblReserv__idRes__0D7A0286">
+          <End Type="ReservaModel.tblPersona" Role="tblPersona" Multiplicity="1" />
+          <End Type="ReservaModel.tblReserva" Role="tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idReservante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReservaModelStoreContainer" CdmEntityContainer="ReservaEntities">
+          <EntitySetMapping Name="tblCarrera">
+            <EntityTypeMapping TypeName="ReservaModel.tblCarrera">
+              <MappingFragment StoreEntitySet="tblCarrera">
+                <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
+                <ScalarProperty Name="idTipoCarrera" ColumnName="idTipoCarrera" />
+                <ScalarProperty Name="Carrera" ColumnName="Carrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClase">
+            <EntityTypeMapping TypeName="ReservaModel.tblClase">
+              <MappingFragment StoreEntitySet="tblClase">
+                <ScalarProperty Name="idClase" ColumnName="idClase" />
+                <ScalarProperty Name="idDocente" ColumnName="idDocente" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCurso">
+            <EntityTypeMapping TypeName="ReservaModel.tblCurso">
+              <MappingFragment StoreEntitySet="tblCurso">
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
+                <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDias">
+            <EntityTypeMapping TypeName="ReservaModel.tblDias">
+              <MappingFragment StoreEntitySet="tblDias">
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="Dias" ColumnName="Dias" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDocente">
+            <EntityTypeMapping TypeName="ReservaModel.tblDocente">
+              <MappingFragment StoreEntitySet="tblDocente">
+                <ScalarProperty Name="idDocente" ColumnName="idDocente" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEdificio">
+            <EntityTypeMapping TypeName="ReservaModel.tblEdificio">
+              <MappingFragment StoreEntitySet="tblEdificio">
+                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
+                <ScalarProperty Name="Edificio" ColumnName="Edificio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEstudiante">
+            <EntityTypeMapping TypeName="ReservaModel.tblEstudiante">
+              <MappingFragment StoreEntitySet="tblEstudiante">
+                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGrupoReserva">
+            <EntityTypeMapping TypeName="ReservaModel.tblGrupoReserva">
+              <MappingFragment StoreEntitySet="tblGrupoReserva">
+                <ScalarProperty Name="idGrupoReserva" ColumnName="idGrupoReserva" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHoras">
+            <EntityTypeMapping TypeName="ReservaModel.tblHoras">
+              <MappingFragment StoreEntitySet="tblHoras">
+                <ScalarProperty Name="idHoras" ColumnName="idHoras" />
+                <ScalarProperty Name="Horas" ColumnName="Horas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPersona">
+            <EntityTypeMapping TypeName="ReservaModel.tblPersona">
+              <MappingFragment StoreEntitySet="tblPersona">
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idTipoEstado" ColumnName="idTipoEstado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPersonaTipo">
+            <EntityTypeMapping TypeName="ReservaModel.tblPersonaTipo">
+              <MappingFragment StoreEntitySet="tblPersonaTipo">
+                <ScalarProperty Name="idPersonaTipo" ColumnName="idPersonaTipo" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReserva">
+            <EntityTypeMapping TypeName="ReservaModel.tblReserva">
+              <MappingFragment StoreEntitySet="tblReserva">
+                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSemana">
+            <EntityTypeMapping TypeName="ReservaModel.tblSemana">
+              <MappingFragment StoreEntitySet="tblSemana">
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTipo">
+            <EntityTypeMapping TypeName="ReservaModel.tblTipo">
+              <MappingFragment StoreEntitySet="tblTipo">
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="idTipoTipo" ColumnName="idTipoTipo" />
+                <ScalarProperty Name="descTipo" ColumnName="descTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTipoTipo">
+            <EntityTypeMapping TypeName="ReservaModel.tblTipoTipo">
+              <MappingFragment StoreEntitySet="tblTipoTipo">
+                <ScalarProperty Name="idTipoTipo" ColumnName="idTipoTipo" />
+                <ScalarProperty Name="descTipoTipo" ColumnName="descTipoTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="ReservaModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCursoEdificio" FunctionName="ReservaModel.Store.GetCursoEdificio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetCursoEdificio_sp">
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPassword" FunctionName="ReservaModel.Store.GetPassword" />
+          <FunctionImportMapping FunctionImportName="GetReserva" FunctionName="ReservaModel.Store.GetReserva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetReserva_sp">
+                <ScalarProperty Name="idGrupoReserva" ColumnName="idGrupoReserva" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReservaById" FunctionName="ReservaModel.Store.GetReservaById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetReservaById_sp">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+                <ScalarProperty Name="idGrupoReserva" ColumnName="idGrupoReserva" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idReserva1" ColumnName="idReserva1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReservaSemana" FunctionName="ReservaModel.Store.GetReservaSemana">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetReservaSemana_sp">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUsuario" FunctionName="ReservaModel.Store.GetUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetUsuario_sp">
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idTipoEstado" ColumnName="idTipoEstado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
