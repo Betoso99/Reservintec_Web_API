@@ -51,18 +51,19 @@ namespace WebApiReserva.Controllers
         }
 
         // GET: api/Reserva
-        [HttpGet]
-        public IHttpActionResult GetReservaById(int idReserva)
+        [HttpGet()]
+        [ActionName("GetPersonasByReserva")]
+        public IHttpActionResult GetReservaById(int id)
         {
-            if (!ReservaExists(idReserva))
+            if (!ReservaExists(id))
             {
                 log.Ok = false;
                 log.ErrorMessage = "Esta reserva no existe";
             }
             List<int> idList = new List<int>();
-            int idPersona = db.tblReserva.Where(r => r.idReserva == idReserva).Select(c => c.idReservante).FirstOrDefault();
+            int idPersona = db.tblReserva.Where(r => r.idReserva == id).Select(c => c.idReservante).FirstOrDefault();
             idList.Add(idPersona);
-            var idsGrupo = db.tblGrupoReserva.Where(r => r.idReserva == idReserva).Select(c => c.idPersona).ToList();
+            var idsGrupo = db.tblGrupoReserva.Where(r => r.idReserva == id).Select(c => c.idPersona).ToList();
             
             if(idsGrupo != null) foreach (int ids in idsGrupo) idList.Add(ids);
 
@@ -70,9 +71,9 @@ namespace WebApiReserva.Controllers
             for (int i = 0; i < (idsGrupo.Count() + 1); i++)
             {               
                 int idPersonaActual = idList[i];
-                int id = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.idPersona).FirstOrDefault();
+                int idP = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.idPersona).FirstOrDefault();
                 string name = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.Nombre).FirstOrDefault();
-                Persona persona = new Persona() { IdPersona = id, Nombre= name};
+                Persona persona = new Persona() { IdPersona = idP, Nombre= name};
                 personas.Add(persona);
             }
 
