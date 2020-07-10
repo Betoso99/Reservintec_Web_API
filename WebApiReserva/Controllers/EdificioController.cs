@@ -17,7 +17,7 @@ namespace WebApiReserva.Controllers
 
         // GET: api/Edificio
         [HttpGet]
-        [ActionName("Get")]
+        [ActionName("GetAll")]
         public IHttpActionResult GetEdificio()
         {
             Good(log);
@@ -29,7 +29,7 @@ namespace WebApiReserva.Controllers
         }
 
         // GET: api/Edificio/{id}
-        [HttpGet()]
+        [HttpGet]
         [ActionName("GetCurso")]
         public IHttpActionResult GetCursosEdificio(int id)
         {
@@ -53,6 +53,13 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetCursosDisponibles(Date date)
         {
             Good(log);
+            if(date.idSemana > 12 || date.idDia > 7)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Esa semana/dia no existe";
+                return Ok(log);
+            }
+
             var clase = db.tblClase.Where(c => c.idDias == date.idDia).ToList();
             int ocupado = 0, disponible = 0;
             List<string> cursos = new List<string>();

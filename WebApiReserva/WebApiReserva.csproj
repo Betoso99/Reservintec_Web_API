@@ -34,8 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>App_Data/XmlDocument.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -315,6 +314,9 @@
     </EntityDeploy>
     <Content Include="Models\ReservaModel.edmx.diagram">
       <DependentUpon>ReservaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

@@ -20,10 +20,12 @@ namespace WebApiReserva.Controllers
         private ReservaEntities db = new ReservaEntities();
         private Logger log = new Logger();
 
-
+        /// <summary>
+        /// Obtiene a todas las personas registradas
+        /// </summary>
         // GET: api/User
         [HttpGet]
-        public IHttpActionResult GetUsuario()
+        public IHttpActionResult Get()
         {
             var usuario = db.tblPersona.ToList();
             Good(log);
@@ -32,6 +34,10 @@ namespace WebApiReserva.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Obtiene los datos del usuario con el id
+        /// </summary>
+        /// <param name="id">ID del usuario</param>
         // GET: api/User/5
         [ResponseType(typeof(tblPersona))]
         [HttpGet]
@@ -50,7 +56,9 @@ namespace WebApiReserva.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Valida si la persona existe, y que el usuario no este ya registrado. Luego, la registra.
+        /// </summary>
         // POST: api/User
         //[ResponseType(typeof(tblPersona))]
         [HttpPost]
@@ -70,8 +78,6 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            
-
             try
             {
                 user.Pass = CryptoPass.Hash(user.Pass);
@@ -90,6 +96,9 @@ namespace WebApiReserva.Controllers
             return Ok(log);
         }
 
+        /// <summary>
+        /// Valida si el usuario introdujo los datos correctos a la hora de iniciar sesion.
+        /// </summary>
         // POST: api/User
         [HttpPost]
         public IHttpActionResult ValidateUserLogin([FromBody]tblUsuario user)
@@ -114,17 +123,20 @@ namespace WebApiReserva.Controllers
             return Ok(log);
         }
 
+        /// <summary>
+        /// Edita al usuario y valida que este exista.
+        /// </summary>
         // PUT: api/User/5
         [HttpPut]
-        public IHttpActionResult PuttblPersona(int id, tblPersona tblPersona)
+        public IHttpActionResult EditUser(int id, tblUsuario user)
         {
 
-            if (id != tblPersona.idPersona)
+            if (id != user.idUsuario)
             {
                 return BadRequest();
             }
 
-            db.Entry(tblPersona).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -148,6 +160,9 @@ namespace WebApiReserva.Controllers
             return Ok(log);
         }
 
+        /// <summary>
+        /// Verifica que el usuario exista a traves del ID
+        /// </summary>
         public IHttpActionResult VerifyUserExists(int id)
         {
            
@@ -162,6 +177,7 @@ namespace WebApiReserva.Controllers
             }
             return Ok(log);
         }
+
 
         protected override void Dispose(bool disposing)
         {
