@@ -481,6 +481,21 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:WebApiReserva.Controllers.EdificioController.GetEdificio">
+            <summary>
+            Obtiene todos los edificios registradas
+            </summary>
+        </member>
+        <member name="M:WebApiReserva.Controllers.EdificioController.GetCursosEdificio(System.Int32)">
+            <summary>
+            Obtiene todos los cursos de un edificio con el ID del edificio.
+            </summary>
+        </member>
+        <member name="M:WebApiReserva.Controllers.EdificioController.GetCursosDisponibles(WebApiReserva.Controllers.EdificioController.Date)">
+            <summary>
+            Obtiene todos los cursos disponibles con el dia y la semana.
+            </summary>
+        </member>
         <member name="M:WebApiReserva.Controllers.ReservaController.GetReserva">
             <summary>
             Obtiene todas las reservas registradas
@@ -491,6 +506,21 @@
             Obtiene un arreglo del horario por semana.
             </summary>
         </member>
+        <member name="M:WebApiReserva.Controllers.ReservaController.GetReservaById(System.Int32)">
+            <summary>
+            Obtiene un arreglo de las personas que pertenecen a una reserva con el ID de reserva.
+            </summary>
+        </member>
+        <member name="M:WebApiReserva.Controllers.ReservaController.AddReserva(WebApiReserva.Controllers.ReservaController.ReservaPersonas)">
+            <summary>
+            Agrega una reserva nueva
+            </summary>
+        </member>
+        <member name="M:WebApiReserva.Controllers.ReservaController.EditReserva(System.Int32,WebApiReserva.Models.tblReserva)">
+            <summary>
+            Edita una reserva y valida que esta exista.
+            </summary>
+        </member>
         <member name="M:WebApiReserva.Controllers.UserController.Get">
             <summary>
             Obtiene a todas las personas registradas
@@ -498,7 +528,7 @@
         </member>
         <member name="M:WebApiReserva.Controllers.UserController.GetUsuarioById(System.Int32)">
             <summary>
-            Obtiene los datos del usuario con el id
+            Obtiene los datos del usuario con el ID
             </summary>
             <param name="id">ID del usuario</param>
         </member>
