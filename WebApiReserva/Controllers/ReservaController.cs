@@ -36,7 +36,9 @@ namespace WebApiReserva.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Obtiene un arreglo del horario por semana.
+        /// </summary>
         // GET: api/Reserva/5
         [HttpGet()]
         [ActionName("GetSemana")]
