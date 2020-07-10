@@ -20,8 +20,8 @@ namespace WebApiReserva.Controllers
 
         public class ReservaPersonas
         {
-            public tblReserva reserva { get; set; }
-            public List<int?> idPersonas { get; set; }
+            public tblReserva Reserva { get; set; }
+            public List<int?> IdPersonas { get; set; }
         }
 
         // GET: api/Reserva
@@ -92,7 +92,7 @@ namespace WebApiReserva.Controllers
         {
             try
             {
-                db.tblReserva.Add(reservaP.reserva);
+                db.tblReserva.Add(reservaP.Reserva);
                 db.SaveChanges();
                 Good(log);
             }
@@ -103,11 +103,11 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            if (reservaP.idPersonas.Count != 0)
+            if (reservaP.IdPersonas.Count != 0)
             {
-                foreach (var persona in reservaP.idPersonas)
+                foreach (var persona in reservaP.IdPersonas)
                 {
-                    tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = reservaP.reserva.idReserva, idPersona = persona.Value};
+                    tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = reservaP.Reserva.idReserva, idPersona = persona.Value};
                     try
                     {
                         db.tblGrupoReserva.Add(grupo);
@@ -176,6 +176,11 @@ namespace WebApiReserva.Controllers
 
                     }
 
+                    //for (int i = idHoraIn; i < (idHoraF + 1); i++)
+                    //{
+                    //    dia[i] = 2 //Clase
+                    //}
+
                 }
 
             }
@@ -187,8 +192,7 @@ namespace WebApiReserva.Controllers
                     tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == d.idHoraIn).FirstOrDefault();
                     tblHoras horaF = db.tblHoras.Where(h => h.idHoras == d.idHoraF).FirstOrDefault();
                     for (int i = 0; i < 16; i++)
-                    {
-                        
+                    {                       
                         if (i >= (horaIn.Horas - 7) && i <= (horaF.Horas - 7))
                         {
                             if (dia[i] == 2) dia[i] = 3; // Solapado
@@ -199,7 +203,7 @@ namespace WebApiReserva.Controllers
                             dia[i] = 0; // Disponible    
                         }
 
-                    }                  
+                    }
                 }
             }
             return dia;

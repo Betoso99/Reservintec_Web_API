@@ -34,6 +34,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -205,6 +207,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReservaModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblCarrera.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
@@ -250,6 +261,9 @@
     <Compile Include="Models\tblTipoTipo.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblUsuario.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CryptoPass.cs" />
     <Compile Include="Utilities\Logger.cs" />
@@ -266,8 +280,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\ReservaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ReservaModel.Context.cs</LastGenOutput>
       <DependentUpon>ReservaModel.edmx</DependentUpon>
+      <LastGenOutput>ReservaModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ReservaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

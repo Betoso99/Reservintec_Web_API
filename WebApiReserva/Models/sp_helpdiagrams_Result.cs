@@ -11,11 +11,12 @@ namespace WebApiReserva.Models
 {
     using System;
     
-    public partial class GetUsuario_sp
+    public partial class sp_helpdiagrams_Result
     {
-        public int idPersona { get; set; }
-        public int idTipoEstado { get; set; }
-        public string Nombre { get; set; }
-        public Nullable<int> idUsuario { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

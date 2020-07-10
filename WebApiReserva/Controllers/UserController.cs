@@ -54,60 +54,62 @@ namespace WebApiReserva.Controllers
         // POST: api/User
         //[ResponseType(typeof(tblPersona))]
         [HttpPost]
-        public IHttpActionResult ValidateUserRegister([FromBody]tblPersona user)
+        public IHttpActionResult ValidateUserRegister([FromBody]tblUsuario user)
         {
-            if (!UserExists(user.idPersona))
-            {
-                user.Pass = CryptoPass.Hash(user.Pass);
-
-                try
-                {
-                    db.Entry(user).State = EntityState.Added;
-                    db.tblPersona.Add(user);
-                    db.SaveChanges();
-                    Good(log);
-                }
-                catch (Exception)
-                {
-                    log.Ok = false;
-                    log.ErrorMessage = "Hubo un problema al agregar el usuario";
-                }
-
-            }
-            else
+            if (!PersonaExists(user.idUsuario))
             {
                 log.Ok = false;
-                log.ErrorMessage = "La matricula ya esta registrada";
+                log.ErrorMessage = "Esta persona no esta registrada";
+                return Ok(log);
             }
+
+            if (UserExists(user.idUsuario))
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Este usuario ya esta registrado";
+                return Ok(log);
+            }
+
+            
+
+            try
+            {
+                user.Pass = CryptoPass.Hash(user.Pass);
+                db.Entry(user).State = EntityState.Added;
+                db.tblUsuario.Add(user);
+                db.SaveChanges();
+                Good(log);
+            }
+            catch (Exception)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Hubo un problema al agregar el usuario";
+            }
+
 
             return Ok(log);
         }
 
         // POST: api/User
         [HttpPost]
-        public IHttpActionResult ValidateUserLogin([FromBody]tblPersona user)
+        public IHttpActionResult ValidateUserLogin([FromBody]tblUsuario user)
         {
-            var v = db.tblPersona.Where(u => u.idPersona == user.idPersona).FirstOrDefault();
-            if (v == null)
+            Good(log);
+            if (!UserExists(user.idUsuario))
             {
                 log.Ok = false;
-                log.ErrorMessage = "Matricula no registrada";
+                log.ErrorMessage = "ID/Matricula no registrada";
                 return Ok(log);
             }
-
-            //int id = v.Select(i => i.idPersona).FirstOrDefault();
             
-            var valid = db.GetPassword(v.idPersona).FirstOrDefault();
+            var validPassword = db.GetPassword(user.idUsuario).FirstOrDefault();
 
-            if (CryptoPass.Hash(user.Pass) == valid)
-            {
-                Good(log);
-            }
-            else
+            if (CryptoPass.Hash(user.Pass) != validPassword)
             {
                 log.Ok = false;
                 log.ErrorMessage = "Usuario/contraseña no valida";
-            }
+                return Ok(log);
+            }         
 
             return Ok(log);
         }
@@ -148,13 +150,17 @@ namespace WebApiReserva.Controllers
 
         public IHttpActionResult VerifyUserExists(int id)
         {
-            if (db.tblPersona.Count(e => e.idPersona == id) > 0) Good(log);
+           
+            if (db.tblUsuario.Count(u => u.idUsuario == id) > 0)
+            {
+                Good(log);
+            }            
             else
             {
                 log.Ok = false;
                 log.ErrorMessage = "El usuario no existe";
             }
-            return Ok();
+            return Ok(log);
         }
 
         protected override void Dispose(bool disposing)
@@ -166,9 +172,15 @@ namespace WebApiReserva.Controllers
             base.Dispose(disposing);
         }
 
-        private bool UserExists(int id)
+        private bool PersonaExists(int id)
         {
             return db.tblPersona.Count(e => e.idPersona == id) > 0;
         }
+
+        private bool UserExists(int id)
+        {
+            return db.tblUsuario.Count(e => e.idUsuario == id) > 0;
+        }
+
     }
 }
