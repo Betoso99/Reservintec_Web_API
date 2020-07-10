@@ -486,6 +486,11 @@
             Obtiene todas las reservas registradas
             </summary>
         </member>
+        <member name="M:WebApiReserva.Controllers.ReservaController.GetHorarioBySemana(System.Int32)">
+            <summary>
+            Obtiene un arreglo del horario por semana.
+            </summary>
+        </member>
         <member name="M:WebApiReserva.Controllers.UserController.Get">
             <summary>
             Obtiene a todas las personas registradas

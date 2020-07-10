@@ -24,6 +24,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene a todas las personas registradas
         /// </summary>
         // GET: api/User
+        [ResponseType(typeof(tblPersona))]
         [HttpGet]
         public IHttpActionResult Get()
         {
@@ -34,8 +35,9 @@ namespace WebApiReserva.Controllers
             return Ok(result);
         }
 
+
         /// <summary>
-        /// Obtiene los datos del usuario con el id
+        /// Obtiene los datos del usuario con el ID
         /// </summary>
         /// <param name="id">ID del usuario</param>
         // GET: api/User/5
@@ -60,7 +62,7 @@ namespace WebApiReserva.Controllers
         /// Valida si la persona existe, y que el usuario no este ya registrado. Luego, la registra.
         /// </summary>
         // POST: api/User
-        //[ResponseType(typeof(tblPersona))]
+        [ResponseType(typeof(tblUsuario))]
         [HttpPost]
         public IHttpActionResult ValidateUserRegister([FromBody]tblUsuario user)
         {

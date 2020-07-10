@@ -15,6 +15,9 @@ namespace WebApiReserva.Controllers
         private ReservaEntities db = new ReservaEntities();
         private Logger log = new Logger();
 
+        /// <summary>
+        /// Obtiene todos los edificios registradas
+        /// </summary>
         // GET: api/Edificio
         [HttpGet]
         [ActionName("GetAll")]
@@ -28,9 +31,12 @@ namespace WebApiReserva.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Obtiene todos los cursos de un edificio con el ID del edificio.
+        /// </summary>
         // GET: api/Edificio/{id}
         [HttpGet]
-        [ActionName("GetCurso")]
+        [ActionName("GetCursos")]
         public IHttpActionResult GetCursosEdificio(int id)
         {
             var curso = db.tblCurso.Where(c => c.idEdificio == id).FirstOrDefault();
@@ -48,7 +54,9 @@ namespace WebApiReserva.Controllers
             return Ok(result);
         }
 
-
+        /// <summary>
+        /// Obtiene todos los cursos disponibles con el dia y la semana.
+        /// </summary>
         [HttpGet]
         public IHttpActionResult GetCursosDisponibles(Date date)
         {

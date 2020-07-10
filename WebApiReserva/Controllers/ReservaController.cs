@@ -28,6 +28,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene todas las reservas registradas
         /// </summary>
         // GET: api/Reserva
+        [ResponseType(typeof(tblReserva))]
         public IHttpActionResult GetReserva()
         {
             Good(log);
@@ -40,7 +41,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene un arreglo del horario por semana.
         /// </summary>
         // GET: api/Reserva/5
-        [HttpGet()]
+        [HttpGet]
         [ActionName("GetSemana")]
         public IHttpActionResult GetHorarioBySemana(int id) // id = numeroSemana
         {
@@ -55,6 +56,9 @@ namespace WebApiReserva.Controllers
             return Ok(result.ToList());
         }
 
+        /// <summary>
+        /// Obtiene un arreglo de las personas que pertenecen a una reserva con el ID de reserva.
+        /// </summary>
         // GET: api/Reserva
         [HttpGet()]
         [ActionName("GetPersonasByReserva")]
@@ -96,25 +100,35 @@ namespace WebApiReserva.Controllers
             public string Nombre { get; set; }
         }
 
+        /// <summary>
+        /// Agrega una reserva nueva
+        /// </summary>
         //POST: api/Reserva
         [HttpPost]
         //[ResponseType(typeof(ReservaPersonas))]
         [ActionName("Add")]
         public IHttpActionResult AddReserva([FromBody] ReservaPersonas reservaP)
         {
-            try
-            {
-                db.tblReserva.Add(reservaP.Reserva);
-                db.SaveChanges();
-                Good(log);
-            }
-            catch (Exception ex)
+            if (!ReservaExists(reservaP.Reserva.idReserva))
             {
                 log.Ok = false;
-                log.ErrorMessage = "Error al agregar la reserva " + ex;
+                log.ErrorMessage = "Esta reserva no esta registrada";
                 return Ok(log);
             }
 
+            try
+            {
+                db.tblReserva.Add(reservaP.Reserva);
+                db.SaveChanges();             
+            }
+            catch (Exception)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Error al agregar la reserva ";
+                return Ok(log);
+            }
+
+            Good(log);
             if (reservaP.IdPersonas.Count != 0)
             {
                 foreach (var persona in reservaP.IdPersonas)
@@ -137,9 +151,12 @@ namespace WebApiReserva.Controllers
             return Ok(log);
         }
 
+        /// <summary>
+        /// Edita una reserva y valida que esta exista.
+        /// </summary>
         // PUT: api/Reserva/5
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]tblReserva reserva)
+        public IHttpActionResult EditReserva(int id, [FromBody]tblReserva reserva)
         {
             Good(log);
             var v = db.tblReserva.Where(r => r.idReservante == id).FirstOrDefault();
@@ -231,11 +248,6 @@ namespace WebApiReserva.Controllers
                 semanaList.Add(GetHoras(i, semana));
             }
             return semanaList;
-        }
-
-        private bool UserExists(int id)
-        {
-            return db.tblPersona.Count(e => e.idPersona == id) > 0;
         }
 
         private bool ReservaExists(int id)
