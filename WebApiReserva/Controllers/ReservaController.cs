@@ -52,36 +52,42 @@ namespace WebApiReserva.Controllers
 
         // GET: api/Reserva
         [HttpGet]
-        public IHttpActionResult GetReservaById(int idPersona)
+        public IHttpActionResult GetReservaById(int idReserva)
         {
-            if (!UserExists(idPersona))
+            if (!ReservaExists(idReserva))
             {
                 log.Ok = false;
-                log.ErrorMessage = "El usuario no existe";
+                log.ErrorMessage = "Esta reserva no existe";
+            }
+            List<int> idList = new List<int>();
+            int idPersona = db.tblReserva.Where(r => r.idReserva == idReserva).Select(c => c.idReservante).FirstOrDefault();
+            idList.Add(idPersona);
+            var idsGrupo = db.tblGrupoReserva.Where(r => r.idReserva == idReserva).Select(c => c.idPersona).ToList();
+            
+            if(idsGrupo != null) foreach (int ids in idsGrupo) idList.Add(ids);
+
+            List<Persona> personas = new List<Persona>();
+            for (int i = 0; i < (idsGrupo.Count() + 1); i++)
+            {               
+                int idPersonaActual = idList[i];
+                int id = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.idPersona).FirstOrDefault();
+                string name = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.Nombre).FirstOrDefault();
+                Persona persona = new Persona() { IdPersona = id, Nombre= name};
+                personas.Add(persona);
             }
 
-            var v = db.tblReserva.Where(r => r.idReservante == idPersona).ToList();
-            Good(log);
-            if (v.Count != 0)
+            var result = MergeLogResult(log, personas);
+            return Ok(result);
+
+        }
+
+        public class Persona
+        {
+            public Persona()
             {
-                var reserva = v.ToList();
-
-                var result = MergeLogResult(log, reserva);
-                return Ok(result);
             }
-            else
-            {
-                List<GetReservaById_sp> getList = new List<GetReservaById_sp>();
-                var id = db.GetReserva(idPersona).Select(r => r.idReserva).ToList();
-                foreach (var idres in id)
-                {
-                    getList.Add(db.GetReservaById(idres).First());
-                }
-                //var reservaById = db.GetReservaById(id).ToList();
-                var result = MergeLogResult(log, getList);
-                return Ok(result);
-            }
-
+            public int IdPersona { get; set; }
+            public string Nombre { get; set; }
         }
 
         //POST: api/Reserva
@@ -224,6 +230,11 @@ namespace WebApiReserva.Controllers
         private bool UserExists(int id)
         {
             return db.tblPersona.Count(e => e.idPersona == id) > 0;
+        }
+
+        private bool ReservaExists(int id)
+        {
+            return db.tblReserva.Count(e => e.idReserva == id) > 0;
         }
     }
 }

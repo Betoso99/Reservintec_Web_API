@@ -101,7 +101,7 @@ namespace WebApiReserva.Controllers
             }
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
-            int cantidadEdificios = db.tblEdificio.ToList().Count();
+            int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).Distinct().Count();
             int edificioActual = 0;
 
             for (int i = 0; i < cantidadEdificios; i++)
@@ -117,9 +117,7 @@ namespace WebApiReserva.Controllers
                     {
                         cursoEdificio.Cursos.Add(cursoActual);
                     }
-
                 }
-
                 listaResult.Add(cursoEdificio);
             }
 
