@@ -112,9 +112,10 @@ namespace WebApiReserva.Controllers
 
                 for (int j = 0; j < cursos.Count(); j++)
                 {
-                    if(db.tblCurso.Where(c => c.NumCurso == cursos[j]).Select(l => l.idEdificio).FirstOrDefault() == edificioActual)
+                    string cursoActual = cursos[j];
+                    if(db.tblCurso.Where(c => c.NumCurso == cursoActual).Select(l => l.idEdificio).FirstOrDefault() == edificioActual)
                     {
-                        cursoEdificio.Cursos.Add(cursos[j]);
+                        cursoEdificio.Cursos.Add(cursoActual);
                     }
 
                 }
