@@ -287,54 +287,67 @@ namespace WebApiReserva.Controllers
             int[] dia = new int[15];
             var clase = db.tblClase.ToList();
 
-            foreach (var c in clase)
+            if(clase != null)
             {
-                if (c.idDias == nDia)
+                foreach (var c in clase)
                 {
-                    //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == c.idHoraIn).FirstOrDefault();
-                    //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == c.idHoraF).FirstOrDefault();
-                    for (int l = 0; l < 16; l++)
+                    if (c.idDias == nDia)
                     {
-                        if (l >= (c.idHoraIn - 7) && l < (c.idHoraF - 7))
+                        //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == c.idHoraIn).FirstOrDefault();
+                        //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == c.idHoraF).FirstOrDefault();
+                        for (int l = 0; l < 16; l++)
                         {
-                            if (dia[l] == 1) dia[l] = 3; // Solapado
-                            else dia[l] = 2; // Clase
+                            if (l >= (c.idHoraIn - 7) && l < (c.idHoraF - 7))
+                            {
+                                if (dia[l] == 1) dia[l] = 3; // Solapado
+                                else dia[l] = 2; // Clase
+                            }
                         }
-                    }
 
-                    //for (int i = (c.idHoraIn - 7); i < (c.idHoraF - 7); i++)
-                    //{
-                    //    dia[i] = 2; //Clase
-                    //}
+                        //for (int i = (c.idHoraIn - 7); i < (c.idHoraF - 7); i++)
+                        //{
+                        //    dia[i] = 2; //Clase
+                        //}
+
+                    }
 
                 }
 
             }
 
+           
+            
             foreach (var d in semana)
             {
                 if (d.idDias == nDia)
-                {                   
+                {
                     //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == d.idHoraIn).FirstOrDefault();
                     //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == d.idHoraF).FirstOrDefault();
                     for (int i = 0; i < 15; i++)
-                    {                       
-                        if (i >= (d.idHoraIn - 7) && i < (d.idHoraF - 7))
+                    {
+                        //    if (i >= (d.idHoraIn - 7) && i < (d.idHoraF - 7))
+                        //    {
+                        //        //if (dia[i] == 2) dia[i] = 3; // Solapado
+                        //        /*else */dia[i] = 1; // Reservado
+                        //    }
+                        //    else /*if (dia[i] != 2)*/
+                        //    {
+                        //        dia[i] = 0; // Disponible    
+                        //    }
+
+                        //}
+
+                        for (i = (d.idHoraIn - 7); i < (d.idHoraF - 7); i++)
                         {
-                            if (dia[i] == 2) dia[i] = 3; // Solapado
-                            else dia[i] = 1; // Reservado
+                            dia[i] = 1; //Clase
                         }
-                        else /*if (dia[i] != 2)*/
+
+                        if (i < (d.idHoraIn - 7) && i > (d.idHoraF - 7))
                         {
-                            dia[i] = 0; // Disponible    
+                            dia[i] = 0; // libre
                         }
 
                     }
-
-                    //for (int i = (d.idHoraIn - 7); i < (d.idHoraF - 7); i++)
-                    //{
-                    //    dia[i] = 1; //Clase
-                    //}
                 }
             }
             return dia;
