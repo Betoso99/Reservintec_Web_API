@@ -151,12 +151,12 @@ namespace WebApiReserva.Controllers
         [ActionName("Add")]
         public IHttpActionResult AddReserva([FromBody] ReservaPersonas reservaP)
         {
-            if (!UserExists(reservaP.Reserva.idReservante))
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Esta reserva no esta registrada";
-                return Ok(log);
-            }
+            //if (!UserExists(reservaP.Reserva.idReservante))
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Esta reserva no esta registrada";
+            //    return Ok(log);
+            //}
 
             try
             {
