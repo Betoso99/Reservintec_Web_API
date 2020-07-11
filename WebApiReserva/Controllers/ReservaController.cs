@@ -226,7 +226,7 @@ namespace WebApiReserva.Controllers
         }
 
         // Cuando son reservas en tblReserva, se elimina la reserva completa
-        [HttpDelete]
+        [HttpPut]
         public IHttpActionResult EliminarReserva(int id)
         {
             tblReserva reserva = db.tblReserva.Find(id);
@@ -237,14 +237,13 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            db.tblReserva.Remove(reserva);
-            db.SaveChanges();
-
+            Remove(reserva);
+           
             return Ok(reserva);
-
         }
 
         // Si son grupos, te puedes salir del grupo (si tiene el limite todavia, se mantiene, sino, se dice que esta desocupado)
+        [HttpPut]
         public IHttpActionResult SalirGrupoReserva(tblGrupoReserva grupoRes)
         {
             tblReserva reserva = db.tblReserva.Find(grupoRes.idReserva);
@@ -272,7 +271,12 @@ namespace WebApiReserva.Controllers
 
             if(estudiante == 1 && tutor == 0)
             {
-                if (cantGrupo < 3) { } // Liberar reserva
+                if (cantGrupo < 3) 
+                {
+                    var reservaActual = db.tblReserva.Where(r => r.idReserva == grupoRes.idReserva).FirstOrDefault();
+                    Remove(reservaActual);
+                
+                } // Liberar reserva
             }
 
             return Ok(reserva);
@@ -289,7 +293,7 @@ namespace WebApiReserva.Controllers
 
             for (int i = 0; i < 15; i++)
             {
-                dia[i] = 4; // disponible
+                dia[i] = 0; // disponible
             }
 
             if(clase != null)
@@ -379,6 +383,12 @@ namespace WebApiReserva.Controllers
         private bool UserExists(int id)
         {
             return db.tblUsuario.Count(e => e.idUsuario == id) > 0;
+        }
+
+        private void Remove(tblReserva reserva)
+        {
+            reserva.EstadoReserva = false;
+            db.SaveChanges();
         }
     }
 }
