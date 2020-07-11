@@ -22,12 +22,12 @@ namespace WebApiReserva.Models
             this.tblGrupoReserva = new HashSet<tblGrupoReserva>();
             this.tblPersonaTipo = new HashSet<tblPersonaTipo>();
             this.tblReserva = new HashSet<tblReserva>();
+            this.tblUsuario = new HashSet<tblUsuario>();
         }
     
         public int idPersona { get; set; }
         public int idTipoEstado { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> idUsuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDocente> tblDocente { get; set; }
@@ -38,8 +38,9 @@ namespace WebApiReserva.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPersonaTipo> tblPersonaTipo { get; set; }
         public virtual tblTipo tblTipo { get; set; }
-        public virtual tblUsuario tblUsuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblReserva> tblReserva { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUsuario> tblUsuario { get; set; }
     }
 }

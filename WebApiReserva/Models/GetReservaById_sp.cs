@@ -21,6 +21,7 @@ namespace WebApiReserva.Models
         public byte idHoraF { get; set; }
         public System.DateTime FechaReserva { get; set; }
         public int idReservante { get; set; }
+        public bool EstadoReserva { get; set; }
         public int idGrupoReserva { get; set; }
         public int idPersona { get; set; }
         public int idReserva1 { get; set; }

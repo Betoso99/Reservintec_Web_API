@@ -173,9 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\database_firewall_rules.cs">
-      <DependentUpon>ReservaModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Context.cs" />
     <Compile Include="Models\GetCursoEdificio_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
@@ -205,15 +203,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReservaModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ReservaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ReservaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCarrera.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
@@ -309,15 +298,15 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
     <EntityDeploy Include="Models\ReservaModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ReservaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\ReservaModel.edmx.diagram">
       <DependentUpon>ReservaModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="..\.editorconfig">
-      <Link>.editorconfig</Link>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

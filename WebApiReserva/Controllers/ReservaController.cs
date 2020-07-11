@@ -272,7 +272,7 @@ namespace WebApiReserva.Controllers
 
             if(estudiante == 1 && tutor == 0)
             {
-                if (cantGrupo < 3) { } // Liberar/tumbar reserva
+                if (cantGrupo < 3) { } // Liberar reserva
             }
 
             return Ok(reserva);
@@ -300,7 +300,6 @@ namespace WebApiReserva.Controllers
                     //        if (dia[l] == 1) dia[l] = 3; // Solapado
                     //        else dia[l] = 2; // Clase
                     //    }
-
                     //}
 
                     for (int i = (c.idHoraIn - 7); i < (c.idHoraF - 7); i++)

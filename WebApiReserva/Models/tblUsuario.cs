@@ -14,16 +14,10 @@ namespace WebApiReserva.Models
     
     public partial class tblUsuario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblUsuario()
-        {
-            this.tblPersona = new HashSet<tblPersona>();
-        }
-    
         public int idUsuario { get; set; }
         public string Pass { get; set; }
+        public int idPersona { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPersona> tblPersona { get; set; }
+        public virtual tblPersona tblPersona { get; set; }
     }
 }

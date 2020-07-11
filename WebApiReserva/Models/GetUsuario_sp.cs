@@ -16,6 +16,5 @@ namespace WebApiReserva.Models
         public int idPersona { get; set; }
         public int idTipoEstado { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> idUsuario { get; set; }
     }
 }
