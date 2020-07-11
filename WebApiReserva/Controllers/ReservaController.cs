@@ -382,7 +382,7 @@ namespace WebApiReserva.Controllers
 
         private bool UserExists(int id)
         {
-            return db.tblUsuario.Count(e => e.idUsuario == id) > 0;
+            return db.tblPersona.Count(e => e.idPersona == id) > 0;
         }
 
         private void Remove(tblReserva reserva)
