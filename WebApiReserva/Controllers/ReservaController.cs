@@ -287,6 +287,11 @@ namespace WebApiReserva.Controllers
             int[] dia = new int[15];
             var clase = db.tblClase.ToList();
 
+            for (int i = 0; i < 15; i++)
+            {
+                dia[i] = 4; // disponible
+            }
+
             if(clase != null)
             {
                 foreach (var c in clase)
@@ -295,19 +300,19 @@ namespace WebApiReserva.Controllers
                     {
                         //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == c.idHoraIn).FirstOrDefault();
                         //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == c.idHoraF).FirstOrDefault();
-                        for (int l = 0; l < 16; l++)
-                        {
-                            if (l >= (c.idHoraIn - 7) && l < (c.idHoraF - 7))
-                            {
-                                if (dia[l] == 1) dia[l] = 3; // Solapado
-                                else dia[l] = 2; // Clase
-                            }
-                        }
-
-                        //for (int i = (c.idHoraIn - 7); i < (c.idHoraF - 7); i++)
+                        //for (int l = 0; l < 16; l++)
                         //{
-                        //    dia[i] = 2; //Clase
+                        //    if (l >= (c.idHoraIn - 7) && l < (c.idHoraF - 7))
+                        //    {
+                        //        if (dia[l] == 1) dia[l] = 3; // Solapado
+                        //        else dia[l] = 2; // Clase
+                        //    }
                         //}
+
+                        for (int i = (c.idHoraIn - 7); i < (c.idHoraF - 7); i++)
+                        {
+                            dia[i] = 2; //Clase
+                        }
 
                     }
 
@@ -323,31 +328,32 @@ namespace WebApiReserva.Controllers
                 {
                     //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == d.idHoraIn).FirstOrDefault();
                     //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == d.idHoraF).FirstOrDefault();
-                    for (int i = 0; i < 15; i++)
+                    //for (int i = 0; i < 15; i++)
+                    //{
+                    //    if (i >= (d.idHoraIn - 7) && i < (d.idHoraF - 7))
+                    //    {
+                    //        //if (dia[i] == 2) dia[i] = 3; // Solapado
+                    //        /*else */
+                    //        dia[i] = 1; // Reservado
+                    //    }
+                    //    else /*if (dia[i] != 2)*/
+                    //    {
+                    //        dia[i] = 0; // Disponible    
+                    //    }
+
+                    //}
+
+                    for (int i = (d.idHoraIn - 7); i < (d.idHoraF - 7); i++)
                     {
-                        //    if (i >= (d.idHoraIn - 7) && i < (d.idHoraF - 7))
-                        //    {
-                        //        //if (dia[i] == 2) dia[i] = 3; // Solapado
-                        //        /*else */dia[i] = 1; // Reservado
-                        //    }
-                        //    else /*if (dia[i] != 2)*/
-                        //    {
-                        //        dia[i] = 0; // Disponible    
-                        //    }
-
-                        //}
-
-                        for (i = (d.idHoraIn - 7); i < (d.idHoraF - 7); i++)
-                        {
-                            dia[i] = 1; //Clase
-                        }
-
-                        if (i < (d.idHoraIn - 7) && i > (d.idHoraF - 7))
-                        {
-                            dia[i] = 0; // libre
-                        }
-
+                        dia[i] = 1; //Clase
                     }
+
+                    //if (i < (d.idHoraIn - 7) && i > (d.idHoraF - 7))
+                    //{
+                    //    dia[i] = 0; // libre
+                    //}
+
+
                 }
             }
             return dia;
