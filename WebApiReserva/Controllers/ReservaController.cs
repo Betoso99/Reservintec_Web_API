@@ -29,13 +29,55 @@ namespace WebApiReserva.Controllers
         /// </summary>
         // GET: api/Reserva
         [ResponseType(typeof(tblReserva))]
-        public IHttpActionResult GetReserva()
+        public IHttpActionResult GetAll()
         {
             Good(log);
             var reserva = db.tblReserva.ToList();
             var result = MergeLogResult(log, reserva);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Obtiene todas las reservas registradas por la persona con el id
+        /// </summary>
+        // GET: api/Reserva
+        [ResponseType(typeof(tblReserva))]
+        public IHttpActionResult GetReserva(int id)
+        {
+            Good(log);
+            var reserva = db.tblReserva.Where(r=> r.idReservante == id).ToList();
+            var result = MergeLogResult(log, reserva);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Obtiene todas las reservas a las que pertenece una persona con el id
+        /// </summary>
+        // GET: api/Reserva
+        [ResponseType(typeof(tblReserva))]
+        public IHttpActionResult GetReservaGrupo(int id)
+        {
+            Good(log);
+            if (!UserExists(id))
+            {
+                log.Ok = false;
+                log.ErrorMessage = "El usuario no existe";
+                return Ok(log);
+            }
+
+            var grupoRes = db.tblGrupoReserva.Where(g => g.idPersona == id).ToList();
+            List<tblReserva> reservas = new List<tblReserva>();
+            foreach (var grupo in grupoRes)
+            {
+                var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
+                reservas.Add(res);
+            }
+
+            var result = MergeLogResult(log, reservas);
+
+            return Ok(result);
+        }
+
 
         /// <summary>
         /// Obtiene un arreglo del horario por semana.
@@ -183,15 +225,71 @@ namespace WebApiReserva.Controllers
 
         }
 
+        // Cuando son reservas en tblReserva, se elimina la reserva completa
+        [HttpDelete]
+        public IHttpActionResult EliminarReserva(int id)
+        {
+            tblReserva reserva = db.tblReserva.Find(id);
+            if (reserva == null)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Este usuario no ha realizado ninguna reserva";
+                return Ok(log);
+            }
+
+            db.tblReserva.Remove(reserva);
+            db.SaveChanges();
+
+            return Ok(reserva);
+
+        }
+
+        // Si son grupos, te puedes salir del grupo (si tiene el limite todavia, se mantiene, sino, se dice que esta desocupado)
+        public IHttpActionResult SalirGrupoReserva(tblGrupoReserva grupoRes)
+        {
+            tblReserva reserva = db.tblReserva.Find(grupoRes.idReserva);
+            if (reserva == null)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Esta reserva no existe";
+                return Ok(log);
+            }
+
+            db.tblGrupoReserva.Remove(grupoRes);
+            db.SaveChanges();
+
+            var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == grupoRes.idReserva).Distinct().ToList().Count();
+            var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
+
+            int estudiante = 0, profesor = 0, tutor = 0;
+            foreach (var p in pers)
+            {
+                if (p.idTipo == 6) estudiante++; // Es estudiante
+                if (p.idTipo == 7) profesor++;
+                if (p.idTipo == 8) tutor++;
+
+            }
+
+            if(estudiante == 1 && tutor == 0)
+            {
+                if (cantGrupo < 3) { } // Liberar/tumbar reserva
+            }
+
+            return Ok(reserva);
+
+        }
+
+
+
         [NonAction]
-        private int[] GetHoras(int n, List<GetReservaSemana_sp> semana)
+        private int[] GetHoras(int nDia, List<GetReservaSemana_sp> semana)
         {
             int[] dia = new int[15];
             var clase = db.tblClase.ToList();
 
             foreach (var c in clase)
             {
-                if (c.idDias == n)
+                if (c.idDias == nDia)
                 {
                     //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == c.idHoraIn).FirstOrDefault();
                     //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == c.idHoraF).FirstOrDefault();
@@ -216,7 +314,7 @@ namespace WebApiReserva.Controllers
 
             foreach (var d in semana)
             {
-                if (d.idDias == n)
+                if (d.idDias == nDia)
                 {                   
                     //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == d.idHoraIn).FirstOrDefault();
                     //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == d.idHoraF).FirstOrDefault();
@@ -253,6 +351,11 @@ namespace WebApiReserva.Controllers
         private bool ReservaExists(int id)
         {
             return db.tblReserva.Count(e => e.idReserva == id) > 0;
+        }
+
+        private bool UserExists(int id)
+        {
+            return db.tblUsuario.Count(e => e.idUsuario == id) > 0;
         }
     }
 }
