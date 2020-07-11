@@ -281,7 +281,7 @@ namespace WebApiReserva.Controllers
 
 
 
-        [NonAction]
+        //[NonAction]
         private int[] GetHoras(int nDia, List<GetReservaSemana_sp> semana)
         {
             int[] dia = new int[15];
@@ -359,7 +359,7 @@ namespace WebApiReserva.Controllers
             return dia;
         }
 
-        [NonAction]
+        //[NonAction]
         private List<int[]> GetSemanaList(List<GetReservaSemana_sp> semana)
         {
             List<int[]> semanaList = new List<int[]>();
