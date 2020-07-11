@@ -293,19 +293,19 @@ namespace WebApiReserva.Controllers
                 {
                     //tblHoras horaIn = db.tblHoras.Where(h => h.idHoras == c.idHoraIn).FirstOrDefault();
                     //tblHoras horaF = db.tblHoras.Where(h => h.idHoras == c.idHoraF).FirstOrDefault();
-                    //for (int l = 0; l < 16; l++)
-                    //{
-                    //    if (l >= (c.idHoraIn - 7) && l < (c.idHoraF - 7))
-                    //    {
-                    //        if (dia[l] == 1) dia[l] = 3; // Solapado
-                    //        else dia[l] = 2; // Clase
-                    //    }
-                    //}
-
-                    for (int i = (c.idHoraIn - 7); i < (c.idHoraF - 7); i++)
+                    for (int l = 0; l < 16; l++)
                     {
-                        dia[i] = 2; //Clase
+                        if (l >= (c.idHoraIn - 7) && l < (c.idHoraF - 7))
+                        {
+                            if (dia[l] == 1) dia[l] = 3; // Solapado
+                            else dia[l] = 2; // Clase
+                        }
                     }
+
+                    //for (int i = (c.idHoraIn - 7); i < (c.idHoraF - 7); i++)
+                    //{
+                    //    dia[i] = 2; //Clase
+                    //}
 
                 }
 
@@ -324,12 +324,17 @@ namespace WebApiReserva.Controllers
                             if (dia[i] == 2) dia[i] = 3; // Solapado
                             else dia[i] = 1; // Reservado
                         }
-                        else if (dia[i] != 2)
+                        else /*if (dia[i] != 2)*/
                         {
                             dia[i] = 0; // Disponible    
                         }
 
                     }
+
+                    //for (int i = (d.idHoraIn - 7); i < (d.idHoraF - 7); i++)
+                    //{
+                    //    dia[i] = 1; //Clase
+                    //}
                 }
             }
             return dia;
