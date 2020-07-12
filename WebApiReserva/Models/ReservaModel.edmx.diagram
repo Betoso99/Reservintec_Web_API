@@ -4,8 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e345a2aeb2f84c2e9287b82f2579151c" Name="Diagram1">
-        <EntityTypeShape EntityType="ReservaModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+      <Diagram DiagramId="efc77c54c5b7446ab5814272eabd4f5d" Name="Diagram1">
         <EntityTypeShape EntityType="ReservaModel.tblCarrera" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ReservaModel.tblClase" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="ReservaModel.tblCurso" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
@@ -22,7 +21,7 @@
         <EntityTypeShape EntityType="ReservaModel.tblTipo" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ReservaModel.tblTipoTipo" Width="1.5" PointX="1.5" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="ReservaModel.tblUsuario" Width="1.5" PointX="3" PointY="25.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReservaModel.database_firewall_rules" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReservaModel.database_firewall_rules" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="ReservaModel.FK__tblCarrer__idTip__6A30C649" ManuallyRouted="false" />
         <AssociationConnector Association="ReservaModel.FK__tblEstudi__idCar__71D1E811" ManuallyRouted="false" />
         <AssociationConnector Association="ReservaModel.FK__tblClase__idCurs__41EDCAC5" ManuallyRouted="false" />
