@@ -76,6 +76,9 @@ namespace WebApiReserva.Controllers
 
             foreach (var c in clase)
             {
+                ocupado = 0;
+                disponible = 0;
+
                 for (int i = 7; i < 23; i++)
                 {
                     if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
@@ -98,13 +101,15 @@ namespace WebApiReserva.Controllers
             {
                 if(r.idDias == date.idDia)
                 {
-                    for (int i = 7; i < 23; i++)
-                    {
-                        if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
-                        else disponible++;
-                    }
-                    //for (int i = r.idHoraIn; i < r.idHoraF; i++) ocupado++;
-                    //if (ocupado == 0) disponible++;
+                    ocupado = 0;
+                    disponible = 0;
+                    //for (int i = 7; i < 23; i++)
+                    //{
+                    //    if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
+                    //    else disponible++;
+                    //}
+                    for (int i = r.idHoraIn; i < r.idHoraF; i++) ocupado++;
+                    if (ocupado == 0) disponible++;
 
                     var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
 
@@ -112,6 +117,7 @@ namespace WebApiReserva.Controllers
                     {
                         cursos.Add(course.NumCurso);
                     }
+                   
                 }
             }
 
