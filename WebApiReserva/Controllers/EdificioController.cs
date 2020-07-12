@@ -87,16 +87,7 @@ namespace WebApiReserva.Controllers
                         if (i >= (c.idHoraIn - 7) && i < (c.idHoraF - 7)) ocupado++;
                         else disponible++;
                     }
-                        //for (int i = 7; i < 23; i++)
-                        //{
-                        //    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
-                        //    else disponible++;
-                        //}
-                        //for (int i = c.idHoraIn; i < c.idHoraF; i++)
-                        //{
-                        //    ocupado++;                    
-                        //}
-                        //if (ocupado == 0) disponible++;
+
                     if (disponible != 0)
                     {
                         var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
@@ -112,10 +103,10 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
            
-            if(cont == 18)
+            if(cont > 0)
             {
                 log.Ok = false;
-                log.ErrorMessage = "Tamo en el curso 1, mio";
+                log.ErrorMessage = "Entro al foreach de clases";
                 return Ok(log);
             }
 
@@ -126,21 +117,7 @@ namespace WebApiReserva.Controllers
             {
                 foreach (var r in reserva)
                 {
-                    //if (r.idDias == date.idDia)
-                    //{
-                        //ocupado = 0;
-                        //disponible = 0;
-                    //for (int i = 7; i < 23; i++)
-                    //{
-                    //    if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
-                    //    else disponible++;
-                    //}
-                    //    for (int i = r.idHoraIn; i < r.idHoraF; i++)
-                    //    {
-                    //        ocupado++;
 
-                    //    }
-                    //if (ocupado == 0) disponible++;
                     for (int i = 0; i < 15; i++)
                     {
                         if (i >= (r.idHoraIn - 7) && i < (r.idHoraF - 7)) ocupado++;

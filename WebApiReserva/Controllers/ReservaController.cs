@@ -90,8 +90,6 @@ namespace WebApiReserva.Controllers
             //    // GetReserva where idReserva = @idReserva and Estado = 1 - sp
             //    var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
             //    reservas.Add(res);
-                
-
             //}
 
             var result = MergeLogResult(log, getResGrupo);
