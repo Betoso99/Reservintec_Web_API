@@ -75,8 +75,12 @@ namespace WebApiReserva.Controllers
             foreach (var grupo in grupoRes)
             {
                 // GetReserva where idReserva = @idReserva and Estado = 1 - sp
-                var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
-                reservas.Add(res);
+                var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).ToList();
+                foreach (var r in res)
+                {
+                    reservas.Add(r);
+                }
+                
             }
 
             var result = MergeLogResult(log, reservas);
