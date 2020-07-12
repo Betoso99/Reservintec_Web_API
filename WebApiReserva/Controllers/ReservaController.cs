@@ -59,7 +59,7 @@ namespace WebApiReserva.Controllers
         {
             Good(log);
             //  Get reserva where Estado = 1/true and idReservante == id
-            var reserva = db.tblReserva.Where(r=> r.idReservante == id).ToList();
+            var reserva = db.tblReserva.Where(r=> r.idReservante == id && r.EstadoReserva == true).ToList();
             var result = MergeLogResult(log, reserva);
             return Ok(result);
         }
@@ -255,19 +255,30 @@ namespace WebApiReserva.Controllers
 
         // Cuando son reservas en tblReserva, se elimina la reserva completa
         [HttpPut]
-        public IHttpActionResult EliminarReserva(int id, tblReserva reserva)
+        public IHttpActionResult EliminarReserva(int id)
         {
-            if (reserva.idReservante != id)
+            //if (reserva.idReservante != id)
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Este usuario no es el dueño de la reserva";
+            //    return Ok(log);
+            //}
+            try
+            {
+                db.deleteReserva(id);
+                db.SaveChanges();
+            }
+            catch (Exception)
             {
                 log.Ok = false;
-                log.ErrorMessage = "Este usuario no es el dueño de la reserva";
-                return Ok(log);
+                log.ErrorMessage = "Hubo un problema al eliminar la reserva";
             }
-
-            Remove(reserva);
-           
-            return Ok(reserva);
+            
+            //Remove(reserva);
+            Good(log);
+            return Ok(log);
         }
+
 
         // Si son grupos, te puedes salir del grupo (si tiene el limite todavia, se mantiene, sino, se dice que esta desocupado)
         [HttpPut]

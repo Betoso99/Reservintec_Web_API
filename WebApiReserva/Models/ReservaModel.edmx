@@ -445,6 +445,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="Matricula" Type="int" Mode="In" />
           <Parameter Name="Pass" Type="char" Mode="In" />
         </Function>
+        <Function Name="deleteReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReserva" Type="int" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="GetCursoEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idEdificio" Type="int" Mode="In" />
@@ -1262,6 +1265,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImport Name="GetReservaGrupo" ReturnType="Collection(ReservaModel.GetReservaGrupo_sp)">
           <Parameter Name="idPersona" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="deleteReserva">
+            <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
           <Property Type="Int32" Name="idCurso" Nullable="false" />
@@ -1639,6 +1645,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="deleteReserva" FunctionName="ReservaModel.Store.deleteReserva" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

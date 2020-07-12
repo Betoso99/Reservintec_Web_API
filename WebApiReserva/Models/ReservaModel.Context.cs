@@ -268,5 +268,14 @@ namespace WebApiReserva.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReservaGrupo_sp>("GetReservaGrupo", idPersonaParameter);
         }
+    
+        public virtual int deleteReserva(Nullable<int> idReserva)
+        {
+            var idReservaParameter = idReserva.HasValue ?
+                new ObjectParameter("idReserva", idReserva) :
+                new ObjectParameter("idReserva", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deleteReserva", idReservaParameter);
+        }
     }
 }
