@@ -75,29 +75,42 @@ namespace WebApiReserva.Controllers
             var clase = db.tblClase.Where(c => c.idDias == date.idDia).ToList();
             int ocupado = 0, disponible = 0, cont = 0;
             List<string> cursos = new List<string>();
-
-            foreach (var c in clase)
+            if (clase != null)
             {
-                ocupado = 0;
-                disponible = 0;
+                foreach (var c in clase)
+                {
+                    ocupado = 0;
+                    disponible = 0;
 
-                //for (int i = 7; i < 23; i++)
-                //{
-                //    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
-                //    else disponible++;
-                //}
-                //for (int i = c.idHoraIn; i < c.idHoraF; i++)
-                //{
-                //    ocupado++;                    
-                //}
-                //if (ocupado == 0) disponible++;
+                    //for (int i = 7; i < 23; i++)
+                    //{
+                    //    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
+                    //    else disponible++;
+                    //}
+                    //for (int i = c.idHoraIn; i < c.idHoraF; i++)
+                    //{
+                    //    ocupado++;                    
+                    //}
+                    //if (ocupado == 0) disponible++;
 
-                //if (disponible != 0)
-                //{
+                    //if (disponible != 0)
+                    //{
                     var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
-                    cursos.Add(course.NumCurso);                     
-                //}
-                cont
+                    cursos.Add(course.NumCurso);
+                    //}
+                    cont++;
+                }
+            }
+            else
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Aparentemente no hay clases este dia";
+            }
+           
+            if(cont == 18)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Tamo en el curso 1, mio";
             }
 
             // Filtrar por semana y por dia
