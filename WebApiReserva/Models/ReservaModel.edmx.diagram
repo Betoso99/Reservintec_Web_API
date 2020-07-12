@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a0529a184d2b47b5b898f6a0b3a8e5d6" Name="Diagram1" ZoomLevel="111">
+      <Diagram DiagramId="a0529a184d2b47b5b898f6a0b3a8e5d6" Name="Diagram1" ZoomLevel="94">
         <EntityTypeShape EntityType="ReservaModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ReservaModel.tblCarrera" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ReservaModel.tblClase" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />

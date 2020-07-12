@@ -506,7 +506,7 @@
             Obtiene todas las reservas registradas por la persona con el id
             </summary>
         </member>
-        <member name="M:WebApiReserva.Controllers.ReservaController.GetReservaGrupo(System.Int32)">
+        <member name="M:WebApiReserva.Controllers.ReservaController.GetReservaGrupo2(System.Int32)">
             <summary>
             Obtiene todas las reservas a las que pertenece una persona con el id
             </summary>

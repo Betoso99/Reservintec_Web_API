@@ -18,11 +18,10 @@ namespace WebApiReserva.Models
     public partial class ReservaEntities : DbContext
     {
         public ReservaEntities()
-           : base("name=ReservaEntities")
+            : base("name=ReservaEntities")
         {
-            Configuration.ProxyCreationEnabled = false;
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
