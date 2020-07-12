@@ -11,7 +11,7 @@ namespace WebApiReserva
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.EnableCors(); 
+            
             //config.Formatters.JsonFormatter.SupportedMediaTypes
             //    .Add(new MediaTypeHeaderValue("text/html"));
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
@@ -26,6 +26,8 @@ namespace WebApiReserva
                defaults: new { id = RouteParameter.Optional });
 
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+
+            config.EnableCors();
         }
     }
 }

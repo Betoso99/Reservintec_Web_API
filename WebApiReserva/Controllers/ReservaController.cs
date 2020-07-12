@@ -58,7 +58,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene todas las reservas a las que pertenece una persona con el id
         /// </summary>
         // GET: api/Reserva
-        [ResponseType(typeof(tblReserva))]
+        //[ResponseType(typeof(tblReserva))]
         public IHttpActionResult GetReservaGrupo(int id)
         {
             Good(log);
