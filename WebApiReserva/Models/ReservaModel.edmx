@@ -5,13 +5,23 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="ReservaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tblCarrera">
           <Key>
             <PropertyRef Name="idCarrera" />
           </Key>
           <Property Name="idCarrera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idTipoCarrera" Type="int" Nullable="false" />
-          <Property Name="Carrera" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Carrera" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="tblClase">
           <Key>
@@ -45,6 +55,7 @@
           </Key>
           <Property Name="idDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idPersona" Type="int" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tblEdificio">
           <Key>
@@ -60,6 +71,7 @@
           <Property Name="idEstudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idPersona" Type="int" Nullable="false" />
           <Property Name="idCarrera" Type="int" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tblGrupoReserva">
           <Key>
@@ -82,7 +94,8 @@
           </Key>
           <Property Name="idPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idTipoEstado" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tblPersonaTipo">
           <Key>
@@ -136,6 +149,24 @@
           <Property Name="Pass" Type="char" MaxLength="64" Nullable="false" />
           <Property Name="idPersona" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK__tblCarrer__idTip__6A30C649">
           <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
           <End Role="tblCarrera" Type="Self.tblCarrera" Multiplicity="*" />
@@ -148,7 +179,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClase__idCurs__6E01572D">
+        <Association Name="FK__tblClase__idCurs__41EDCAC5">
           <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
           <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
           <ReferentialConstraint>
@@ -292,18 +323,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblPerson__idTip__75A278F5">
-          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
-          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTipo">
-              <PropertyRef Name="idTipo" />
-            </Principal>
-            <Dependent Role="tblPersona">
-              <PropertyRef Name="idTipoEstado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblPerson__idTip__778AC167">
           <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
           <End Role="tblPersonaTipo" Type="Self.tblPersonaTipo" Multiplicity="*" />
@@ -313,18 +332,6 @@
             </Principal>
             <Dependent Role="tblPersonaTipo">
               <PropertyRef Name="idTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblReserv__idCur__7A672E12">
-          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
-          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCurso">
-              <PropertyRef Name="idCurso" />
-            </Principal>
-            <Dependent Role="tblReserva">
-              <PropertyRef Name="idCurso" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -412,6 +419,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblReserva_tblCurso">
+          <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCurso">
+              <PropertyRef Name="idCurso" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="idCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="GetCursoEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idEdificio" Type="int" Mode="In" />
         </Function>
@@ -430,7 +450,38 @@
         <Function Name="GetUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUsuario" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ReservaModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCarrera" EntityType="Self.tblCarrera" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblClase" EntityType="Self.tblClase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCurso" EntityType="Self.tblCurso" Schema="dbo" store:Type="Tables" />
@@ -447,11 +498,21 @@
           <EntitySet Name="tblTipo" EntityType="Self.tblTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTipoTipo" EntityType="Self.tblTipoTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__tblCarrer__idTip__6A30C649" Association="Self.FK__tblCarrer__idTip__6A30C649">
             <End Role="tblTipo" EntitySet="tblTipo" />
             <End Role="tblCarrera" EntitySet="tblCarrera" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClase__idCurs__6E01572D" Association="Self.FK__tblClase__idCurs__6E01572D">
+          <AssociationSet Name="FK__tblClase__idCurs__41EDCAC5" Association="Self.FK__tblClase__idCurs__41EDCAC5">
             <End Role="tblCurso" EntitySet="tblCurso" />
             <End Role="tblClase" EntitySet="tblClase" />
           </AssociationSet>
@@ -499,17 +560,9 @@
             <End Role="tblPersona" EntitySet="tblPersona" />
             <End Role="tblPersonaTipo" EntitySet="tblPersonaTipo" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblPerson__idTip__75A278F5" Association="Self.FK__tblPerson__idTip__75A278F5">
-            <End Role="tblTipo" EntitySet="tblTipo" />
-            <End Role="tblPersona" EntitySet="tblPersona" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblPerson__idTip__778AC167" Association="Self.FK__tblPerson__idTip__778AC167">
             <End Role="tblTipo" EntitySet="tblTipo" />
             <End Role="tblPersonaTipo" EntitySet="tblPersonaTipo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblReserv__idCur__7A672E12" Association="Self.FK__tblReserv__idCur__7A672E12">
-            <End Role="tblCurso" EntitySet="tblCurso" />
-            <End Role="tblReserva" EntitySet="tblReserva" />
           </AssociationSet>
           <AssociationSet Name="FK__tblReserv__idDia__7B5B524B" Association="Self.FK__tblReserv__idDia__7B5B524B">
             <End Role="tblDias" EntitySet="tblDias" />
@@ -539,19 +592,33 @@
             <End Role="tblPersona" EntitySet="tblPersona" />
             <End Role="tblUsuario" EntitySet="tblUsuario" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblReserva_tblCurso" Association="Self.FK_tblReserva_tblCurso">
+            <End Role="tblCurso" EntitySet="tblCurso" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReservaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="tblCarrera">
           <Key>
             <PropertyRef Name="idCarrera" />
           </Key>
           <Property Name="idCarrera" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTipoCarrera" Type="Int32" Nullable="false" />
-          <Property Name="Carrera" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Carrera" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tblTipo" Relationship="Self.FK__tblCarrer__idTip__6A30C649" FromRole="tblCarrera" ToRole="tblTipo" />
           <NavigationProperty Name="tblEstudiante" Relationship="Self.FK__tblEstudi__idCar__71D1E811" FromRole="tblCarrera" ToRole="tblEstudiante" />
         </EntityType>
@@ -565,7 +632,7 @@
           <Property Name="idDias" Type="Byte" Nullable="false" />
           <Property Name="idHoraIn" Type="Byte" Nullable="false" />
           <Property Name="idHoraF" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="tblCurso" Relationship="Self.FK__tblClase__idCurs__6E01572D" FromRole="tblClase" ToRole="tblCurso" />
+          <NavigationProperty Name="tblCurso" Relationship="Self.FK__tblClase__idCurs__41EDCAC5" FromRole="tblClase" ToRole="tblCurso" />
           <NavigationProperty Name="tblDias" Relationship="Self.FK__tblClase__idDias__6EF57B66" FromRole="tblClase" ToRole="tblDias" />
           <NavigationProperty Name="tblDocente" Relationship="Self.FK__tblClase__idDoce__6D0D32F4" FromRole="tblClase" ToRole="tblDocente" />
           <NavigationProperty Name="tblHoras" Relationship="Self.FK__tblClase__idHora__6B24EA82" FromRole="tblClase" ToRole="tblHoras" />
@@ -578,9 +645,9 @@
           <Property Name="idCurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idEdificio" Type="Byte" Nullable="false" />
           <Property Name="NumCurso" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblClase" Relationship="Self.FK__tblClase__idCurs__6E01572D" FromRole="tblCurso" ToRole="tblClase" />
+          <NavigationProperty Name="tblClase" Relationship="Self.FK__tblClase__idCurs__41EDCAC5" FromRole="tblCurso" ToRole="tblClase" />
           <NavigationProperty Name="tblEdificio" Relationship="Self.FK__tblCurso__idEdif__6FE99F9F" FromRole="tblCurso" ToRole="tblEdificio" />
-          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__idCur__7A672E12" FromRole="tblCurso" ToRole="tblReserva" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK_tblReserva_tblCurso" FromRole="tblCurso" ToRole="tblReserva" />
         </EntityType>
         <EntityType Name="tblDias">
           <Key>
@@ -597,6 +664,7 @@
           </Key>
           <Property Name="idDocente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idPersona" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tblClase" Relationship="Self.FK__tblClase__idDoce__6D0D32F4" FromRole="tblDocente" ToRole="tblClase" />
           <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblDocent__idPer__70DDC3D8" FromRole="tblDocente" ToRole="tblPersona" />
         </EntityType>
@@ -615,6 +683,7 @@
           <Property Name="idEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idPersona" Type="Int32" Nullable="false" />
           <Property Name="idCarrera" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tblCarrera" Relationship="Self.FK__tblEstudi__idCar__71D1E811" FromRole="tblEstudiante" ToRole="tblCarrera" />
           <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblEstudi__idPer__72C60C4A" FromRole="tblEstudiante" ToRole="tblPersona" />
         </EntityType>
@@ -645,12 +714,12 @@
           </Key>
           <Property Name="idPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTipoEstado" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tblDocente" Relationship="Self.FK__tblDocent__idPer__70DDC3D8" FromRole="tblPersona" ToRole="tblDocente" />
           <NavigationProperty Name="tblEstudiante" Relationship="Self.FK__tblEstudi__idPer__72C60C4A" FromRole="tblPersona" ToRole="tblEstudiante" />
           <NavigationProperty Name="tblGrupoReserva" Relationship="Self.FK__tblGrupoR__idPer__73BA3083" FromRole="tblPersona" ToRole="tblGrupoReserva" />
           <NavigationProperty Name="tblPersonaTipo" Relationship="Self.FK__tblPerson__idPer__76969D2E" FromRole="tblPersona" ToRole="tblPersonaTipo" />
-          <NavigationProperty Name="tblTipo" Relationship="Self.FK__tblPerson__idTip__75A278F5" FromRole="tblPersona" ToRole="tblTipo" />
           <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__idRes__0D7A0286" FromRole="tblPersona" ToRole="tblReserva" />
           <NavigationProperty Name="tblUsuario" Relationship="Self.FK__tblUsuari__idPer__30C33EC3" FromRole="tblPersona" ToRole="tblUsuario" />
         </EntityType>
@@ -677,7 +746,7 @@
           <Property Name="FechaReserva" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="idReservante" Type="Int32" Nullable="false" />
           <Property Name="EstadoReserva" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tblCurso" Relationship="Self.FK__tblReserv__idCur__7A672E12" FromRole="tblReserva" ToRole="tblCurso" />
+          <NavigationProperty Name="tblCurso" Relationship="Self.FK_tblReserva_tblCurso" FromRole="tblReserva" ToRole="tblCurso" />
           <NavigationProperty Name="tblDias" Relationship="Self.FK__tblReserv__idDia__7B5B524B" FromRole="tblReserva" ToRole="tblDias" />
           <NavigationProperty Name="tblGrupoReserva" Relationship="Self.FK__tblGrupoR__idRes__74AE54BC" FromRole="tblReserva" ToRole="tblGrupoReserva" />
           <NavigationProperty Name="tblHoras" Relationship="Self.FK__tblReserv__idHor__787EE5A0" FromRole="tblReserva" ToRole="tblHoras" />
@@ -701,7 +770,6 @@
           <Property Name="idTipoTipo" Type="Int32" Nullable="false" />
           <Property Name="descTipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tblCarrera" Relationship="Self.FK__tblCarrer__idTip__6A30C649" FromRole="tblTipo" ToRole="tblCarrera" />
-          <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblPerson__idTip__75A278F5" FromRole="tblTipo" ToRole="tblPersona" />
           <NavigationProperty Name="tblPersonaTipo" Relationship="Self.FK__tblPerson__idTip__778AC167" FromRole="tblTipo" ToRole="tblPersonaTipo" />
           <NavigationProperty Name="tblTipoTipo" Relationship="Self.FK__tblTipo__idTipoT__7D439ABD" FromRole="tblTipo" ToRole="tblTipoTipo" />
         </EntityType>
@@ -721,6 +789,22 @@
           <Property Name="Pass" Type="String" MaxLength="64" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="idPersona" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblPersona" Relationship="Self.FK__tblUsuari__idPer__30C33EC3" FromRole="tblUsuario" ToRole="tblPersona" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK__tblCarrer__idTip__6A30C649">
           <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
@@ -746,7 +830,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClase__idCurs__6E01572D">
+        <Association Name="FK__tblClase__idCurs__41EDCAC5">
           <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
           <End Role="tblClase" Type="Self.tblClase" Multiplicity="*" />
           <ReferentialConstraint>
@@ -818,7 +902,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblReserv__idCur__7A672E12">
+        <Association Name="FK_tblReserva_tblCurso">
           <End Role="tblCurso" Type="Self.tblCurso" Multiplicity="1" />
           <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -923,18 +1007,6 @@
             </Principal>
             <Dependent Role="tblPersonaTipo">
               <PropertyRef Name="idPersona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblPerson__idTip__75A278F5">
-          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
-          <End Role="tblPersona" Type="Self.tblPersona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTipo">
-              <PropertyRef Name="idTipo" />
-            </Principal>
-            <Dependent Role="tblPersona">
-              <PropertyRef Name="idTipoEstado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -999,6 +1071,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ReservaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="tblCarrera" EntityType="Self.tblCarrera" />
           <EntitySet Name="tblClase" EntityType="Self.tblClase" />
           <EntitySet Name="tblCurso" EntityType="Self.tblCurso" />
@@ -1015,6 +1088,7 @@
           <EntitySet Name="tblTipo" EntityType="Self.tblTipo" />
           <EntitySet Name="tblTipoTipo" EntityType="Self.tblTipoTipo" />
           <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <AssociationSet Name="FK__tblCarrer__idTip__6A30C649" Association="Self.FK__tblCarrer__idTip__6A30C649">
             <End Role="tblTipo" EntitySet="tblTipo" />
             <End Role="tblCarrera" EntitySet="tblCarrera" />
@@ -1023,7 +1097,7 @@
             <End Role="tblCarrera" EntitySet="tblCarrera" />
             <End Role="tblEstudiante" EntitySet="tblEstudiante" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClase__idCurs__6E01572D" Association="Self.FK__tblClase__idCurs__6E01572D">
+          <AssociationSet Name="FK__tblClase__idCurs__41EDCAC5" Association="Self.FK__tblClase__idCurs__41EDCAC5">
             <End Role="tblCurso" EntitySet="tblCurso" />
             <End Role="tblClase" EntitySet="tblClase" />
           </AssociationSet>
@@ -1047,7 +1121,7 @@
             <End Role="tblEdificio" EntitySet="tblEdificio" />
             <End Role="tblCurso" EntitySet="tblCurso" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblReserv__idCur__7A672E12" Association="Self.FK__tblReserv__idCur__7A672E12">
+          <AssociationSet Name="FK_tblReserva_tblCurso" Association="Self.FK_tblReserva_tblCurso">
             <End Role="tblCurso" EntitySet="tblCurso" />
             <End Role="tblReserva" EntitySet="tblReserva" />
           </AssociationSet>
@@ -1082,10 +1156,6 @@
           <AssociationSet Name="FK__tblPerson__idPer__76969D2E" Association="Self.FK__tblPerson__idPer__76969D2E">
             <End Role="tblPersona" EntitySet="tblPersona" />
             <End Role="tblPersonaTipo" EntitySet="tblPersonaTipo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblPerson__idTip__75A278F5" Association="Self.FK__tblPerson__idTip__75A278F5">
-            <End Role="tblTipo" EntitySet="tblTipo" />
-            <End Role="tblPersona" EntitySet="tblPersona" />
           </AssociationSet>
           <AssociationSet Name="FK__tblReserv__idRes__0D7A0286" Association="Self.FK__tblReserv__idRes__0D7A0286">
             <End Role="tblPersona" EntitySet="tblPersona" />
@@ -1125,6 +1195,36 @@
           <FunctionImport Name="GetUsuario" ReturnType="Collection(ReservaModel.GetUsuario_sp)">
             <Parameter Name="idUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ReservaModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ReservaModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
           <Property Type="Int32" Name="idCurso" Nullable="false" />
@@ -1163,7 +1263,19 @@
         <ComplexType Name="GetUsuario_sp">
           <Property Type="Int32" Name="idPersona" Nullable="false" />
           <Property Type="Int32" Name="idTipoEstado" Nullable="false" />
-          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1171,6 +1283,17 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ReservaModelStoreContainer" CdmEntityContainer="ReservaEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ReservaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblCarrera">
             <EntityTypeMapping TypeName="ReservaModel.tblCarrera">
               <MappingFragment StoreEntitySet="tblCarrera">
@@ -1214,6 +1337,7 @@
               <MappingFragment StoreEntitySet="tblDocente">
                 <ScalarProperty Name="idDocente" ColumnName="idDocente" />
                 <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1231,6 +1355,7 @@
                 <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
                 <ScalarProperty Name="idPersona" ColumnName="idPersona" />
                 <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1257,6 +1382,7 @@
                 <ScalarProperty Name="idPersona" ColumnName="idPersona" />
                 <ScalarProperty Name="idTipoEstado" ColumnName="idTipoEstado" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1318,6 +1444,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="ReservaModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetCursoEdificio" FunctionName="ReservaModel.Store.GetCursoEdificio">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ReservaModel.GetCursoEdificio_sp">
@@ -1375,9 +1513,34 @@
                 <ScalarProperty Name="idPersona" ColumnName="idPersona" />
                 <ScalarProperty Name="idTipoEstado" ColumnName="idTipoEstado" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ReservaModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ReservaModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ReservaModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ReservaModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ReservaModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ReservaModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ReservaModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

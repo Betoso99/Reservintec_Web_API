@@ -11,11 +11,9 @@ namespace WebApiReserva.Models
 {
     using System;
     
-    public partial class GetUsuario_sp
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int idPersona { get; set; }
-        public int idTipoEstado { get; set; }
-        public string Nombre { get; set; }
-        public System.DateTime FechaRegistro { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

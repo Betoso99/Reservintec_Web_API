@@ -18,7 +18,6 @@ namespace WebApiReserva.Models
         public tblTipo()
         {
             this.tblCarrera = new HashSet<tblCarrera>();
-            this.tblPersona = new HashSet<tblPersona>();
             this.tblPersonaTipo = new HashSet<tblPersonaTipo>();
         }
     
@@ -28,8 +27,6 @@ namespace WebApiReserva.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCarrera> tblCarrera { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPersona> tblPersona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPersonaTipo> tblPersonaTipo { get; set; }
         public virtual tblTipoTipo tblTipoTipo { get; set; }

@@ -17,6 +17,7 @@ namespace WebApiReserva.Models
         public int idEstudiante { get; set; }
         public int idPersona { get; set; }
         public int idCarrera { get; set; }
+        public System.DateTime FechaRegistro { get; set; }
     
         public virtual tblCarrera tblCarrera { get; set; }
         public virtual tblPersona tblPersona { get; set; }
