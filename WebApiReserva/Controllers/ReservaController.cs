@@ -360,7 +360,7 @@ namespace WebApiReserva.Controllers
 
                     for (int i = (d.idHoraIn - 7); i < (d.idHoraF - 7); i++)
                     {
-                        dia[i] = 1; //Clase
+                        dia[i] = 1; // Reservado
                     }
 
                     //if (i < (d.idHoraIn - 7) && i > (d.idHoraF - 7))
