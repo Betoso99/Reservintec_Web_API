@@ -106,17 +106,17 @@ namespace WebApiReserva.Controllers
         /// </summary>
         // POST: api/User
         [HttpPost]
-        public IHttpActionResult ValidateUserLogin([FromBody]tblUsuario user)
+        public IHttpActionResult ValidateUserLogin([FromBody]Usuario user)
         {
             Good(log);
-            if (!UserExists(user.idUsuario))
+            if (!UserExists(user.Matricula))
             {
                 log.Ok = false;
                 log.ErrorMessage = "ID/Matricula no registrada";
                 return Ok(log);
             }
             
-            var validPassword = db.GetPassword(user.idUsuario).FirstOrDefault();
+            var validPassword = db.GetPassword(user.Matricula).FirstOrDefault();
 
             if (CryptoPass.Hash(user.Pass) != validPassword)
             {
@@ -203,5 +203,10 @@ namespace WebApiReserva.Controllers
             return db.tblUsuario.Count(e => e.idUsuario == id) > 0;
         }
 
+        public class Usuario
+        {
+            public int Matricula { get; set; }
+            public string Pass { get; set; }
+        }
     }
 }
