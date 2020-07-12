@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ReservaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ReservaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -118,7 +118,7 @@
           <Property Name="idReservante" Type="int" Nullable="false" />
           <Property Name="EstadoReserva" Type="bit" Nullable="false" />
           <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
-          <Property Name="FechaReserva" Type="date" />
+          <Property Name="FechaReserva" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="tblSemana">
           <Key>
@@ -603,8 +603,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             <End Role="tblReserva" EntitySet="tblReserva" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReservaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -752,7 +751,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Name="idReservante" Type="Int32" Nullable="false" />
           <Property Name="EstadoReserva" Type="Boolean" Nullable="false" />
           <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FechaReserva" Type="DateTime" Precision="0" />
+          <Property Name="FechaReserva" Type="DateTime" Precision="0" Nullable="false" />
           <NavigationProperty Name="tblCurso" Relationship="Self.FK_tblReserva_tblCurso" FromRole="tblReserva" ToRole="tblCurso" />
           <NavigationProperty Name="tblDias" Relationship="Self.FK__tblReserv__idDia__7B5B524B" FromRole="tblReserva" ToRole="tblDias" />
           <NavigationProperty Name="tblGrupoReserva" Relationship="Self.FK__tblGrupoR__idRes__74AE54BC" FromRole="tblReserva" ToRole="tblGrupoReserva" />
@@ -1189,23 +1188,23 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             <Parameter Name="Pass" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetCursoEdificio" ReturnType="Collection(ReservaModel.GetCursoEdificio_sp)">
-            <Parameter Name="idEdificio" Mode="In" Type="Int32" />
+          <Parameter Name="idEdificio" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetPassword" ReturnType="Collection(String)">
-            <Parameter Name="idMatricula" Mode="In" Type="Int32" />
+          <Parameter Name="idMatricula" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetPersona" ReturnType="Collection(ReservaModel.GetPersona_sp)" />
           <FunctionImport Name="GetReserva" ReturnType="Collection(ReservaModel.GetReserva_sp)">
-            <Parameter Name="idPersona" Mode="In" Type="Int32" />
+          <Parameter Name="idPersona" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetReservaById" ReturnType="Collection(ReservaModel.GetReservaById_sp)">
-            <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          <Parameter Name="idReserva" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetReservaSemana" ReturnType="Collection(ReservaModel.GetReservaSemana_sp)">
-            <Parameter Name="numeroSemana" Mode="In" Type="Int32" />
+          <Parameter Name="numeroSemana" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUsuario" ReturnType="Collection(ReservaModel.GetUsuario_sp)">
-            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
