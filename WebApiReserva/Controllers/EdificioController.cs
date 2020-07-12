@@ -79,13 +79,13 @@ namespace WebApiReserva.Controllers
                 ocupado = 0;
                 disponible = 0;
 
-                for (int i = 7; i < 23; i++)
-                {
-                    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
-                    else disponible++;
-                }
-                //for (int i = c.idHoraIn; i < c.idHoraF; i++) ocupado++;
-                //if (ocupado == 0) disponible++;
+                //for (int i = 7; i < 23; i++)
+                //{
+                //    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
+                //    else disponible++;
+                //}
+                for (int i = c.idHoraIn; i < c.idHoraF; i++) ocupado++;
+                if (ocupado == 0) disponible++;
 
 
                 if (disponible != 0)
