@@ -303,7 +303,7 @@ namespace WebApiReserva.Controllers
         {
             int[] dia = new int[15];
             // GetClaseCurso Select * from tblClase where idCurso = idCurso
-            var clase = db.tblClase.ToList();
+            var clase = db.tblClase.Where(c => c.idCurso == idCurso).ToList();
 
             for (int i = 0; i < 15; i++)
             {
