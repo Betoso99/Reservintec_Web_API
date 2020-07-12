@@ -259,5 +259,14 @@ namespace WebApiReserva.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getLastReserva_sp>("getLastReserva");
         }
+    
+        public virtual ObjectResult<GetReservaGrupo_sp> GetReservaGrupo(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("idPersona", idPersona) :
+                new ObjectParameter("idPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReservaGrupo_sp>("GetReservaGrupo", idPersonaParameter);
+        }
     }
 }

@@ -114,20 +114,21 @@ namespace WebApiReserva.Controllers
                 log.ErrorMessage = "El usuario no existe";
                 return Ok(log);
             }
-
+            var getResGrupo = db.GetReservaGrupo(id).ToList();
+            
             // Get GrupoReserva where idPersona = @id - sp
-            var grupoRes = db.tblGrupoReserva.Where(g => g.idPersona == id).ToList();
-            List<tblReserva> reservas = new List<tblReserva>();
-            foreach (var grupo in grupoRes)
-            {
-                // GetReserva where idReserva = @idReserva and Estado = 1 - sp
-                var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
-                reservas.Add(res);
+            //var grupoRes = db.tblGrupoReserva.Where(g => g.idPersona == id).ToList();
+            //List<tblReserva> reservas = new List<tblReserva>();
+            //foreach (var grupo in grupoRes)
+            //{
+            //    // GetReserva where idReserva = @idReserva and Estado = 1 - sp
+            //    var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
+            //    reservas.Add(res);
                 
 
-            }
+            //}
 
-            var result = MergeLogResult(log, reservas);
+            var result = MergeLogResult(log, getResGrupo);
 
             return Ok(result);
         }
