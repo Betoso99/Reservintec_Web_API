@@ -43,7 +43,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetCursosEdificio(int id)
         {
             // GetCursoEdif Select top 1 * from 
-            var curso = db.tblCurso.Where(c => c.idEdificio == id).FirstOrDefault();
+            var curso = db.tblCurso.Where(c => c.idEdificio == id).ToList();
 
             if (curso == null)
             {
