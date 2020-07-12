@@ -235,25 +235,27 @@ namespace WebApiReserva.Controllers
             }
 
             Good(log);
-            //int idReserva = db.GetIdReserva();
-            //if (reservaP.IdPersonas.Count != 0)
-            //{
-            //    foreach (var persona in reservaP.IdPersonas)
-            //    {
-            //        tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = reservaP.Reserva.idReserva, idPersona = persona.Value };
-            //        try
-            //        {
-            //            db.tblGrupoReserva.Add(grupo);
-            //            db.SaveChanges();
-            //        }
-            //        catch (Exception)
-            //        {
-            //            log.Ok = false;
-            //            log.ErrorMessage = "Hubo un error al agregar los integrantes";
-            //        }
+            int? IdReserva = db.getLastReserva().First();
+            //int id;
+            int id = IdReserva ?? default;
+            if (reservaP.IdPersonas.Count != 0)
+            {
+                foreach (var persona in reservaP.IdPersonas)
+                {
+                    tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = id, idPersona = persona.Value };
+                    try
+                    {
+                        db.tblGrupoReserva.Add(grupo);
+                        db.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        log.Ok = false;
+                        log.ErrorMessage = "Hubo un error al agregar los integrantes";
+                    }
 
-            //    }
-            //}
+                }
+            }
 
             return Ok(log);
         }

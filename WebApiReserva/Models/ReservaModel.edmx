@@ -449,6 +449,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
         <Function Name="GetCursoEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idEdificio" Type="int" Mode="In" />
         </Function>
+        <Function Name="getLastReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMatricula" Type="int" Mode="In" />
         </Function>
@@ -1254,6 +1255,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             <Parameter Name="idReservante" Mode="In" Type="Int32" />
             <Parameter Name="FechaRegsitro" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="getLastReserva" ReturnType="Collection(Int32)" />
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
           <Property Type="Int32" Name="idCurso" Nullable="false" />
@@ -1593,6 +1595,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ReservaModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ReservaModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="AddReserseva" FunctionName="ReservaModel.Store.AddReserseva" />
+          <FunctionImportMapping FunctionImportName="getLastReserva" FunctionName="ReservaModel.Store.getLastReserva" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

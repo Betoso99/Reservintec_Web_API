@@ -254,5 +254,10 @@ namespace WebApiReserva.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddReserseva", idCursoParameter, idSemanaParameter, idDiaParameter, idHoraInParameter, idHoraFParameter, idReservanteParameter, fechaRegsitroParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> getLastReserva()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("getLastReserva");
+        }
     }
 }
