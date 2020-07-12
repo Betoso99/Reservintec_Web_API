@@ -81,6 +81,7 @@ namespace WebApiReserva.Controllers
                 {
                     ocupado = 0;
                     disponible = 0;
+                    
 
                     //for (int i = 7; i < 23; i++)
                     //{
