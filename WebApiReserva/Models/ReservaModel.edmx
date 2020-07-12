@@ -748,7 +748,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Name="idDias" Type="Byte" Nullable="false" />
           <Property Name="idHoraIn" Type="Byte" Nullable="false" />
           <Property Name="idHoraF" Type="Byte" Nullable="false" />
-          <Property Name="FechaReserva" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaReserva" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="idReservante" Type="Int32" Nullable="false" />
           <Property Name="EstadoReserva" Type="Boolean" Nullable="false" />
           <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />

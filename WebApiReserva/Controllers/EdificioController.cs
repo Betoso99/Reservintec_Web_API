@@ -73,7 +73,7 @@ namespace WebApiReserva.Controllers
             }
 
             var clase = db.tblClase.Where(c => c.idDias == date.idDia).ToList();
-            int ocupado = 0, disponible = 0;
+            int ocupado = 0, disponible = 0, cont = 0;
             List<string> cursos = new List<string>();
 
             foreach (var c in clase)
@@ -97,6 +97,7 @@ namespace WebApiReserva.Controllers
                     var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
                     cursos.Add(course.NumCurso);                     
                 //}
+                cont
             }
 
             // Filtrar por semana y por dia
@@ -138,7 +139,7 @@ namespace WebApiReserva.Controllers
                 disponible++;
             }
 
-            
+
 
             //if (disponible == 0 && ocupado > 0)
             //{
@@ -146,6 +147,11 @@ namespace WebApiReserva.Controllers
             //    log.ErrorMessage = "No hay cursos disponibles";
             //    return Ok(log);
             //}
+            if (cursos.Count == 0)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Hay un fallo con la lista cursos, ta vacia";
+            }            
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
             int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
@@ -166,6 +172,12 @@ namespace WebApiReserva.Controllers
                     }
                 }
                 listaResult.Add(cursoEdificio);
+            }
+
+            if(listaResult.Count == 0)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Hay un fallo con la lista mio";
             }
 
             var result = MergeLogResult(log, listaResult);
