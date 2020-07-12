@@ -117,12 +117,12 @@ namespace WebApiReserva.Controllers
         [ActionName("GetPersonasByReserva")]
         public IHttpActionResult GetReservaById(int id)
         {
-            var reserva = db.tblReserva.Where(c => c.idReservante == id).FirstOrDefault();
-            if (reserva == null || !ReservaIsActive(id))
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Esta reserva no existe";
-            }
+            //var reserva = db.tblReserva.Where(c => c.idReservante == id).FirstOrDefault();
+            //if (reserva == null)
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Esta reserva no existe";
+            //}
             List<int> idList = new List<int>();
             // Get ReservaById Select top 1 idReservante from tblReserva where idReserva = @idReserva and Estado = 1 -sp
             int idPersona = db.tblReserva.Where(r => r.idReserva == id).Select(c => c.idReservante).FirstOrDefault();
