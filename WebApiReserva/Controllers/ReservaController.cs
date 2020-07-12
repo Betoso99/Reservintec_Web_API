@@ -68,43 +68,9 @@ namespace WebApiReserva.Controllers
         /// Obtiene todas las reservas a las que pertenece una persona con el id
         /// </summary>
         // GET: api/Reserva
-        //[ResponseType(typeof(tblReserva))]
-        //public IHttpActionResult GetReservaGrupo(int id)
-        //{
-        //    Good(log);
-        //    if (!UserExists(id))
-        //    {
-        //        log.Ok = false;
-        //        log.ErrorMessage = "El usuario no existe";
-        //        return Ok(log);
-        //    }
-
-        //    // Get GrupoReserva where idPersona = @id - sp
-        //    var grupoRes = db.tblGrupoReserva.Where(g => g.idPersona == id).ToList();
-        //    List<tblReserva> reservas = new List<tblReserva>();
-        //    foreach (var grupo in grupoRes)
-        //    {
-        //        // GetReserva where idReserva = @idReserva and Estado = 1 - sp
-        //        var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).ToList();
-        //        foreach (var r in res)
-        //        {
-        //            reservas.Add(r);
-        //        }
-                
-        //    }
-
-        //    var result = MergeLogResult(log, reservas);
-
-        //    return Ok(result);
-        //}
-
-        /// <summary>
-        /// Obtiene todas las reservas a las que pertenece una persona con el id
-        /// </summary>
-        // GET: api/Reserva
         [HttpGet]
         [ActionName("GetReservaGrupo")]
-        [ResponseType(typeof(tblReserva))]
+        //[ResponseType(typeof(tblReserva))]
         public IHttpActionResult GetReservaGrupo2(int id)
         {
             Good(log);
