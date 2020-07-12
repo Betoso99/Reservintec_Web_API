@@ -14,7 +14,7 @@ using static WebApiReserva.Utilities.LogUtilities;
 
 namespace WebApiReserva.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ReservaController : ApiController
     {
         private ReservaEntities db = new ReservaEntities();
@@ -58,7 +58,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene todas las reservas a las que pertenece una persona con el id
         /// </summary>
         // GET: api/Reserva
-        //[ResponseType(typeof(tblReserva))]
+        [ResponseType(typeof(tblReserva))]
         public IHttpActionResult GetReservaGrupo(int id)
         {
             Good(log);
