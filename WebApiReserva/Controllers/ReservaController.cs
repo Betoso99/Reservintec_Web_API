@@ -164,10 +164,10 @@ namespace WebApiReserva.Controllers
                 db.tblReserva.Add(reservaP.Reserva);
                 db.SaveChanges();             
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 log.Ok = false;
-                log.ErrorMessage = "Error al agregar la reserva ";
+                log.ErrorMessage = "Error al agregar la reserva " + ex;
                 return Ok(log);
             }
 
