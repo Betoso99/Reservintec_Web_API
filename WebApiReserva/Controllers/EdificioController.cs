@@ -86,11 +86,11 @@ namespace WebApiReserva.Controllers
                 //    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
                 //    else disponible++;
                 //}
-                for (int i = c.idHoraIn; i < c.idHoraF; i++)
-                {
-                    ocupado++;                    
-                }
-                if (ocupado == 0) disponible++;
+                //for (int i = c.idHoraIn; i < c.idHoraF; i++)
+                //{
+                //    ocupado++;                    
+                //}
+                //if (ocupado == 0) disponible++;
 
                 //if (disponible != 0)
                 //{
@@ -115,12 +115,12 @@ namespace WebApiReserva.Controllers
                         //    if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
                         //    else disponible++;
                         //}
-                        for (int i = r.idHoraIn; i < r.idHoraF; i++)
-                        {
-                            ocupado++;
+                    //    for (int i = r.idHoraIn; i < r.idHoraF; i++)
+                    //    {
+                    //        ocupado++;
                             
-                        }
-                    if (ocupado == 0) disponible++;
+                    //    }
+                    //if (ocupado == 0) disponible++;
 
                     var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
 
@@ -151,7 +151,7 @@ namespace WebApiReserva.Controllers
             int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
             int edificioActual = 0;
 
-            for (int i = 0; i < cantidadEdificios; i++)
+            for (int i = 0; i < /*cantidadEdificios*/ 11; i++)
             {
                 CursoEdificio cursoEdificio = new CursoEdificio();
                 edificioActual = i+1;
