@@ -92,11 +92,11 @@ namespace WebApiReserva.Controllers
                 }
                 if (ocupado == 0) disponible++;
 
-                if (disponible != 0)
-                {
+                //if (disponible != 0)
+                //{
                     var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
                     cursos.Add(course.NumCurso);                     
-                }
+                //}
             }
 
             // Filtrar por semana y por dia
@@ -124,10 +124,10 @@ namespace WebApiReserva.Controllers
 
                     var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
 
-                        if (disponible != 0 && !cursos.Contains(course.NumCurso))
-                        {
+                        //if (disponible != 0 && !cursos.Contains(course.NumCurso))
+                        //{
                             cursos.Add(course.NumCurso);
-                        }
+                        //}
 
                     //}
                 }
@@ -140,12 +140,12 @@ namespace WebApiReserva.Controllers
 
             
 
-            if (disponible == 0 && ocupado > 0)
-            {
-                log.Ok = false;
-                log.ErrorMessage = "No hay cursos disponibles";
-                return Ok(log);
-            }
+            //if (disponible == 0 && ocupado > 0)
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "No hay cursos disponibles";
+            //    return Ok(log);
+            //}
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
             int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
