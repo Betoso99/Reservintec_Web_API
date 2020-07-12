@@ -186,6 +186,9 @@
     <Compile Include="Models\GetCursoEdificio_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\getLastReserva_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetPersona_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>

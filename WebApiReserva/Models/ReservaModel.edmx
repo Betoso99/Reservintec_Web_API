@@ -1255,7 +1255,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             <Parameter Name="idReservante" Mode="In" Type="Int32" />
             <Parameter Name="FechaRegsitro" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="getLastReserva" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="getLastReserva" ReturnType="Collection(ReservaModel.getLastReserva_sp)" />
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
           <Property Type="Int32" Name="idCurso" Nullable="false" />
@@ -1315,6 +1315,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getLastReserva_sp">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1595,7 +1598,13 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ReservaModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ReservaModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="AddReserseva" FunctionName="ReservaModel.Store.AddReserseva" />
-          <FunctionImportMapping FunctionImportName="getLastReserva" FunctionName="ReservaModel.Store.getLastReserva" />
+          <FunctionImportMapping FunctionImportName="getLastReserva" FunctionName="ReservaModel.Store.getLastReserva" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.getLastReserva_sp">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

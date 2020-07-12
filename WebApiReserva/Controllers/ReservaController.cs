@@ -235,14 +235,12 @@ namespace WebApiReserva.Controllers
             }
 
             Good(log);
-            int? IdReserva = db.getLastReserva().First();
-            //int id;
-            int id = IdReserva ?? default;
+            var IdReserva = db.getLastReserva().FirstOrDefault().idReserva;
             if (reservaP.IdPersonas.Count != 0)
             {
                 foreach (var persona in reservaP.IdPersonas)
                 {
-                    tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = id, idPersona = persona.Value };
+                    tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = IdReserva, idPersona = persona.Value };
                     try
                     {
                         db.tblGrupoReserva.Add(grupo);
