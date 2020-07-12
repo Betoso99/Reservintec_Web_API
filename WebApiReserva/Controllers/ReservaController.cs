@@ -235,11 +235,12 @@ namespace WebApiReserva.Controllers
             }
 
             Good(log);
+            //int idReserva = db.GetIdReserva();
             //if (reservaP.IdPersonas.Count != 0)
             //{
             //    foreach (var persona in reservaP.IdPersonas)
             //    {
-            //        tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = reservaP.Reserva.idReserva, idPersona = persona.Value};
+            //        tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = reservaP.Reserva.idReserva, idPersona = persona.Value };
             //        try
             //        {
             //            db.tblGrupoReserva.Add(grupo);
