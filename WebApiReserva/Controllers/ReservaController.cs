@@ -158,7 +158,6 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-
             try
             {
                 db.tblReserva.Add(reservaP.Reserva);
@@ -228,13 +227,12 @@ namespace WebApiReserva.Controllers
 
         // Cuando son reservas en tblReserva, se elimina la reserva completa
         [HttpPut]
-        public IHttpActionResult EliminarReserva(int id)
+        public IHttpActionResult EliminarReserva(int id, tblReserva reserva)
         {
-            tblReserva reserva = db.tblReserva.Find(id);
-            if (reserva == null)
+            if (reserva.idReservante != id)
             {
                 log.Ok = false;
-                log.ErrorMessage = "Este usuario no ha realizado ninguna reserva";
+                log.ErrorMessage = "Este usuario no es el dueño de la reserva";
                 return Ok(log);
             }
 
@@ -259,18 +257,23 @@ namespace WebApiReserva.Controllers
             db.SaveChanges();
 
             var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == grupoRes.idReserva).Distinct().ToList().Count();
-            var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
+
+            //var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
+            var res = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).FirstOrDefault();
 
             int estudiante = 0, profesor = 0, tutor = 0;
-            foreach (var p in pers)
-            {
-                if (p.idTipo == 6) estudiante++; // Es estudiante
-                if (p.idTipo == 7) profesor++;
-                if (p.idTipo == 8) tutor++;
+            if (res == 6) estudiante++;
+            else if (res == 7) profesor++;
+            else if (res == 8) tutor++;
+            //foreach (var p in pers)
+            //{
+            //    if (p.idTipo == 6) estudiante++; // Es estudiante
+            //    if (p.idTipo == 7) profesor++;
+            //    if (p.idTipo == 8) tutor++;
 
-            }
+            //}
 
-            if(estudiante == 1 && tutor == 0)
+            if(estudiante == 1 && tutor == 0 && profesor == 0)
             {
                 if (cantGrupo < 3) 
                 {
