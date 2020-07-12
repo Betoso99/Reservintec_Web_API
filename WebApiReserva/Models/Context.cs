@@ -7,10 +7,10 @@ namespace WebApiReserva.Models
 {
     public partial class ReservaEntities
     {
-        //public ReservaEntities()
-        //{
-        //    Configuration.ProxyCreationEnabled = false;
-        //}
-
+        public ReservaEntities()
+           : base("name=ReservaEntities")
+        {
+            Configuration.ProxyCreationEnabled = false;
+        }
     }
 }

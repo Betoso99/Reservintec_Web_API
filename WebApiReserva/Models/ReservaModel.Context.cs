@@ -17,10 +17,7 @@ namespace WebApiReserva.Models
     
     public partial class ReservaEntities : DbContext
     {
-        public ReservaEntities()
-            : base("name=ReservaEntities")
-        {
-        }
+       
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
