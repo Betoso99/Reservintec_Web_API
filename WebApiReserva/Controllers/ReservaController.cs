@@ -164,6 +164,7 @@ namespace WebApiReserva.Controllers
                 log.Ok = false;
                 log.ErrorMessage = "Esta reserva ya esta registrada";
                 return Ok(log);
+
             }
 
             try
