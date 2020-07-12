@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using WebApiReserva.Models;
 using WebApiReserva.Utilities;
 using static WebApiReserva.Utilities.LogUtilities;
@@ -88,10 +87,10 @@ namespace WebApiReserva.Controllers
                 //}
                 for (int i = c.idHoraIn; i < c.idHoraF; i++)
                 {
-                    ocupado++;
-                    if (ocupado == 0) disponible++;
+                    ocupado++;                    
                 }
-                
+                if (ocupado == 0) disponible++;
+
                 if (disponible != 0)
                 {
                     var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
@@ -118,10 +117,11 @@ namespace WebApiReserva.Controllers
                         for (int i = r.idHoraIn; i < r.idHoraF; i++)
                         {
                             ocupado++;
-                            if (ocupado == 0) disponible++;
+                            
                         }
+                    if (ocupado == 0) disponible++;
 
-                        var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
+                    var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
 
                         if (disponible != 0 && !cursos.Contains(course.NumCurso))
                         {
