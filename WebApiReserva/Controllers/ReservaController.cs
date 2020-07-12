@@ -95,7 +95,8 @@ namespace WebApiReserva.Controllers
         {
             /* Method to get Horario de Reservas by Semana */
             // GetReservaCursoSemana(int numeroSemana, idCurso) Select * from tblReserva where idSemana = numeroSemana and 
-            var semana = db.GetReservaSemana(id).ToList();
+            //var semana = db.GetReservaSemana(id).ToList();
+            var semana = db.tblReserva.Where(r => r.idSemana == id && r.idCurso == idCurso).ToList();
 
             List<int[]> horario = GetSemanaList(semana, idCurso);
 
@@ -299,7 +300,7 @@ namespace WebApiReserva.Controllers
 
 
         //[NonAction]
-        private int[] GetHoras(int nDia, List<GetReservaSemana_sp> semana, int idCurso)
+        private int[] GetHoras(int nDia, List<tblReserva> semana, int idCurso)
         {
             int[] dia = new int[15];
             // GetClaseCurso Select * from tblClase where idCurso = idCurso
@@ -378,7 +379,7 @@ namespace WebApiReserva.Controllers
         }
 
         //[NonAction]
-        private List<int[]> GetSemanaList(List<GetReservaSemana_sp> semana, int idCurso)
+        private List<int[]> GetSemanaList(List<tblReserva> semana, int idCurso)
         {
             List<int[]> semanaList = new List<int[]>();
 
