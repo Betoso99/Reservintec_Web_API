@@ -103,12 +103,12 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
            
-            if(cont > 0)
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Entro al foreach de clases";
-                return Ok(log);
-            }
+            //if(cont > 0)
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Entro al foreach de clases";
+            //    return Ok(log);
+            //}
 
             // Filtrar por semana y por dia
             var reserva = db.tblReserva.Where(r => r.idSemana == date.idSemana && r.idDias == date.idDia).ToList();
