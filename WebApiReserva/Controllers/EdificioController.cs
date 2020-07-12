@@ -151,7 +151,7 @@ namespace WebApiReserva.Controllers
             int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
             int edificioActual = 0;
 
-            for (int i = 0; i < /*cantidadEdificios*/ 11; i++)
+            for (int i = 0; i < /*cantidadEdificios*/ 10; i++)
             {
                 CursoEdificio cursoEdificio = new CursoEdificio();
                 edificioActual = i+1;
