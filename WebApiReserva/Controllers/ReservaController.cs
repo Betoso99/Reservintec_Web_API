@@ -32,6 +32,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetAll()
         {
             Good(log);
+            // Get reserva where Estado = 1/true - sp
             var reserva = db.tblReserva.ToList();
             var result = MergeLogResult(log, reserva);
             return Ok(result);
@@ -45,6 +46,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetReserva(int id)
         {
             Good(log);
+            //  Get reserva where Estado = 1/true and idReservante == id
             var reserva = db.tblReserva.Where(r=> r.idReservante == id).ToList();
             var result = MergeLogResult(log, reserva);
             return Ok(result);
@@ -65,10 +67,12 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
+            // Get GrupoReserva where idPersona = @id - sp
             var grupoRes = db.tblGrupoReserva.Where(g => g.idPersona == id).ToList();
             List<tblReserva> reservas = new List<tblReserva>();
             foreach (var grupo in grupoRes)
             {
+                // GetReserva where idReserva = @idReserva and Estado = 1 - sp
                 var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
                 reservas.Add(res);
             }
@@ -106,14 +110,16 @@ namespace WebApiReserva.Controllers
         [ActionName("GetPersonasByReserva")]
         public IHttpActionResult GetReservaById(int id)
         {
-            if (!ReservaExists(id))
+            if (!ReservaExists(id) || !ReservaIsActive(id))
             {
                 log.Ok = false;
                 log.ErrorMessage = "Esta reserva no existe";
             }
             List<int> idList = new List<int>();
+            // Get ReservaById Select top 1 idReservante from tblReserva where idReserva = @idReserva and Estado = 1 -sp
             int idPersona = db.tblReserva.Where(r => r.idReserva == id).Select(c => c.idReservante).FirstOrDefault();
             idList.Add(idPersona);
+            // Get GrupoReservaById Select idPersona from tblGrupoReserva where idReserva = @idReserva and Estado = 1 -sp
             var idsGrupo = db.tblGrupoReserva.Where(r => r.idReserva == id).Select(c => c.idPersona).ToList();
             
             if(idsGrupo != null) foreach (int ids in idsGrupo) idList.Add(ids);
@@ -122,7 +128,9 @@ namespace WebApiReserva.Controllers
             for (int i = 0; i < (idsGrupo.Count() + 1); i++)
             {               
                 int idPersonaActual = idList[i];
+                // GetIdPersona Select top 1 idPersona where idPersona = @idPersonaActual - sp
                 int idP = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.idPersona).FirstOrDefault();
+                // GetNamePersona Select top 1 Nombre where idPersona = @idPersonaActual - sp
                 string name = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.Nombre).FirstOrDefault();
                 Persona persona = new Persona() { IdPersona = idP, Nombre= name};
                 personas.Add(persona);
@@ -259,21 +267,19 @@ namespace WebApiReserva.Controllers
             var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == grupoRes.idReserva).Distinct().ToList().Count();
 
             //var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
-            var res = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).FirstOrDefault();
+            // GetTipo Select Top 1 
+            var res = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList();
 
             int estudiante = 0, profesor = 0, tutor = 0;
-            if (res == 6) estudiante++;
-            else if (res == 7) profesor++;
-            else if (res == 8) tutor++;
-            //foreach (var p in pers)
-            //{
-            //    if (p.idTipo == 6) estudiante++; // Es estudiante
-            //    if (p.idTipo == 7) profesor++;
-            //    if (p.idTipo == 8) tutor++;
+            foreach (int estado in res)
+            {
+                if (estado == 6) estudiante++; // Es estudiante
+                if (estado == 7) profesor++; // Es profesor
+                if (estado == 8) tutor++; // Es tutor
 
-            //}
+            }
 
-            if(estudiante == 1 && tutor == 0 && profesor == 0)
+            if (estudiante == 1 && tutor == 0 && profesor == 0)
             {
                 if (cantGrupo < 3) 
                 {
@@ -382,6 +388,11 @@ namespace WebApiReserva.Controllers
         private bool ReservaExists(int id)
         {
             return db.tblReserva.Count(e => e.idReserva == id) > 0;
+        }
+
+        private bool ReservaIsActive(int id)
+        {
+            return db.tblReserva.Where(c => c.idReserva == id && c.EstadoReserva == true).FirstOrDefault() != null;
         }
 
         private bool UserExists(int id)
