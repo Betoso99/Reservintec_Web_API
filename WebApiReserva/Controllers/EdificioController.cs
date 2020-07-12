@@ -76,7 +76,7 @@ namespace WebApiReserva.Controllers
 
             foreach (var c in clase)
             {
-                for (int i = 0; i < 16; i++)
+                for (int i = 7; i < 23; i++)
                 {
                     if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
                     else disponible++;
@@ -98,7 +98,7 @@ namespace WebApiReserva.Controllers
             {
                 if(r.idDias == date.idDia)
                 {
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 7; i < 23; i++)
                     {
                         if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
                         else disponible++;
