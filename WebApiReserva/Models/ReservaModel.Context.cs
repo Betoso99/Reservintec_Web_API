@@ -221,5 +221,38 @@ namespace WebApiReserva.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual int AddReserseva(Nullable<int> idCurso, Nullable<int> idSemana, Nullable<int> idDia, Nullable<int> idHoraIn, Nullable<int> idHoraF, Nullable<int> idReservante, Nullable<System.DateTime> fechaRegsitro)
+        {
+            var idCursoParameter = idCurso.HasValue ?
+                new ObjectParameter("idCurso", idCurso) :
+                new ObjectParameter("idCurso", typeof(int));
+    
+            var idSemanaParameter = idSemana.HasValue ?
+                new ObjectParameter("idSemana", idSemana) :
+                new ObjectParameter("idSemana", typeof(int));
+    
+            var idDiaParameter = idDia.HasValue ?
+                new ObjectParameter("idDia", idDia) :
+                new ObjectParameter("idDia", typeof(int));
+    
+            var idHoraInParameter = idHoraIn.HasValue ?
+                new ObjectParameter("idHoraIn", idHoraIn) :
+                new ObjectParameter("idHoraIn", typeof(int));
+    
+            var idHoraFParameter = idHoraF.HasValue ?
+                new ObjectParameter("idHoraF", idHoraF) :
+                new ObjectParameter("idHoraF", typeof(int));
+    
+            var idReservanteParameter = idReservante.HasValue ?
+                new ObjectParameter("idReservante", idReservante) :
+                new ObjectParameter("idReservante", typeof(int));
+    
+            var fechaRegsitroParameter = fechaRegsitro.HasValue ?
+                new ObjectParameter("FechaRegsitro", fechaRegsitro) :
+                new ObjectParameter("FechaRegsitro", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddReserseva", idCursoParameter, idSemanaParameter, idDiaParameter, idHoraInParameter, idHoraFParameter, idReservanteParameter, fechaRegsitroParameter);
+        }
     }
 }

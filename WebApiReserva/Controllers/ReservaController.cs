@@ -20,9 +20,19 @@ namespace WebApiReserva.Controllers
         private ReservaEntities db = new ReservaEntities();
         private Logger log = new Logger();
 
+        public class ReservaR
+        {
+            public int idCurso { get; set; }
+            public int idSemana { get; set; }
+            public int idDia { get; set; }
+            public int idHoraIn { get; set; }
+            public int idHoraF { get; set; }
+            public int idReservante { get; set; }
+            public DateTime FechaReserva { get; set; }
+        }
         public class ReservaPersonas
         {
-            public tblReserva Reserva { get; set; }
+            public ReservaR Reserva { get; set; }
             public List<int?> IdPersonas { get; set; }
         }
 
@@ -203,17 +213,18 @@ namespace WebApiReserva.Controllers
         [ActionName("Add")]
         public IHttpActionResult AddReserva([FromBody] ReservaPersonas reservaP)
         {
-            if (ReservaExists(reservaP.Reserva.idReserva))
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Esta reserva ya esta registrada";
-                return Ok(log);
+            //if (ReservaExists(reservaP.Reserva.idReserva))
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Esta reserva ya esta registrada";
+            //    return Ok(log);
 
-            }
+            //}
 
             try
             {
-                db.tblReserva.Add(reservaP.Reserva);
+                //db.tblReserva.Add(reservaP.Reserva);
+                db.AddReserseva(reservaP.Reserva.idCurso, reservaP.Reserva.idSemana, reservaP.Reserva.idDia, reservaP.Reserva.idHoraIn, reservaP.Reserva.idHoraF, reservaP.Reserva.idReservante, reservaP.Reserva.FechaReserva);
                 db.SaveChanges();             
             }
             catch (Exception ex)
@@ -224,24 +235,24 @@ namespace WebApiReserva.Controllers
             }
 
             Good(log);
-            if (reservaP.IdPersonas.Count != 0)
-            {
-                foreach (var persona in reservaP.IdPersonas)
-                {
-                    tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = reservaP.Reserva.idReserva, idPersona = persona.Value};
-                    try
-                    {
-                        db.tblGrupoReserva.Add(grupo);
-                        db.SaveChanges();
-                    }
-                    catch (Exception)
-                    {
-                        log.Ok = false;
-                        log.ErrorMessage = "Hubo un error al agregar los integrantes";
-                    }
+            //if (reservaP.IdPersonas.Count != 0)
+            //{
+            //    foreach (var persona in reservaP.IdPersonas)
+            //    {
+            //        tblGrupoReserva grupo = new tblGrupoReserva() { idReserva = reservaP.Reserva.idReserva, idPersona = persona.Value};
+            //        try
+            //        {
+            //            db.tblGrupoReserva.Add(grupo);
+            //            db.SaveChanges();
+            //        }
+            //        catch (Exception)
+            //        {
+            //            log.Ok = false;
+            //            log.ErrorMessage = "Hubo un error al agregar los integrantes";
+            //        }
 
-                }
-            }
+            //    }
+            //}
 
             return Ok(log);
         }
