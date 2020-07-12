@@ -117,7 +117,8 @@ namespace WebApiReserva.Controllers
         [ActionName("GetPersonasByReserva")]
         public IHttpActionResult GetReservaById(int id)
         {
-            if (!ReservaExists(id) || !ReservaIsActive(id))
+            var reserva = db.tblReserva.Where(c => c.idReservante == id).FirstOrDefault();
+            if (reserva == null || !ReservaIsActive(id))
             {
                 log.Ok = false;
                 log.ErrorMessage = "Esta reserva no existe";
