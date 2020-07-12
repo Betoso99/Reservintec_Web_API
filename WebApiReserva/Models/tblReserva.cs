@@ -26,10 +26,10 @@ namespace WebApiReserva.Models
         public byte idDias { get; set; }
         public byte idHoraIn { get; set; }
         public byte idHoraF { get; set; }
-        public Nullable<System.DateTime> FechaReserva { get; set; }
         public int idReservante { get; set; }
         public bool EstadoReserva { get; set; }
         public System.DateTime FechaRegistro { get; set; }
+        public Nullable<System.DateTime> FechaReserva { get; set; }
     
         public virtual tblCurso tblCurso { get; set; }
         public virtual tblDias tblDias { get; set; }

@@ -77,6 +77,11 @@ namespace WebApiReserva.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetPassword", idMatriculaParameter);
         }
     
+        public virtual ObjectResult<GetPersona_sp> GetPersona()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersona_sp>("GetPersona");
+        }
+    
         public virtual ObjectResult<GetReserva_sp> GetReserva(Nullable<int> idPersona)
         {
             var idPersonaParameter = idPersona.HasValue ?
@@ -214,11 +219,6 @@ namespace WebApiReserva.Models
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual ObjectResult<GetPersona_Result> GetPersona()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersona_Result>("GetPersona");
         }
     }
 }

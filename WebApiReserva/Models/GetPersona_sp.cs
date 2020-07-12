@@ -11,7 +11,7 @@ namespace WebApiReserva.Models
 {
     using System;
     
-    public partial class GetPersona_Result
+    public partial class GetPersona_sp
     {
         public int idPersona { get; set; }
         public int idTipoEstado { get; set; }
