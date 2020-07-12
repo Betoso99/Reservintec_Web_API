@@ -62,7 +62,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene todos los cursos disponibles con el dia y la semana.
         /// </summary>
         [HttpGet]
-        public IHttpActionResult GetCursosDisponibles(Date date)
+        public IHttpActionResult GetCursosDisponibles([FromUri]Date date)
         {
             Good(log);
             if(date.idSemana > 12 || date.idDia > 7)
