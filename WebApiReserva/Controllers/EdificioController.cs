@@ -169,15 +169,16 @@ namespace WebApiReserva.Controllers
                 log.ErrorMessage = "No hay cursos disponibles";
                 return Ok(log);
             }
-            if (cursos.Count == 0)
+            if (cursos.Count > 0)
             {
                 log.Ok = false;
-                log.ErrorMessage = "Hay un fallo con la lista cursos, ta vacia";
-                return Ok(log);
+                log.ErrorMessage = "Lista sin filtro";
+                var res = MergeLogResult(log, cursos);
+                return Ok(res);
             }            
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
-            int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
+            //int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
             int edificioActual = 0;
 
             for (int i = 0; i < /*cantidadEdificios*/ 10; i++)
@@ -200,7 +201,7 @@ namespace WebApiReserva.Controllers
             if(listaResult.Count == 0)
             {
                 log.Ok = false;
-                log.ErrorMessage = "Hay un fallo con la lista mio";
+                log.ErrorMessage = "Hay un fallo con la lista resultado, ta vacia";
                 return Ok(log);
             }
 
