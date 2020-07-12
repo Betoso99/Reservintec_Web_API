@@ -67,16 +67,16 @@ namespace WebApiReserva.Controllers
         // POST: api/User
         [ResponseType(typeof(tblUsuario))]
         [HttpPost]
-        public IHttpActionResult ValidateUserRegister([FromBody]tblUsuario user)
+        public IHttpActionResult ValidateUserRegister([FromBody]Usuario user)
         {
-            if (!PersonaExists(user.idUsuario))
+            if (!PersonaExists(user.Matricula))
             {
                 log.Ok = false;
                 log.ErrorMessage = "Esta persona no esta registrada";
                 return Ok(log);
             }
 
-            if (UserExists(user.idUsuario))
+            if (UserExists(user.Matricula))
             {
                 log.Ok = false;
                 log.ErrorMessage = "Este usuario ya esta registrado";
@@ -86,8 +86,10 @@ namespace WebApiReserva.Controllers
             try
             {
                 user.Pass = CryptoPass.Hash(user.Pass);
-                db.Entry(user).State = EntityState.Added;
-                db.tblUsuario.Add(user);
+                //db.Entry(user).State = EntityState.Added;
+               
+                //db.tblUsuario.Add(user);
+                db.AddUser(user.Matricula, user.Pass);
                 db.SaveChanges();
                 Good(log);
             }

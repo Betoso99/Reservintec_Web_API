@@ -511,7 +511,7 @@
             Obtiene todas las reservas a las que pertenece una persona con el id
             </summary>
         </member>
-        <member name="M:WebApiReserva.Controllers.ReservaController.GetHorarioBySemana(System.Int32)">
+        <member name="M:WebApiReserva.Controllers.ReservaController.GetHorarioBySemana(System.Int32,System.Int32)">
             <summary>
             Obtiene un arreglo del horario por semana.
             </summary>
@@ -542,12 +542,12 @@
             </summary>
             <param name="id">ID del usuario</param>
         </member>
-        <member name="M:WebApiReserva.Controllers.UserController.ValidateUserRegister(WebApiReserva.Models.tblUsuario)">
+        <member name="M:WebApiReserva.Controllers.UserController.ValidateUserRegister(WebApiReserva.Controllers.UserController.Usuario)">
             <summary>
             Valida si la persona existe, y que el usuario no este ya registrado. Luego, la registra.
             </summary>
         </member>
-        <member name="M:WebApiReserva.Controllers.UserController.ValidateUserLogin(WebApiReserva.Models.tblUsuario)">
+        <member name="M:WebApiReserva.Controllers.UserController.ValidateUserLogin(WebApiReserva.Controllers.UserController.Usuario)">
             <summary>
             Valida si el usuario introdujo los datos correctos a la hora de iniciar sesion.
             </summary>

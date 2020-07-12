@@ -213,6 +213,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReservaModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblCarrera.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
