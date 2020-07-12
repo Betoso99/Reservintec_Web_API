@@ -1110,7 +1110,7 @@
           <FunctionImport Name="GetCursoEdificio" ReturnType="Collection(ReservaModel.GetCursoEdificio_sp)">
             <Parameter Name="idEdificio" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetPassword">
+          <FunctionImport Name="GetPassword" ReturnType="Collection(String)">
             <Parameter Name="idMatricula" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetReserva" ReturnType="Collection(ReservaModel.GetReserva_sp)">

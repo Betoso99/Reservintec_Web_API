@@ -20,7 +20,6 @@ namespace WebApiReserva.Models
         public ReservaEntities()
             : base("name=ReservaEntities")
         {
-            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -54,13 +53,13 @@ namespace WebApiReserva.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursoEdificio_sp>("GetCursoEdificio", idEdificioParameter);
         }
     
-        public virtual int GetPassword(Nullable<int> idMatricula)
+        public virtual ObjectResult<string> GetPassword(Nullable<int> idMatricula)
         {
             var idMatriculaParameter = idMatricula.HasValue ?
                 new ObjectParameter("idMatricula", idMatricula) :
                 new ObjectParameter("idMatricula", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetPassword", idMatriculaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetPassword", idMatriculaParameter);
         }
     
         public virtual ObjectResult<GetReserva_sp> GetReserva(Nullable<int> idPersona)
