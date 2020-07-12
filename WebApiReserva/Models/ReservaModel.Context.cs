@@ -20,6 +20,7 @@ namespace WebApiReserva.Models
         public ReservaEntities()
             : base("name=ReservaEntities")
         {
+            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
