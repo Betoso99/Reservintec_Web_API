@@ -113,7 +113,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene un arreglo de las personas que pertenecen a una reserva con el ID de reserva.
         /// </summary>
         // GET: api/Reserva
-        [HttpGet()]
+        [HttpGet]
         [ActionName("GetPersonasByReserva")]
         public IHttpActionResult GetReservaById(int id)
         {
