@@ -310,8 +310,9 @@ namespace WebApiReserva.Controllers
                 
                 } // Liberar reserva
             }
+            Good(log);
 
-            return Ok(reserva);
+            return Ok(log);
 
         }
 

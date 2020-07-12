@@ -1260,7 +1260,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           </FunctionImport>
           <FunctionImport Name="getLastReserva" ReturnType="Collection(ReservaModel.getLastReserva_sp)" />
           <FunctionImport Name="GetReservaGrupo" ReturnType="Collection(ReservaModel.GetReservaGrupo_sp)">
-            <Parameter Name="idPersona" Mode="In" Type="Int32" />
+          <Parameter Name="idPersona" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
@@ -1326,16 +1326,16 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Type="Int32" Name="idReserva" Nullable="false" />
         </ComplexType>
         <ComplexType Name="GetReservaGrupo_sp">
+          <Property Type="Int32" Name="idGrupoReserva" Nullable="false" />
           <Property Type="Int32" Name="idReserva" Nullable="false" />
           <Property Type="Int32" Name="idCurso" Nullable="false" />
           <Property Type="Byte" Name="idSemana" Nullable="false" />
           <Property Type="Byte" Name="idDias" Nullable="false" />
           <Property Type="Byte" Name="idHoraIn" Nullable="false" />
           <Property Type="Byte" Name="idHoraF" Nullable="false" />
-          <Property Type="Int32" Name="idReservante" Nullable="false" />
           <Property Type="Boolean" Name="EstadoReserva" Nullable="false" />
-          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1624,18 +1624,18 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetReservaGrupo" FunctionName="ReservaModel.Store.GetReservaGrupo">
-            <ResultMapping>
+          <ResultMapping>
               <ComplexTypeMapping TypeName="ReservaModel.GetReservaGrupo_sp">
+                <ScalarProperty Name="idGrupoReserva" ColumnName="idGrupoReserva" />
                 <ScalarProperty Name="idReserva" ColumnName="idReserva" />
                 <ScalarProperty Name="idCurso" ColumnName="idCurso" />
                 <ScalarProperty Name="idSemana" ColumnName="idSemana" />
                 <ScalarProperty Name="idDias" ColumnName="idDias" />
                 <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
                 <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
-                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
                 <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
-                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

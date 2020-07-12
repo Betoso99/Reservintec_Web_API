@@ -13,15 +13,15 @@ namespace WebApiReserva.Models
     
     public partial class GetReservaGrupo_sp
     {
+        public int idGrupoReserva { get; set; }
         public int idReserva { get; set; }
         public int idCurso { get; set; }
         public byte idSemana { get; set; }
         public byte idDias { get; set; }
         public byte idHoraIn { get; set; }
         public byte idHoraF { get; set; }
-        public int idReservante { get; set; }
         public bool EstadoReserva { get; set; }
-        public System.DateTime FechaRegistro { get; set; }
         public System.DateTime FechaReserva { get; set; }
+        public System.DateTime FechaRegistro { get; set; }
     }
 }
