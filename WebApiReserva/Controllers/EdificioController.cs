@@ -84,44 +84,60 @@ namespace WebApiReserva.Controllers
                 //    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
                 //    else disponible++;
                 //}
-                for (int i = c.idHoraIn; i < c.idHoraF; i++) ocupado++;
-                if (ocupado == 0) disponible++;
-
-
+                for (int i = c.idHoraIn; i < c.idHoraF; i++)
+                {
+                    ocupado++;
+                    if (ocupado == 0) disponible++;
+                }
+                
                 if (disponible != 0)
                 {
                     var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
                     cursos.Add(course.NumCurso);                     
                 }
             }
-                      
-            var reserva = db.GetReservaSemana(date.idSemana).ToList();
 
-            foreach (var r in reserva)
+            // Filtrar por semana y por dia
+            var reserva = db.tblReserva.Where(r => r.idSemana == date.idSemana && r.idDias == date.idDia).ToList();
+            //var reserva = db.GetReservaSemana(date.idSemana).ToList();
+            if (reserva != null)
             {
-                if(r.idDias == date.idDia)
+                foreach (var r in reserva)
                 {
-                    ocupado = 0;
-                    disponible = 0;
-                    //for (int i = 7; i < 23; i++)
+                    //if (r.idDias == date.idDia)
                     //{
-                    //    if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
-                    //    else disponible++;
+                        ocupado = 0;
+                        disponible = 0;
+                        //for (int i = 7; i < 23; i++)
+                        //{
+                        //    if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
+                        //    else disponible++;
+                        //}
+                        for (int i = r.idHoraIn; i < r.idHoraF; i++)
+                        {
+                            ocupado++;
+                            if (ocupado == 0) disponible++;
+                        }
+
+                        var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
+
+                        if (disponible != 0 && !cursos.Contains(course.NumCurso))
+                        {
+                            cursos.Add(course.NumCurso);
+                        }
+
                     //}
-                    for (int i = r.idHoraIn; i < r.idHoraF; i++) ocupado++;
-                    if (ocupado == 0) disponible++;
-
-                    var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
-
-                    if (disponible != 0 && !cursos.Contains(course.NumCurso))
-                    {
-                        cursos.Add(course.NumCurso);
-                    }
-                   
                 }
+
+            }
+            else
+            {
+                disponible++;
             }
 
-            if (disponible == 0)
+            
+
+            if (disponible == 0 && ocupado > 0)
             {
                 log.Ok = false;
                 log.ErrorMessage = "No hay cursos disponibles";
@@ -129,7 +145,7 @@ namespace WebApiReserva.Controllers
             }
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
-            int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).Distinct().Count();
+            int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
             int edificioActual = 0;
 
             for (int i = 0; i < cantidadEdificios; i++)
