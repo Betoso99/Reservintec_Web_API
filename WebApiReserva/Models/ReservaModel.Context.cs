@@ -20,7 +20,6 @@ namespace WebApiReserva.Models
         public ReservaEntities()
             : base("name=ReservaEntities")
         {
-            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -215,6 +214,11 @@ namespace WebApiReserva.Models
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<GetPersona_Result> GetPersona()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersona_Result>("GetPersona");
         }
     }
 }
