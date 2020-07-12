@@ -106,12 +106,14 @@ namespace WebApiReserva.Controllers
             {
                 log.Ok = false;
                 log.ErrorMessage = "Aparentemente no hay clases este dia";
+                return Ok(log);
             }
            
             if(cont == 18)
             {
                 log.Ok = false;
                 log.ErrorMessage = "Tamo en el curso 1, mio";
+                return Ok(log);
             }
 
             // Filtrar por semana y por dia
@@ -165,6 +167,7 @@ namespace WebApiReserva.Controllers
             {
                 log.Ok = false;
                 log.ErrorMessage = "Hay un fallo con la lista cursos, ta vacia";
+                return Ok(log);
             }            
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
@@ -192,6 +195,7 @@ namespace WebApiReserva.Controllers
             {
                 log.Ok = false;
                 log.ErrorMessage = "Hay un fallo con la lista mio";
+                return Ok(log);
             }
 
             var result = MergeLogResult(log, listaResult);
