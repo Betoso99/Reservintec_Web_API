@@ -33,7 +33,7 @@ namespace WebApiReserva.Controllers
         {
             Good(log);
             // Get reserva where Estado = 1/true - sp
-            var reserva = db.tblReserva.ToList();
+            var reserva = db.tblReserva.Where(r => r.EstadoReserva == true).ToList();
             var result = MergeLogResult(log, reserva);
             return Ok(result);
         }
@@ -73,7 +73,7 @@ namespace WebApiReserva.Controllers
             foreach (var grupo in grupoRes)
             {
                 // GetReserva where idReserva = @idReserva and Estado = 1 - sp
-                var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
+                var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva && r.EstadoReserva == true).FirstOrDefault();
                 reservas.Add(res);
             }
 
@@ -89,13 +89,13 @@ namespace WebApiReserva.Controllers
         // GET: api/Reserva/5
         [HttpGet]
         [ActionName("GetSemana")]
-        public IHttpActionResult GetHorarioBySemana(int id) // id = numeroSemana
+        public IHttpActionResult GetHorarioBySemana(int id, int idCurso) // id = numeroSemana
         {
             /* Method to get Horario de Reservas by Semana */
-
+            // GetReservaCursoSemana(int numeroSemana, idCurso) Select * from tblReserva where idSemana = numeroSemana and 
             var semana = db.GetReservaSemana(id).ToList();
 
-            List<int[]> horario = GetSemanaList(semana);
+            List<int[]> horario = GetSemanaList(semana, idCurso);
 
             var result = MergeLogResult(log, horario);
 
@@ -297,9 +297,10 @@ namespace WebApiReserva.Controllers
 
 
         //[NonAction]
-        private int[] GetHoras(int nDia, List<GetReservaSemana_sp> semana)
+        private int[] GetHoras(int nDia, List<GetReservaSemana_sp> semana, int idCurso)
         {
             int[] dia = new int[15];
+            // GetClaseCurso Select * from tblClase where idCurso = idCurso
             var clase = db.tblClase.ToList();
 
             for (int i = 0; i < 15; i++)
@@ -375,13 +376,13 @@ namespace WebApiReserva.Controllers
         }
 
         //[NonAction]
-        private List<int[]> GetSemanaList(List<GetReservaSemana_sp> semana)
+        private List<int[]> GetSemanaList(List<GetReservaSemana_sp> semana, int idCurso)
         {
             List<int[]> semanaList = new List<int[]>();
 
             for (int i = 1; i < 8; i++)
             {
-                semanaList.Add(GetHoras(i, semana));
+                semanaList.Add(GetHoras(i, semana, idCurso));
             }
             return semanaList;
         }

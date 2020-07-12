@@ -24,6 +24,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetEdificio()
         {
             Good(log);
+            // GetEdificio Select * from tblEdificio
             var edif = db.tblEdificio.ToList();
 
             var result = MergeLogResult(log, edif);
@@ -39,6 +40,7 @@ namespace WebApiReserva.Controllers
         [ActionName("GetCursos")]
         public IHttpActionResult GetCursosEdificio(int id)
         {
+            // GetCursoEdif Select top 1 * from 
             var curso = db.tblCurso.Where(c => c.idEdificio == id).FirstOrDefault();
 
             if (curso == null)
@@ -74,11 +76,14 @@ namespace WebApiReserva.Controllers
 
             foreach (var c in clase)
             {
-                for (int i = 0; i < 16; i++)
-                {
-                    if (i >= c.idHoraIn && i <= c.idHoraF) ocupado++;
-                    else disponible++;
-                }
+                //for (int i = 0; i < 16; i++)
+                //{
+                //    if (i >= c.idHoraIn && i < c.idHoraF) ocupado++;
+                //    else disponible++;
+                //}
+                for (int i = c.idHoraIn; i < c.idHoraF; i++) ocupado++;
+                if (ocupado == 0) disponible++;
+
                 
                 if(disponible != 0)
                 {
@@ -93,11 +98,13 @@ namespace WebApiReserva.Controllers
             {
                 if(r.idDias == date.idDia)
                 {
-                    for (int i = 0; i < 16; i++)
-                    {
-                        if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
-                        else disponible++;
-                    }
+                    //for (int i = 0; i < 16; i++)
+                    //{
+                    //    if (i >= r.idHoraIn && i <= r.idHoraF) ocupado++;
+                    //    else disponible++;
+                    //}
+                    for (int i = r.idHoraIn; i < r.idHoraF; i++) ocupado++;
+                    if (ocupado == 0) disponible++;
 
                     var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
 

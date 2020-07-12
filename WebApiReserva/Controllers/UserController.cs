@@ -28,6 +28,7 @@ namespace WebApiReserva.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
+            // GetPersona Select *  from tblPersona -sp
             var usuario = db.tblPersona.ToList();
             Good(log);
 
