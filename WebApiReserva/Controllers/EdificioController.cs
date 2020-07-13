@@ -128,7 +128,7 @@ namespace WebApiReserva.Controllers
 
                     if (disponible != 0 && !cursos.Contains(course.NumCurso))
                     {
-                            cursos.Add(course.NumCurso);
+                        cursos.Add(course.NumCurso);
                     }
                 }
 
