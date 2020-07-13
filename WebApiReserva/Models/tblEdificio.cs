@@ -22,6 +22,7 @@ namespace WebApiReserva.Models
     
         public byte idEdificio { get; set; }
         public string Edificio { get; set; }
+        public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCurso> tblCurso { get; set; }

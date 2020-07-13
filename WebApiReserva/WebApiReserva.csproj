@@ -228,6 +228,9 @@
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_PersonaEnReserva_Result.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>

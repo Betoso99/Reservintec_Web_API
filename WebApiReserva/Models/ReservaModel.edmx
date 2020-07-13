@@ -63,6 +63,7 @@
           </Key>
           <Property Name="idEdificio" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Edificio" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblEstudiante">
           <Key>
@@ -445,6 +446,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="Matricula" Type="int" Mode="In" />
           <Parameter Name="Pass" Type="char" Mode="In" />
         </Function>
+        <Function Name="CantidadPersonasGrupoReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReserva" Type="int" Mode="In" />
+        </Function>
         <Function Name="deleteReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idReserva" Type="int" Mode="In" />
         </Function>
@@ -484,6 +488,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="sp_DeletePersonaRes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumPersona" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -495,6 +502,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
         <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_PersonaEnReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Persona" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -696,6 +706,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Name="idEdificio" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Edificio" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tblCurso" Relationship="Self.FK__tblCurso__idEdif__6FE99F9F" FromRole="tblEdificio" ToRole="tblCurso" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblEstudiante">
           <Key>
@@ -1266,7 +1277,16 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idPersona" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="deleteReserva">
-            <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CantidadPersonasGrupoReserva" ReturnType="Collection(Int32)">
+          <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeletePersonaRes">
+          <Parameter Name="NumPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_PersonaEnReserva" ReturnType="Collection(ReservaModel.sp_PersonaEnReserva_Result)">
+          <Parameter Name="Persona" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
@@ -1343,6 +1363,18 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
           <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
         </ComplexType>
+        <ComplexType Name="sp_PersonaEnReserva_Result">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idSemana" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+          <Property Type="Int32" Name="idReservante" Nullable="false" />
+          <Property Type="Boolean" Name="EstadoReserva" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1410,6 +1442,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <EntitySetMapping Name="tblEdificio">
             <EntityTypeMapping TypeName="ReservaModel.tblEdificio">
               <MappingFragment StoreEntitySet="tblEdificio">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
                 <ScalarProperty Name="Edificio" ColumnName="Edificio" />
               </MappingFragment>
@@ -1646,6 +1679,24 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="deleteReserva" FunctionName="ReservaModel.Store.deleteReserva" />
+          <FunctionImportMapping FunctionImportName="CantidadPersonasGrupoReserva" FunctionName="ReservaModel.Store.CantidadPersonasGrupoReserva" />
+          <FunctionImportMapping FunctionImportName="sp_DeletePersonaRes" FunctionName="ReservaModel.Store.sp_DeletePersonaRes" />
+          <FunctionImportMapping FunctionImportName="sp_PersonaEnReserva" FunctionName="ReservaModel.Store.sp_PersonaEnReserva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.sp_PersonaEnReserva_Result">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
+                <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
