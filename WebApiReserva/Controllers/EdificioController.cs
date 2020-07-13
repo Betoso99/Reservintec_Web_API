@@ -63,6 +63,7 @@ namespace WebApiReserva.Controllers
         /// Obtiene todos los cursos disponibles con el dia y la semana.
         /// </summary>
         [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult GetCursosDisponibles([FromUri]Date date)
         {
             Good(log);
@@ -123,6 +124,7 @@ namespace WebApiReserva.Controllers
             tblCurso curso = db.tblCurso.Where(c => c.idCurso == id).FirstOrDefault();
 
             int idEdificio = curso.idEdificio;
+            string edificio = db.tblEdificio.Where(e => e.idEdificio == idEdificio).Select(e => e.Edificio).FirstOrDefault();
 
             return Ok();
         }
