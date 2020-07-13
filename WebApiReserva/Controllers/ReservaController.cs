@@ -286,7 +286,7 @@ namespace WebApiReserva.Controllers
         {
             var res = db.tblGrupoReserva.Where(g => g.idGrupoReserva == id).FirstOrDefault();
             tblReserva reserva = db.tblReserva.Find(res.idReserva);
-            //var a = db.sp_PersonaEnReserva(res.idReserva);
+            ////var a = db.sp_PersonaEnReserva(res.idReserva);
             if (reserva == null)
             {
                 log.Ok = false;

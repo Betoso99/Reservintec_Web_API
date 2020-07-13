@@ -128,10 +128,10 @@ namespace WebApiReserva.Controllers
 
                     var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
 
-                    if (disponible != 0 && !cursos.Contains(course.NumCurso))
-                    {
-                        cursos.Add(course.NumCurso);
-                    }
+                    //if (disponible != 0 && !cursos.Contains(course.NumCurso))
+                    //{
+                    //    cursos.Add(course.NumCurso);
+                    //}
                 }
 
             }
