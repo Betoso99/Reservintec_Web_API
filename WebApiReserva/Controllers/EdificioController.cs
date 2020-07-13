@@ -73,31 +73,45 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            var cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
-            List<CursoEdificio> listaResult = new List<CursoEdificio>();
-            int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count;
-            int edificioActual = 0;
+            List<tblCurso> cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
+            //List<CursoEdificio> listaResult = new List<CursoEdificio>();
+            //int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count;
+            //int edificioActual = 0;
 
             //var EdificioActual = db.GetEdifActual(edificioActual);
+            //List<tblCurso> cursosDsiponible = db.GetCursosDisponible(8, 1, 1).ToList();
 
-            for (int i = 0; i < cantidadEdificios; i++)
+
+            List<CursoEdificio> cursoEdificio = new List<CursoEdificio>();
+
+            foreach (tblEdificio edificio in db.GetEdificios())
             {
-                CursoEdificio cursoEdificio = new CursoEdificio();
-                edificioActual = i+1;
-                //cursoEdificio.Edificio = db.tblEdificio.Where(e => e.idEdificio == edificioActual).Select(l => l.Edificio).FirstOrDefault(); // - el que funcionaba
-                cursoEdificio.Edificio = db.GetEdifActual(edificioActual).ToString(); // -sp
-                for (int j = 0; j < cursosDisp.Count; j++)
-                {
-                    var curso = cursosDisp[j];
-                    if(/*db.tblCurso.Where(c => c.idEdificio == edificioActual).Select(c => c.idEdificio).FirstOrDefault() // -el que funcionaba*/ db.GetIdEdificio(edificioActual).First() == curso.idEdificio)
-                    {
-                        cursoEdificio.Cursos.Add(curso);
-                    }
-                }
-                listaResult.Add(cursoEdificio);
+                cursoEdificio.Add(new CursoEdificio() { edificio = edificio, cursos = new List<tblCurso>() });
             }
 
-            var result = MergeLogResult(log, listaResult);
+            foreach (tblCurso curso in cursosDisp)
+            {
+                cursoEdificio[curso.idEdificio - 1].cursos.Add(curso);
+            }
+
+            //for (int i = 0; i < cantidadEdificios; i++)
+            //{
+            //    CursoEdificio cursoEdificio = new CursoEdificio();
+            //    edificioActual = i+1;
+            //    //cursoEdificio.Edificio = db.tblEdificio.Where(e => e.idEdificio == edificioActual).Select(l => l.Edificio).FirstOrDefault(); // - el que funcionaba
+            //    cursoEdificio.Edificio = db.GetEdifActual(edificioActual).ToString(); // -sp
+            //    for (int j = 0; j < cursosDisp.Count; j++)
+            //    {
+            //        var curso = cursosDisp[j];
+            //        if(/*db.tblCurso.Where(c => c.idEdificio == edificioActual).Select(c => c.idEdificio).FirstOrDefault() // -el que funcionaba*/ db.GetIdEdificio(edificioActual).First() == curso.idEdificio)
+            //        {
+            //            cursoEdificio.Cursos.Add(curso);
+            //        }
+            //    }
+            //    listaResult.Add(cursoEdificio);
+            //}
+
+            var result = MergeLogResult(log, cursoEdificio);
 
             return Ok(result);
 
@@ -114,10 +128,9 @@ namespace WebApiReserva.Controllers
         {
             public CursoEdificio()
             {
-                Cursos = new List<GetCursosDisponible_sp>();
             }
-            public string Edificio { get; set; }
-            public List<GetCursosDisponible_sp> Cursos { get; set; }
+            public tblEdificio edificio { get; set; }
+            public List<tblCurso> cursos { get; set; }
         }
 
 

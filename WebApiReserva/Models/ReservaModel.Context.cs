@@ -339,7 +339,7 @@ namespace WebApiReserva.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursosDisponibleReserva_sp>("GetCursosDisponibleReserva", idHoraParameter, idDiaParameter, idSemanaParameter);
         }
     
-        public virtual ObjectResult<GetCursosDisponible_sp> GetCursosDisponible(Nullable<int> idHora, Nullable<int> idDia, Nullable<int> idSemana)
+        public virtual ObjectResult<tblCurso> GetCursosDisponible(Nullable<int> idHora, Nullable<int> idDia, Nullable<int> idSemana)
         {
             var idHoraParameter = idHora.HasValue ?
                 new ObjectParameter("idHora", idHora) :
@@ -353,7 +353,24 @@ namespace WebApiReserva.Models
                 new ObjectParameter("idSemana", idSemana) :
                 new ObjectParameter("idSemana", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursosDisponible_sp>("GetCursosDisponible", idHoraParameter, idDiaParameter, idSemanaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblCurso>("GetCursosDisponible", idHoraParameter, idDiaParameter, idSemanaParameter);
+        }
+    
+        public virtual ObjectResult<tblCurso> GetCursosDisponible(Nullable<int> idHora, Nullable<int> idDia, Nullable<int> idSemana, MergeOption mergeOption)
+        {
+            var idHoraParameter = idHora.HasValue ?
+                new ObjectParameter("idHora", idHora) :
+                new ObjectParameter("idHora", typeof(int));
+    
+            var idDiaParameter = idDia.HasValue ?
+                new ObjectParameter("idDia", idDia) :
+                new ObjectParameter("idDia", typeof(int));
+    
+            var idSemanaParameter = idSemana.HasValue ?
+                new ObjectParameter("idSemana", idSemana) :
+                new ObjectParameter("idSemana", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblCurso>("GetCursosDisponible", mergeOption, idHoraParameter, idDiaParameter, idSemanaParameter);
         }
     
         public virtual ObjectResult<string> GetEdifActual(Nullable<int> idEdificio)
@@ -370,9 +387,14 @@ namespace WebApiReserva.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEdificio_sp>("GetEdificio");
         }
     
-        public virtual ObjectResult<GetEdificios_sp> GetEdificios()
+        public virtual ObjectResult<tblEdificio> GetEdificios()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEdificios_sp>("GetEdificios");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblEdificio>("GetEdificios");
+        }
+    
+        public virtual ObjectResult<tblEdificio> GetEdificios(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblEdificio>("GetEdificios", mergeOption);
         }
     
         public virtual ObjectResult<Nullable<byte>> GetIdEdificio(Nullable<int> idEdificio)

@@ -1353,7 +1353,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             <Parameter Name="idDia" Mode="In" Type="Int32" />
             <Parameter Name="idSemana" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetCursosDisponible" ReturnType="Collection(ReservaModel.GetCursosDisponible_sp)">
+          <FunctionImport Name="GetCursosDisponible" EntitySet="tblCurso" ReturnType="Collection(ReservaModel.tblCurso)">
             <Parameter Name="idHora" Mode="In" Type="Int32" />
             <Parameter Name="idDia" Mode="In" Type="Int32" />
             <Parameter Name="idSemana" Mode="In" Type="Int32" />
@@ -1362,7 +1362,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idEdificio" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetEdificio" ReturnType="Collection(ReservaModel.GetEdificio_sp)" />
-          <FunctionImport Name="GetEdificios" ReturnType="Collection(ReservaModel.GetEdificios_sp)" />
+          <FunctionImport Name="GetEdificios" EntitySet="tblEdificio" ReturnType="Collection(ReservaModel.tblEdificio)" />
           <FunctionImport Name="GetIdEdificio" ReturnType="Collection(Byte)">
           <Parameter Name="idEdificio" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1915,13 +1915,6 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetCursosDisponible" FunctionName="ReservaModel.Store.GetCursosDisponible">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ReservaModel.GetCursosDisponible_sp">
-                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
-                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
-                <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetEdifActual" FunctionName="ReservaModel.Store.GetEdifActual" />
           <FunctionImportMapping FunctionImportName="GetEdificio" FunctionName="ReservaModel.Store.GetEdificio">
@@ -1934,13 +1927,6 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetEdificios" FunctionName="ReservaModel.Store.GetEdificios">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ReservaModel.GetEdificios_sp">
-                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
-                <ScalarProperty Name="Edificio" ColumnName="Edificio" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetIdEdificio" FunctionName="ReservaModel.Store.GetIdEdificio" />
           <FunctionImportMapping FunctionImportName="AddGrupoReserva" FunctionName="ReservaModel.Store.AddGrupoReserva" />
