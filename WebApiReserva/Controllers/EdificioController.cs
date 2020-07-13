@@ -79,8 +79,8 @@ namespace WebApiReserva.Controllers
             {
                 foreach (var c in clase)
                 {
-                    //ocupado = 0;
-                    //disponible = 0;
+                    ocupado = 0;
+                    disponible = 0;
 
                     for (int i = 0; i < 15; i++)
                     {
@@ -117,6 +117,8 @@ namespace WebApiReserva.Controllers
             {
                 foreach (var r in reserva)
                 {
+                    ocupado = 0;
+                    disponible = 0;
 
                     for (int i = 0; i < 15; i++)
                     {
@@ -146,13 +148,13 @@ namespace WebApiReserva.Controllers
                 log.ErrorMessage = "No hay cursos disponibles";
                 return Ok(log);
             }
-            if (cursos.Count > 0)
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Lista sin filtro";
-                var res = MergeLogResult(log, cursos);
-                return Ok(res);
-            }            
+            //if (cursos.Count > 0)
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Lista sin filtro";
+            //    var res = MergeLogResult(log, cursos);
+            //    return Ok(res);
+            //}            
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
             //int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
