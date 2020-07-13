@@ -14,6 +14,7 @@ namespace WebApiReserva
             // Web API configuration and services
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "GET,POST,PUT");
             config.EnableCors(cors);
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             //config.EnableCors();
             //config.Formatters.JsonFormatter.SupportedMediaTypes
             //    .Add(new MediaTypeHeaderValue("text/html"));
