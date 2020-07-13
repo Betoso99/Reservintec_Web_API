@@ -429,22 +429,22 @@ namespace WebApiReserva.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdPersona", idPersonaParameter);
         }
     
-        public virtual ObjectResult<GetIdPersonaReserva_sp> GetIdPersonaReserva(Nullable<int> idReserva)
+        public virtual ObjectResult<Nullable<int>> GetIdPersonaReserva(Nullable<int> idReserva)
         {
             var idReservaParameter = idReserva.HasValue ?
                 new ObjectParameter("idReserva", idReserva) :
                 new ObjectParameter("idReserva", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetIdPersonaReserva_sp>("GetIdPersonaReserva", idReservaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdPersonaReserva", idReservaParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> GetIdsGrupoReserva(Nullable<int> idReserva)
+        public virtual ObjectResult<GetIdsGrupoReserva_sp> GetIdsGrupoReserva(Nullable<int> idReserva)
         {
             var idReservaParameter = idReserva.HasValue ?
                 new ObjectParameter("idReserva", idReserva) :
                 new ObjectParameter("idReserva", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdsGrupoReserva", idReservaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetIdsGrupoReserva_sp>("GetIdsGrupoReserva", idReservaParameter);
         }
     
         public virtual ObjectResult<string> GetNombrePersona(Nullable<int> idPersona)

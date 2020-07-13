@@ -133,13 +133,13 @@ namespace WebApiReserva.Controllers
             List<int> idList = new List<int>();
             // Get ReservaById Select top 1 idReservante from tblReserva where idReserva = @idReserva and Estado = 1
             //int idPersona = db.tblReserva.Where(r => r.idReserva == id).Select(c => c.idReservante).FirstOrDefault(); // - El que funcionaba
-            int idPersona = db.GetIdPersonaReserva(id).FirstOrDefault().idReservante; // - sp
+            int idPersona = db.GetIdPersonaReserva(id).FirstOrDefault().Value; // - sp
             idList.Add(idPersona);
             // Get GrupoReservaById Select idPersona from tblGrupoReserva where idReserva = @idReserva and Estado = 1
             //var idsGrupo = db.tblGrupoReserva.Where(r => r.idReserva == id).Select(c => c.idPersona).ToList(); // - El que funcionaba
             var idsGrupo = db.GetIdsGrupoReserva(id).ToList(); // -sp
             
-            if(idsGrupo != null) foreach (int ids in idsGrupo) idList.Add(ids);
+            if(idsGrupo != null) foreach (var ids in idsGrupo) idList.Add(ids.idPersona);
 
             List<Persona> personas = new List<Persona>();
             for (int i = 0; i < (idsGrupo.Count() + 1); i++)
@@ -147,7 +147,7 @@ namespace WebApiReserva.Controllers
                 int idPersonaActual = idList[i];
                 // GetIdPersona Select top 1 idPersona where idPersona = @idPersonaActual - sp
                 //int idP = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.idPersona).FirstOrDefault(); - El que funcionaba
-                int idP = db.GetIdPersona(idPersonaActual).FirstOrDefault().Value; // -sp
+                int idP = db.GetIdPersona(idPersonaActual).First().GetValueOrDefault(); // -sp
                 // GetNamePersona Select top 1 Nombre where idPersona = @idPersonaActual - sp
                 //string name = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.Nombre).FirstOrDefault(); - El que funcionaba
                 string name = db.GetNombrePersona(idPersonaActual).FirstOrDefault(); // -sp

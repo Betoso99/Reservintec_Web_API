@@ -1380,10 +1380,10 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImport Name="GetIdPersona" ReturnType="Collection(Int32)">
           <Parameter Name="idPersona" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetIdPersonaReserva" ReturnType="Collection(ReservaModel.GetIdPersonaReserva_sp)">
+          <FunctionImport Name="GetIdPersonaReserva" ReturnType="Collection(Int32)">
           <Parameter Name="idReserva" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetIdsGrupoReserva" ReturnType="Collection(Int32)">
+          <FunctionImport Name="GetIdsGrupoReserva" ReturnType="Collection(ReservaModel.GetIdsGrupoReserva_sp)">
           <Parameter Name="idReserva" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetNombrePersona" ReturnType="Collection(String)">
@@ -1396,7 +1396,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idReserva" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetGrupoReservaById" ReturnType="Collection(ReservaModel.GetGrupoReservaById_sp)">
-            <Parameter Name="idGrupoReserva" Mode="In" Type="Int32" />
+          <Parameter Name="idGrupoReserva" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
@@ -1570,6 +1570,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Type="Int32" Name="idGrupoReserva" Nullable="false" />
           <Property Type="Int32" Name="idPersona" Nullable="false" />
           <Property Type="Int32" Name="idReserva" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIdsGrupoReserva_sp">
+          <Property Type="Int32" Name="idPersona" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1972,22 +1975,14 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImportMapping FunctionImportName="GetEstadoTipo" FunctionName="ReservaModel.Store.GetEstadoTipo" />
           <FunctionImportMapping FunctionImportName="GetIdPersona" FunctionName="ReservaModel.Store.GetIdPersona" />
           <FunctionImportMapping FunctionImportName="GetIdPersonaReserva" FunctionName="ReservaModel.Store.GetIdPersonaReserva">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIdsGrupoReserva" FunctionName="ReservaModel.Store.GetIdsGrupoReserva" >
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ReservaModel.GetIdPersonaReserva_sp">
-                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
-                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
-                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
-                <ScalarProperty Name="idDias" ColumnName="idDias" />
-                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
-                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
-                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
-                <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
-                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
-                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              <ComplexTypeMapping TypeName="ReservaModel.GetIdsGrupoReserva_sp">
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetIdsGrupoReserva" FunctionName="ReservaModel.Store.GetIdsGrupoReserva" />
           <FunctionImportMapping FunctionImportName="GetNombrePersona" FunctionName="ReservaModel.Store.GetNombrePersona" />
           <FunctionImportMapping FunctionImportName="GetReservaByIdPersona" FunctionName="ReservaModel.Store.GetReservaByIdPersona">
             <ResultMapping>
