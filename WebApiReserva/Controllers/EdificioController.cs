@@ -117,6 +117,16 @@ namespace WebApiReserva.Controllers
 
         }
 
+        [HttpGet]
+        public IHttpActionResult GetCursoEdificio(int id) // idCurso
+        {
+            tblCurso curso = db.tblCurso.Where(c => c.idCurso == id).FirstOrDefault();
+
+            int idEdificio = curso.idEdificio;
+
+            return Ok();
+        }
+
         public class Date
         {
             public int idSemana { get; set; }
