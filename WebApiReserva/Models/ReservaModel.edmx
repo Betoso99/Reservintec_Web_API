@@ -456,6 +456,11 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
         <Function Name="GetCursoEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idEdificio" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetCursosDisponible" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idHora" Type="int" Mode="In" />
+          <Parameter Name="idDia" Type="int" Mode="In" />
+          <Parameter Name="idSemana" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetCursosDisponibleClase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idHora" Type="int" Mode="In" />
           <Parameter Name="idDia" Type="int" Mode="In" />
@@ -1306,6 +1311,11 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             <Parameter Name="idDia" Mode="In" Type="Int32" />
             <Parameter Name="idSemana" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetCursosDisponible" ReturnType="Collection(ReservaModel.GetCursosDisponible_sp)">
+            <Parameter Name="idHora" Mode="In" Type="Int32" />
+            <Parameter Name="idDia" Mode="In" Type="Int32" />
+            <Parameter Name="idSemana" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
           <Property Type="Int32" Name="idCurso" Nullable="false" />
@@ -1399,6 +1409,11 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Type="String" Name="NumCurso" Nullable="false" MaxLength="3" />
         </ComplexType>
         <ComplexType Name="GetCursosDisponibleReserva_sp">
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idEdificio" Nullable="false" />
+          <Property Type="String" Name="NumCurso" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="GetCursosDisponible_sp">
           <Property Type="Int32" Name="idCurso" Nullable="false" />
           <Property Type="Byte" Name="idEdificio" Nullable="false" />
           <Property Type="String" Name="NumCurso" Nullable="false" MaxLength="3" />
@@ -1737,6 +1752,15 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImportMapping FunctionImportName="GetCursosDisponibleReserva" FunctionName="ReservaModel.Store.GetCursosDisponibleReserva">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ReservaModel.GetCursosDisponibleReserva_sp">
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
+                <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCursosDisponible" FunctionName="ReservaModel.Store.GetCursosDisponible">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetCursosDisponible_sp">
                 <ScalarProperty Name="idCurso" ColumnName="idCurso" />
                 <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
                 <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />

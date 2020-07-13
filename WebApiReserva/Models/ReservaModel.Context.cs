@@ -334,5 +334,22 @@ namespace WebApiReserva.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursosDisponibleReserva_sp>("GetCursosDisponibleReserva", idHoraParameter, idDiaParameter, idSemanaParameter);
         }
+    
+        public virtual ObjectResult<GetCursosDisponible_sp> GetCursosDisponible(Nullable<int> idHora, Nullable<int> idDia, Nullable<int> idSemana)
+        {
+            var idHoraParameter = idHora.HasValue ?
+                new ObjectParameter("idHora", idHora) :
+                new ObjectParameter("idHora", typeof(int));
+    
+            var idDiaParameter = idDia.HasValue ?
+                new ObjectParameter("idDia", idDia) :
+                new ObjectParameter("idDia", typeof(int));
+    
+            var idSemanaParameter = idSemana.HasValue ?
+                new ObjectParameter("idSemana", idSemana) :
+                new ObjectParameter("idSemana", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursosDisponible_sp>("GetCursosDisponible", idHoraParameter, idDiaParameter, idSemanaParameter);
+        }
     }
 }

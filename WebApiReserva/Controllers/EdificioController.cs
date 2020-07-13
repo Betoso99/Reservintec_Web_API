@@ -72,32 +72,34 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            List<int> cursosClasesDisp = new List<int>();
-            var freeClass = db.GetCursosDisponibleClase(date.idHora, date.idDia).ToList();
-            foreach (var clasi in freeClass)
-            {
-                cursosClasesDisp.Add(clasi.idCurso);
-            }
+            //List<int> cursosClasesDisp = new List<int>();
+            //var freeClass = db.GetCursosDisponibleClase(date.idHora, date.idDia).ToList();
+            //foreach (var clasi in freeClass)
+            //{
+            //    cursosClasesDisp.Add(clasi.idCurso);
+            //}
 
-            List<int> cursosReservaDisp = new List<int>();
-            var freeRes = db.GetCursosDisponibleReserva(date.idHora, date.idDia, date.idSemana).ToList();
-            foreach (var resi in freeRes)
-            {
-                cursosReservaDisp.Add(resi.idCurso);
-            }
+            //List<int> cursosReservaDisp = new List<int>();
+            //var freeRes = db.GetCursosDisponibleReserva(date.idHora, date.idDia, date.idSemana).ToList();
+            //foreach (var resi in freeRes)
+            //{
+            //    cursosReservaDisp.Add(resi.idCurso);
+            //}
 
-            List<int> filterCursosDisp = new List<int>();
-            for (int i = 0; i < cursosClasesDisp.Count; i++)
-            {
-                for (int j = 0; j < cursosReservaDisp.Count; j++)
-                {
-                    if (cursosClasesDisp[i] == cursosReservaDisp[j])
-                    {
-                        filterCursosDisp.Add(cursosClasesDisp[j]);
-                    }
-                }
-              
-            }
+            //List<int> filterCursosDisp = new List<int>();
+            //for (int i = 0; i < cursosClasesDisp.Count; i++)
+            //{
+            //    for (int j = 0; j < cursosReservaDisp.Count; j++)
+            //    {
+            //        if (cursosClasesDisp[i] == cursosReservaDisp[j])
+            //        {
+            //            filterCursosDisp.Add(cursosClasesDisp[j]);
+            //        }
+            //    }
+
+            //}
+
+            var final = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
 
           
 
@@ -196,13 +198,13 @@ namespace WebApiReserva.Controllers
                 edificioActual = i+1;
                 cursoEdificio.Edificio = db.tblEdificio.Where(e => e.idEdificio == edificioActual).Select(l => l.Edificio).FirstOrDefault();
 
-                for (int j = 0; j < filterCursosDisp.Count; j++)
+                for (int j = 0; j < final.Count; j++)
                 {
-                    int idcursoActual = filterCursosDisp[j];
+                    var codigoCurso = final[j].NumCurso;
                     if(db.tblCurso.Where(c => c.idCurso == edificioActual).FirstOrDefault() != null)
                     {
-                        var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
-                        cursoEdificio.Cursos.Add(numCurso);
+                        //var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
+                        cursoEdificio.Cursos.Add(codigoCurso);
                     }
                 }
                 listaResult.Add(cursoEdificio);

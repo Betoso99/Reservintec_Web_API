@@ -192,6 +192,9 @@
     <Compile Include="Models\GetCursosDisponibleReserva_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetCursosDisponible_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\getLastReserva_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
