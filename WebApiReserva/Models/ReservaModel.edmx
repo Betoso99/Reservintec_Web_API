@@ -456,6 +456,15 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
         <Function Name="GetCursoEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idEdificio" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetCursosDisponibleClase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idHora" Type="int" Mode="In" />
+          <Parameter Name="idDia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCursosDisponibleReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idHora" Type="int" Mode="In" />
+          <Parameter Name="idDia" Type="int" Mode="In" />
+          <Parameter Name="idSemana" Type="int" Mode="In" />
+        </Function>
         <Function Name="getLastReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMatricula" Type="int" Mode="In" />
@@ -1288,6 +1297,15 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImport Name="sp_PersonaEnReserva" ReturnType="Collection(ReservaModel.sp_PersonaEnReserva_Result)">
           <Parameter Name="Persona" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetCursosDisponibleClase" ReturnType="Collection(ReservaModel.GetCursosDisponibleClase_sp)">
+            <Parameter Name="idHora" Mode="In" Type="Int32" />
+            <Parameter Name="idDia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCursosDisponibleReserva" ReturnType="Collection(ReservaModel.GetCursosDisponibleReserva_sp)">
+            <Parameter Name="idHora" Mode="In" Type="Int32" />
+            <Parameter Name="idDia" Mode="In" Type="Int32" />
+            <Parameter Name="idSemana" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
           <Property Type="Int32" Name="idCurso" Nullable="false" />
@@ -1374,6 +1392,16 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Type="Boolean" Name="EstadoReserva" Nullable="false" />
           <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetCursosDisponibleClase_sp">
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idEdificio" Nullable="false" />
+          <Property Type="String" Name="NumCurso" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="GetCursosDisponibleReserva_sp">
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idEdificio" Nullable="false" />
+          <Property Type="String" Name="NumCurso" Nullable="false" MaxLength="3" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1694,6 +1722,24 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
                 <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCursosDisponibleClase" FunctionName="ReservaModel.Store.GetCursosDisponibleClase">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetCursosDisponibleClase_sp">
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
+                <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCursosDisponibleReserva" FunctionName="ReservaModel.Store.GetCursosDisponibleReserva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetCursosDisponibleReserva_sp">
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
+                <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -304,5 +304,35 @@ namespace WebApiReserva.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_PersonaEnReserva_Result>("sp_PersonaEnReserva", personaParameter);
         }
+    
+        public virtual ObjectResult<GetCursosDisponibleClase_sp> GetCursosDisponibleClase(Nullable<int> idHora, Nullable<int> idDia)
+        {
+            var idHoraParameter = idHora.HasValue ?
+                new ObjectParameter("idHora", idHora) :
+                new ObjectParameter("idHora", typeof(int));
+    
+            var idDiaParameter = idDia.HasValue ?
+                new ObjectParameter("idDia", idDia) :
+                new ObjectParameter("idDia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursosDisponibleClase_sp>("GetCursosDisponibleClase", idHoraParameter, idDiaParameter);
+        }
+    
+        public virtual ObjectResult<GetCursosDisponibleReserva_sp> GetCursosDisponibleReserva(Nullable<int> idHora, Nullable<int> idDia, Nullable<int> idSemana)
+        {
+            var idHoraParameter = idHora.HasValue ?
+                new ObjectParameter("idHora", idHora) :
+                new ObjectParameter("idHora", typeof(int));
+    
+            var idDiaParameter = idDia.HasValue ?
+                new ObjectParameter("idDia", idDia) :
+                new ObjectParameter("idDia", typeof(int));
+    
+            var idSemanaParameter = idSemana.HasValue ?
+                new ObjectParameter("idSemana", idSemana) :
+                new ObjectParameter("idSemana", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursosDisponibleReserva_sp>("GetCursosDisponibleReserva", idHoraParameter, idDiaParameter, idSemanaParameter);
+        }
     }
 }
