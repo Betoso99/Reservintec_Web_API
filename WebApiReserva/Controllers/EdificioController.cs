@@ -11,7 +11,6 @@ using static WebApiReserva.Utilities.LogUtilities;
 
 namespace WebApiReserva.Controllers
 {
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EdificioController : ApiController
     {
         private ReservaEntities db = new ReservaEntities();

@@ -14,27 +14,10 @@ using static WebApiReserva.Utilities.LogUtilities;
 
 namespace WebApiReserva.Controllers
 {
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ReservaController : ApiController
     {
         private ReservaEntities db = new ReservaEntities();
-        private Logger log = new Logger();
-
-        public class ReservaR
-        {
-            public int idCurso { get; set; }
-            public int idSemana { get; set; }
-            public int idDia { get; set; }
-            public int idHoraIn { get; set; }
-            public int idHoraF { get; set; }
-            public int idReservante { get; set; }
-            public DateTime FechaReserva { get; set; }
-        }
-        public class ReservaPersonas
-        {
-            public ReservaR Reserva { get; set; }
-            public List<int?> IdPersonas { get; set; }
-        }
+        private Logger log = new Logger();        
 
         /// <summary>
         /// Obtiene todas las reservas registradas
@@ -83,16 +66,6 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
             var getResGrupo = db.GetReservaGrupo(id).ToList();
-            
-            // Get GrupoReserva where idPersona = @id - sp
-            //var grupoRes = db.tblGrupoReserva.Where(g => g.idPersona == id).ToList();
-            //List<tblReserva> reservas = new List<tblReserva>();
-            //foreach (var grupo in grupoRes)
-            //{
-            //    // GetReserva where idReserva = @idReserva and Estado = 1 - sp
-            //    var res = db.tblReserva.Where(r => r.idReserva == grupo.idReserva).FirstOrDefault();
-            //    reservas.Add(res);
-            //}
 
             var result = MergeLogResult(log, getResGrupo);
 
@@ -108,8 +81,7 @@ namespace WebApiReserva.Controllers
         [ActionName("GetSemana")]
         public IHttpActionResult GetHorarioBySemana(int id, int idCurso) // id = numeroSemana
         {
-            /* Method to get Horario de Reservas by Semana */
-            // GetReservaCursoSemana(int numeroSemana, idCurso) Select * from tblReserva where idSemana = numeroSemana and 
+          
             //var semana = db.GetReservaSemana(id).ToList();
             var semana = db.GetReservaSemana(id, idCurso).ToList(); // - sp
             //var semana = db.tblReserva.Where(r => r.idSemana == id && r.idCurso == idCurso).ToList(); // - El que funcionaba
@@ -165,22 +137,13 @@ namespace WebApiReserva.Controllers
             return Ok(result);
 
         }
-
-        public class Persona
-        {
-            public Persona()
-            {
-            }
-            public int IdPersona { get; set; }
-            public string Nombre { get; set; }
-        }
+       
 
         /// <summary>
         /// Agrega una reserva nueva
         /// </summary>
         //POST: api/Reserva
         [HttpPost]
-        //[ResponseType(typeof(ReservaPersonas))]
         [ActionName("Add")]
         public IHttpActionResult AddReserva([FromBody] ReservaPersonas reservaP)
         {
@@ -279,7 +242,6 @@ namespace WebApiReserva.Controllers
         }
 
 
-        // Si son grupos, te puedes salir del grupo (si tiene el limite todavia, se mantiene, sino, se dice que esta desocupado)
         /// <summary>
         /// Elimina al integrante que quiere salir del grupo, y si no cumple con los requisitos la reserva se elimina
         /// </summary>
@@ -421,16 +383,6 @@ namespace WebApiReserva.Controllers
             return semanaList;
         }
 
-        private bool ReservaExists(int id)
-        {
-            return db.tblReserva.Count(e => e.idReserva == id) > 0;
-        }
-
-        private bool ReservaIsActive(int id)
-        {
-            return db.tblReserva.Where(c => c.idReserva == id && c.EstadoReserva == true).FirstOrDefault() != null;
-        }
-
         private bool UserExists(int id)
         {
             return db.tblPersona.Count(e => e.idPersona == id) > 0;
@@ -440,6 +392,30 @@ namespace WebApiReserva.Controllers
         {
             reserva.EstadoReserva = false;
             db.SaveChanges();
+        }
+
+        public class ReservaR
+        {
+            public int idCurso { get; set; }
+            public int idSemana { get; set; }
+            public int idDia { get; set; }
+            public int idHoraIn { get; set; }
+            public int idHoraF { get; set; }
+            public int idReservante { get; set; }
+            public DateTime FechaReserva { get; set; }
+        }
+        public class ReservaPersonas
+        {
+            public ReservaR Reserva { get; set; }
+            public List<int?> IdPersonas { get; set; }
+        }
+        public class Persona
+        {
+            public Persona()
+            {
+            }
+            public int IdPersona { get; set; }
+            public string Nombre { get; set; }
         }
     }
 }
