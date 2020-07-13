@@ -93,7 +93,7 @@ namespace WebApiReserva.Controllers
                 {
                     if (cursosClasesDisp[i] == cursosReservaDisp[j])
                     {
-                        filterCursosDisp.Add(cursosClasesDisp[i]);
+                        filterCursosDisp.Add(cursosClasesDisp[j]);
                     }
                 }
               
