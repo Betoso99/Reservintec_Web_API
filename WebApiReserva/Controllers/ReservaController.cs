@@ -282,9 +282,10 @@ namespace WebApiReserva.Controllers
 
         // Si son grupos, te puedes salir del grupo (si tiene el limite todavia, se mantiene, sino, se dice que esta desocupado)
         [HttpPut]
-        public IHttpActionResult SalirGrupoReserva(tblGrupoReserva grupoRes)
+        public IHttpActionResult SalirGrupoReserva(GrupoReserva grupoRes)
         {
             tblReserva reserva = db.tblReserva.Find(grupoRes.idReserva);
+            var a = db.sp_PersonaEnReserva(grupoRes.idReserva);
             if (reserva == null)
             {
                 log.Ok = false;
@@ -292,11 +293,11 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            db.tblGrupoReserva.Remove(grupoRes);
+            db.sp_DeletePersonaRes(grupoRes.idPersona);
             db.SaveChanges();
 
             var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == grupoRes.idReserva).Distinct().ToList().Count();
-
+            var cantidadGrupo = db.CantidadPersonasGrupoReserva(grupoRes.idReserva).FirstOrDefault().Value;
             //var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
             // GetTipo Select Top 1 
             var res = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList();
@@ -312,10 +313,11 @@ namespace WebApiReserva.Controllers
 
             if (estudiante == 1 && tutor == 0 && profesor == 0)
             {
-                if (cantGrupo < 3) 
+                if (cantidadGrupo < 3) 
                 {
                     var reservaActual = db.tblReserva.Where(r => r.idReserva == grupoRes.idReserva).FirstOrDefault();
-                    Remove(reservaActual);
+                    //Remove(reservaActual);
+                    db.deleteReserva(reservaActual.idReserva);
                 
                 } // Liberar reserva
             }
@@ -323,6 +325,12 @@ namespace WebApiReserva.Controllers
 
             return Ok(log);
 
+        }
+
+        public class GrupoReserva
+        {
+            public int idPersona { get; set; }
+            public int idReserva { get; set; }
         }
 
 
