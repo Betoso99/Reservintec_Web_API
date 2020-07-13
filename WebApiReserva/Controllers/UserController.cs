@@ -171,10 +171,10 @@ namespace WebApiReserva.Controllers
         /// Verifica que la persona exista a traves del ID
         /// </summary>
         [HttpGet]
-        public IHttpActionResult VerifyPersonaExists(int id)
+        public IHttpActionResult VerifyPersonaExists(int idPersona)
         {
             // SELECT COUNT(idPersona) FROM tblPersona WHERE idPersona = @idPersona
-            if (db.CountPersona(id).FirstOrDefault() > 0)
+            if (db.CountPersona(idPersona).FirstOrDefault() > 0)
             {
                 Good(log);
             }

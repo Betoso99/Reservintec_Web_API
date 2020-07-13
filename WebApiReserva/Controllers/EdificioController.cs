@@ -74,6 +74,7 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
+
             List<tblCurso> cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList(); // -sp
 
             List<CursoEdificio> cursoEdificio = new List<CursoEdificio>();
