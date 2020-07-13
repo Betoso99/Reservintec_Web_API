@@ -101,8 +101,6 @@ namespace WebApiReserva.Controllers
 
             var final = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
 
-          
-
             //var clase = db.tblClase.Where(c => c.idDias == date.idDia).ToList();
             //int ocupado = 0, disponible = 0, cont = 0;
             //List<int> cursos = new List<int>();
@@ -200,11 +198,11 @@ namespace WebApiReserva.Controllers
 
                 for (int j = 0; j < final.Count; j++)
                 {
-                    var codigoCurso = final[j].NumCurso;
-                    if(db.tblCurso.Where(c => c.idEdificio == edificioActual && c.NumCurso == codigoCurso).FirstOrDefault() != null)
+                    var curso = final[j];
+                    if(db.tblCurso.Where(c => c.idEdificio == edificioActual).Select(c => c.idEdificio).FirstOrDefault() == curso.idEdificio)
                     {
                         //var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
-                        cursoEdificio.Cursos.Add(codigoCurso);
+                        cursoEdificio.Cursos.Add(curso);
                     }
                 }
                 listaResult.Add(cursoEdificio);
@@ -227,10 +225,10 @@ namespace WebApiReserva.Controllers
         {
             public CursoEdificio()
             {
-                Cursos = new List<string>();
+                Cursos = new List<GetCursosDisponible_sp>();
             }
             public string Edificio { get; set; }
-            public List<string> Cursos { get; set; }
+            public List<GetCursosDisponible_sp> Cursos { get; set; }
         }
 
 
