@@ -165,6 +165,7 @@ namespace WebApiReserva.Controllers
         /// <summary>
         /// Verifica que el usuario exista a traves del ID
         /// </summary>
+        [HttpGet]
         public IHttpActionResult VerifyUserExists(int id)
         {
            
@@ -176,6 +177,25 @@ namespace WebApiReserva.Controllers
             {
                 log.Ok = false;
                 log.ErrorMessage = "El usuario no existe";
+            }
+            return Ok(log);
+        }
+
+        /// <summary>
+        /// Verifica que la persona exista a traves del ID
+        /// </summary>
+        [HttpGet]
+        public IHttpActionResult VerifyPersonaExists(int id)
+        {
+
+            if (db.tblPersona.Count(u => u.idPersona == id) > 0)
+            {
+                Good(log);
+            }
+            else
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Esta persona no existe";
             }
             return Ok(log);
         }
