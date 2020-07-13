@@ -146,13 +146,13 @@ namespace WebApiReserva.Controllers
                 log.ErrorMessage = "No hay cursos disponibles";
                 return Ok(log);
             }
-            //if (cursos.Count > 0)
-            //{
-            //    log.Ok = false;
-            //    log.ErrorMessage = "Lista sin filtro";
-            //    var res = MergeLogResult(log, cursos);
-            //    return Ok(res);
-            //}
+            if (cursos.Count > 0)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Lista sin filtro";
+                var res = MergeLogResult(log, cursos);
+                return Ok(res);
+            }
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
             //int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
