@@ -180,7 +180,8 @@ namespace WebApiReserva.Controllers
                     try
                     {
                         //db.tblGrupoReserva.Add(grupo); // - El que funcionaba
-                        // INSERT INTO tblGrupoReserva (idReserva, idPersona) VALUES (@idReserva, @idPersona)
+                        // INSERT INTO tblGrupoReserva (idReserva, idPersona) 
+                        // VALUES (@idReserva, @idPersona)
                         db.AddGrupoReserva(IdReserva, persona.Value); // -sp
                         db.SaveChanges();
                     }
