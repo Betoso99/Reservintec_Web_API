@@ -489,7 +489,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
         <Function Name="sp_DeletePersonaRes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="NumPersona" Type="int" Mode="In" />
+          <Parameter Name="idGrupoReserva" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -1283,7 +1283,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idReserva" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_DeletePersonaRes">
-          <Parameter Name="NumPersona" Mode="In" Type="Int32" />
+          <Parameter Name="idGrupoReserva" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_PersonaEnReserva" ReturnType="Collection(ReservaModel.sp_PersonaEnReserva_Result)">
           <Parameter Name="Persona" Mode="In" Type="Int32" />

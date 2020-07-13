@@ -287,13 +287,13 @@ namespace WebApiReserva.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CantidadPersonasGrupoReserva", idReservaParameter);
         }
     
-        public virtual int sp_DeletePersonaRes(Nullable<int> numPersona)
+        public virtual int sp_DeletePersonaRes(Nullable<int> idGrupoReserva)
         {
-            var numPersonaParameter = numPersona.HasValue ?
-                new ObjectParameter("NumPersona", numPersona) :
-                new ObjectParameter("NumPersona", typeof(int));
+            var idGrupoReservaParameter = idGrupoReserva.HasValue ?
+                new ObjectParameter("idGrupoReserva", idGrupoReserva) :
+                new ObjectParameter("idGrupoReserva", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeletePersonaRes", numPersonaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeletePersonaRes", idGrupoReservaParameter);
         }
     
         public virtual ObjectResult<sp_PersonaEnReserva_Result> sp_PersonaEnReserva(Nullable<int> persona)

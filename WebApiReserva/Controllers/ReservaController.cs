@@ -294,7 +294,7 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            db.sp_DeletePersonaRes(res.idPersona);
+            db.sp_DeletePersonaRes(id);
             db.SaveChanges();
 
             var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == res.idReserva).Distinct().ToList().Count();
