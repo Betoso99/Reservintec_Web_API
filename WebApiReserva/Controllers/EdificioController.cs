@@ -83,7 +83,7 @@ namespace WebApiReserva.Controllers
 
             List<CursoEdificio> cursoEdificio = new List<CursoEdificio>();
 
-            foreach (tblEdificio edificio in db.GetEdificios()) //
+            foreach (tblEdificio edificio in db.GetEdificios())
             {
                 cursoEdificio.Add(new CursoEdificio() { edificio = edificio, cursos = new List<tblCurso>() });
             }
