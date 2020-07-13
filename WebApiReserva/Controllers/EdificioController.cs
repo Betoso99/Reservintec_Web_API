@@ -185,7 +185,7 @@ namespace WebApiReserva.Controllers
             //}
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
-            int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
+            int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count;
             int edificioActual = 0;
 
 
