@@ -74,11 +74,11 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            List<tblCurso> cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
+            List<tblCurso> cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList(); // -sp
 
             List<CursoEdificio> cursoEdificio = new List<CursoEdificio>();
 
-            foreach (tblEdificio edificio in db.GetEdificios())
+            foreach (tblEdificio edificio in db.GetEdificios()) //
             {
                 cursoEdificio.Add(new CursoEdificio() { edificio = edificio, cursos = new List<tblCurso>() });
             }
@@ -97,12 +97,14 @@ namespace WebApiReserva.Controllers
         [HttpGet]
         public IHttpActionResult GetCursoEdificio(int id) // idCurso
         {
-            //tblCurso curso = db.tblCurso.Where(c => c.idCurso == id).FirstOrDefault();
+   
+            // SELECT * FROM tblCurso WHERE idCurso = @idCurso
             tblCurso curso = db.GetCurso(id).FirstOrDefault(); // -sp
 
             string numCurso = curso.NumCurso;
             int idEdificio = curso.idEdificio;
-            //string edificio = db.tblEdificio.Where(e => e.idEdificio == idEdificio).Select(e => e.Edificio).FirstOrDefault();
+                     
+            // SELECT Edificio FROM tblEdificio WHERE idEdificio = @idEdificio
             string edificio = db.GetCodigoEdificio(idEdificio).FirstOrDefault(); // -sp
 
             string cursoEdif = edificio + numCurso;

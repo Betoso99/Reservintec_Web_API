@@ -29,6 +29,7 @@ namespace WebApiReserva.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
+            // SELECT * FROM tblPersona
             var usuario = db.GetPersona().ToList(); // -sp
             Good(log);
 
@@ -53,6 +54,7 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
+            // SELECT * FROM tblUsuario WHERE idPersona = @idPersona
             var user = db.GetUsuario(id).ToList();
             var result = MergeLogResult(log, user);
 
@@ -84,6 +86,7 @@ namespace WebApiReserva.Controllers
             try
             {
                 user.Pass = CryptoPass.Hash(user.Pass);
+                // INSERT INTO tblPersona (idPersona, Password) VALUES (@Matricula, @Pass)
                 db.AddUser(user.Matricula, user.Pass);
                 db.SaveChanges();
                 Good(log);
@@ -113,6 +116,7 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
             
+            // SELECT Pass FROM tblUsuario WHERE idPersona = @idPersona
             var validPassword = db.GetPassword(user.Matricula).FirstOrDefault();
 
             if (CryptoPass.Hash(user.Pass) != validPassword)

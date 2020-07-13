@@ -572,5 +572,10 @@
             Verifica que el usuario exista a traves del ID
             </summary>
         </member>
+        <member name="M:WebApiReserva.Controllers.UserController.VerifyPersonaExists(System.Int32)">
+            <summary>
+            Verifica que la persona exista a traves del ID
+            </summary>
+        </member>
     </members>
 </doc>
