@@ -201,6 +201,9 @@
     <Compile Include="Models\GetCursosDisponible_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetCurso_Result.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetEdificios_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>

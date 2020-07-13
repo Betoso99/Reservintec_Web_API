@@ -25,7 +25,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetEdificio()
         {
             Good(log);
-            // GetEdificio Select * from tblEdificio
+            // SELECT * FROM tblEdificio
             var edif = db.GetEdificio().ToList(); // -sp
             //var edif = db.tblEdificio.ToList(); // -El que funcionaba
 
@@ -42,7 +42,7 @@ namespace WebApiReserva.Controllers
         [ActionName("GetCursos")]
         public IHttpActionResult GetCursosEdificio(int id)
         {
-            // GetCursoEdif Select  * from 
+            //SELECT * FROM tblEdificio WHERE idEdificio = @idEdificio
             //var curso = db.tblCurso.Where(c => c.idEdificio == id).ToList(); // -El que funcionaba
             var curso = db.GetCursoEdificio(id).ToList(); // -sp
 
@@ -75,13 +75,6 @@ namespace WebApiReserva.Controllers
             }
 
             List<tblCurso> cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
-            //List<CursoEdificio> listaResult = new List<CursoEdificio>();
-            //int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count;
-            //int edificioActual = 0;
-
-            //var EdificioActual = db.GetEdifActual(edificioActual);
-            //List<tblCurso> cursosDsiponible = db.GetCursosDisponible(8, 1, 1).ToList();
-
 
             List<CursoEdificio> cursoEdificio = new List<CursoEdificio>();
 
@@ -104,11 +97,13 @@ namespace WebApiReserva.Controllers
         [HttpGet]
         public IHttpActionResult GetCursoEdificio(int id) // idCurso
         {
-            tblCurso curso = db.tblCurso.Where(c => c.idCurso == id).FirstOrDefault();
+            //tblCurso curso = db.tblCurso.Where(c => c.idCurso == id).FirstOrDefault();
+            tblCurso curso = db.GetCurso(id).FirstOrDefault(); // -sp
 
             string numCurso = curso.NumCurso;
             int idEdificio = curso.idEdificio;
-            string edificio = db.tblEdificio.Where(e => e.idEdificio == idEdificio).Select(e => e.Edificio).FirstOrDefault();
+            //string edificio = db.tblEdificio.Where(e => e.idEdificio == idEdificio).Select(e => e.Edificio).FirstOrDefault();
+            string edificio = db.GetCodigoEdificio(idEdificio).FirstOrDefault(); // -sp
 
             string cursoEdif = edificio + numCurso;
             var result = MergeLogResult(log, cursoEdif);

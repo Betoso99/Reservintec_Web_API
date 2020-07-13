@@ -504,5 +504,32 @@ namespace WebApiReserva.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetGrupoReservaById_sp>("GetGrupoReservaById", idGrupoReservaParameter);
         }
+    
+        public virtual ObjectResult<string> GetCodigoEdificio(Nullable<int> idEdificio)
+        {
+            var idEdificioParameter = idEdificio.HasValue ?
+                new ObjectParameter("idEdificio", idEdificio) :
+                new ObjectParameter("idEdificio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetCodigoEdificio", idEdificioParameter);
+        }
+    
+        public virtual ObjectResult<tblCurso> GetCurso(Nullable<int> idCurso)
+        {
+            var idCursoParameter = idCurso.HasValue ?
+                new ObjectParameter("idCurso", idCurso) :
+                new ObjectParameter("idCurso", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblCurso>("GetCurso", idCursoParameter);
+        }
+    
+        public virtual ObjectResult<tblCurso> GetCurso(Nullable<int> idCurso, MergeOption mergeOption)
+        {
+            var idCursoParameter = idCurso.HasValue ?
+                new ObjectParameter("idCurso", idCurso) :
+                new ObjectParameter("idCurso", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblCurso>("GetCurso", mergeOption, idCursoParameter);
+        }
     }
 }
