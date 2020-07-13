@@ -74,7 +74,11 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-
+           //select* from tblCurso where idCurso not in (select idCurso from tblClase where idHoraIn <= @idHora and idHoraF > @idHora and idDias = @idDia) 
+           //intersect
+           //select* from tblCurso where idCurso not in (select idCurso from tblReserva where idHoraIn <= @idHora and idHoraF > @idHora
+           // and idDias = @idDia and idSemana = @idSemana)
+           //order by idCurso
             List<tblCurso> cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList(); // -sp
 
             List<CursoEdificio> cursoEdificio = new List<CursoEdificio>();
