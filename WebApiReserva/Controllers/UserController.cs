@@ -30,8 +30,8 @@ namespace WebApiReserva.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            // GetPersona Select *  from tblPersona -sp
-            var usuario = db.tblPersona.ToList();
+            var usuario = db.GetPersona().ToList(); // -sp
+            //var usuario = db.tblPersona.ToList(); // - el que funcionaba
             Good(log);
 
             var result = MergeLogResult(log, usuario);
@@ -86,9 +86,6 @@ namespace WebApiReserva.Controllers
             try
             {
                 user.Pass = CryptoPass.Hash(user.Pass);
-                //db.Entry(user).State = EntityState.Added;
-               
-                //db.tblUsuario.Add(user);
                 db.AddUser(user.Matricula, user.Pass);
                 db.SaveChanges();
                 Good(log);
@@ -135,10 +132,10 @@ namespace WebApiReserva.Controllers
         /// </summary>
         // PUT: api/User/5
         [HttpPut]
-        public IHttpActionResult EditUser(int id, tblUsuario user)
+        public IHttpActionResult EditUser(int id, Usuario user)
         {
 
-            if (id != user.idUsuario)
+            if (id != user.Matricula)
             {
                 return BadRequest();
             }

@@ -72,123 +72,10 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            //List<int> cursosClasesDisp = new List<int>();
-            //var freeClass = db.GetCursosDisponibleClase(date.idHora, date.idDia).ToList();
-            //foreach (var clasi in freeClass)
-            //{
-            //    cursosClasesDisp.Add(clasi.idCurso);
-            //}
-
-            //List<int> cursosReservaDisp = new List<int>();
-            //var freeRes = db.GetCursosDisponibleReserva(date.idHora, date.idDia, date.idSemana).ToList();
-            //foreach (var resi in freeRes)
-            //{
-            //    cursosReservaDisp.Add(resi.idCurso);
-            //}
-
-            //List<int> filterCursosDisp = new List<int>();
-            //for (int i = 0; i < cursosClasesDisp.Count; i++)
-            //{
-            //    for (int j = 0; j < cursosReservaDisp.Count; j++)
-            //    {
-            //        if (cursosClasesDisp[i] == cursosReservaDisp[j])
-            //        {
-            //            filterCursosDisp.Add(cursosClasesDisp[j]);
-            //        }
-            //    }
-
-            //}
-
-            var final = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
-
-            //var clase = db.tblClase.Where(c => c.idDias == date.idDia).ToList();
-            //int ocupado = 0, disponible = 0, cont = 0;
-            //List<int> cursos = new List<int>();
-            //if (clase != null)
-            //{
-            //    foreach (var c in clase)
-            //    {
-            //        ocupado = 0;
-            //        disponible = 0;
-
-            //        for (int i = 0; i < 15; i++)
-            //        {
-            //            if (i >= (c.idHoraIn - 7) && i < (c.idHoraF - 7)) ocupado++;
-            //            else disponible++;
-            //        }
-
-            //        var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
-            //        if (disponible != 0 && !cursos.Contains(course.idCurso))
-            //        {                        
-            //            cursos.Add(course.idCurso);
-            //        }
-            //        cont++;
-            //    }
-            //}
-            //else
-            //{
-            //    log.Ok = false;
-            //    log.ErrorMessage = "Aparentemente no hay clases este dia";
-            //    return Ok(log);
-            //}
-           
-            //if(cont > 0)
-            //{
-            //    log.Ok = false;
-            //    log.ErrorMessage = "Entro al foreach de clases";
-            //    return Ok(log);
-            //}
-
-            // Filtrar por semana y por dia
-            //var reserva = db.tblReserva.Where(r => r.idSemana == date.idSemana && r.idDias == date.idDia).ToList();
-            ////var reserva = db.GetReservaSemana(date.idSemana).ToList();
-            //if (reserva != null)
-            //{
-            //    foreach (var r in reserva)
-            //    {
-            //        ocupado = 0;
-            //        disponible = 0;
-
-            //        for (int i = 0; i < 15; i++)
-            //        {
-            //            if (i >= (r.idHoraIn - 7) && i < (r.idHoraF - 7)) ocupado++;
-            //            else disponible++;
-            //        }
-
-            //        var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
-
-            //        if (disponible != 0 && !cursos.Contains(course.idCurso))
-            //        {
-            //            cursos.Add(course.idCurso);
-            //        }
-            //    }
-
-            //}
-            //else
-            //{
-            //    disponible++;
-            //}
-
-            //if (disponible == 0)
-            //{
-            //    log.Ok = false;
-            //    log.ErrorMessage = "No hay cursos disponibles";
-            //    return Ok(log);
-            //}
-
-            //if (cursos.Count > 0)
-            //{
-            //    log.Ok = false;
-            //    log.ErrorMessage = "Lista sin filtro";
-            //    var res = MergeLogResult(log, cursos);
-            //    return Ok(res);
-            //}
-
+            var cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList();
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
             int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count;
             int edificioActual = 0;
-
-
 
             for (int i = 0; i < cantidadEdificios; i++)
             {
@@ -196,9 +83,9 @@ namespace WebApiReserva.Controllers
                 edificioActual = i+1;
                 cursoEdificio.Edificio = db.tblEdificio.Where(e => e.idEdificio == edificioActual).Select(l => l.Edificio).FirstOrDefault();
 
-                for (int j = 0; j < final.Count; j++)
+                for (int j = 0; j < cursosDisp.Count; j++)
                 {
-                    var curso = final[j];
+                    var curso = cursosDisp[j];
                     if(db.tblCurso.Where(c => c.idEdificio == edificioActual).Select(c => c.idEdificio).FirstOrDefault() == curso.idEdificio)
                     {
                         //var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
