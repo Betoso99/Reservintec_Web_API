@@ -146,6 +146,7 @@ namespace WebApiReserva.Controllers
                 log.ErrorMessage = "No hay cursos disponibles";
                 return Ok(log);
             }
+
             if (cursos.Count > 0)
             {
                 log.Ok = false;
