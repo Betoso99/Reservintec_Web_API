@@ -506,7 +506,7 @@
             Obtiene todas las reservas registradas por la persona con el id
             </summary>
         </member>
-        <member name="M:WebApiReserva.Controllers.ReservaController.GetReservaGrupo2(System.Int32)">
+        <member name="M:WebApiReserva.Controllers.ReservaController.GetReservaG(System.Int32)">
             <summary>
             Obtiene todas las reservas a las que pertenece una persona con el id
             </summary>
@@ -531,6 +531,16 @@
             Edita una reserva y valida que esta exista.
             </summary>
         </member>
+        <member name="M:WebApiReserva.Controllers.ReservaController.EliminarReserva(System.Int32)">
+            <summary>
+            Elimina la reserva con el idReserva
+            </summary>
+        </member>
+        <member name="M:WebApiReserva.Controllers.ReservaController.SalirGrupoReserva(System.Int32)">
+            <summary>
+            Elimina al integrante que quiere salir del grupo, y si no cumple con los requisitos la reserva se elimina
+            </summary>
+        </member>
         <member name="M:WebApiReserva.Controllers.UserController.Get">
             <summary>
             Obtiene a todas las personas registradas
@@ -552,7 +562,7 @@
             Valida si el usuario introdujo los datos correctos a la hora de iniciar sesion.
             </summary>
         </member>
-        <member name="M:WebApiReserva.Controllers.UserController.EditUser(System.Int32,WebApiReserva.Models.tblUsuario)">
+        <member name="M:WebApiReserva.Controllers.UserController.EditUser(System.Int32,WebApiReserva.Controllers.UserController.Usuario)">
             <summary>
             Edita al usuario y valida que este exista.
             </summary>
