@@ -89,7 +89,7 @@ namespace WebApiReserva.Controllers
                     }
 
                     var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
-                    if (disponible != 0 && cursos.Contains(course.idCurso))
+                    if (disponible != 0 && !cursos.Contains(course.idCurso))
                     {                        
                         cursos.Add(course.idCurso);
                     }
@@ -147,13 +147,13 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            if (cursos.Count > 0)
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Lista sin filtro";
-                var res = MergeLogResult(log, cursos);
-                return Ok(res);
-            }
+            //if (cursos.Count > 0)
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Lista sin filtro";
+            //    var res = MergeLogResult(log, cursos);
+            //    return Ok(res);
+            //}
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
             int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
