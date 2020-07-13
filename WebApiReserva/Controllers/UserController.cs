@@ -189,7 +189,6 @@ namespace WebApiReserva.Controllers
         /// <summary>
         /// Verifica que el usuario exista a traves del ID
         /// </summary>
-        [HttpGet]
         public IHttpActionResult VerifyUserExists(int id)
         {
            
