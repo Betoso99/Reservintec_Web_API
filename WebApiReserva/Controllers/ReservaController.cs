@@ -282,10 +282,11 @@ namespace WebApiReserva.Controllers
 
         // Si son grupos, te puedes salir del grupo (si tiene el limite todavia, se mantiene, sino, se dice que esta desocupado)
         [HttpPut]
-        public IHttpActionResult SalirGrupoReserva(int id, int idReserva)
+        public IHttpActionResult SalirGrupoReserva(int id)
         {
-            tblReserva reserva = db.tblReserva.Find(idReserva);
-            var a = db.sp_PersonaEnReserva(idReserva);
+            var res = db.tblGrupoReserva.Where(g => g.idGrupoReserva == id).FirstOrDefault();
+            tblReserva reserva = db.tblReserva.Find(res.idReserva);
+            var a = db.sp_PersonaEnReserva(res.idReserva);
             if (reserva == null)
             {
                 log.Ok = false;
@@ -293,17 +294,17 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            db.sp_DeletePersonaRes(id);
+            db.sp_DeletePersonaRes(res.idPersona);
             db.SaveChanges();
 
-            var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == idReserva).Distinct().ToList().Count();
-            var cantidadGrupo = db.CantidadPersonasGrupoReserva(idReserva).FirstOrDefault().Value;
+            var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == res.idReserva).Distinct().ToList().Count();
+            var cantidadGrupo = db.CantidadPersonasGrupoReserva(res.idReserva).FirstOrDefault().Value;
             //var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
             // GetTipo Select Top 1 
-            var res = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList();
+            var resi = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList();
 
             int estudiante = 0, profesor = 0, tutor = 0;
-            foreach (int estado in res)
+            foreach (int estado in resi)
             {
                 if (estado == 6) estudiante++; // Es estudiante
                 if (estado == 7) profesor++; // Es profesor
@@ -315,7 +316,7 @@ namespace WebApiReserva.Controllers
             {
                 if (cantidadGrupo < 3) 
                 {
-                    var reservaActual = db.tblReserva.Where(r => r.idReserva == idReserva).FirstOrDefault();
+                    var reservaActual = db.tblReserva.Where(r => r.idReserva == res.idReserva).FirstOrDefault();
                     //Remove(reservaActual);
                     db.deleteReserva(reservaActual.idReserva);
                 

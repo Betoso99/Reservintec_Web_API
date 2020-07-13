@@ -140,8 +140,6 @@ namespace WebApiReserva.Controllers
                 disponible++;
             }
 
-
-
             if (disponible == 0)
             {
                 log.Ok = false;
