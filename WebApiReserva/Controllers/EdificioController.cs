@@ -201,7 +201,7 @@ namespace WebApiReserva.Controllers
                 for (int j = 0; j < final.Count; j++)
                 {
                     var codigoCurso = final[j].NumCurso;
-                    if(db.tblCurso.Where(c => c.idCurso == edificioActual).FirstOrDefault() != null)
+                    if(db.tblCurso.Where(c => c.idEdificio == edificioActual && c.NumCurso == codigoCurso).FirstOrDefault() != null)
                     {
                         //var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
                         cursoEdificio.Cursos.Add(codigoCurso);
