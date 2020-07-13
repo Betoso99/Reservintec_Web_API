@@ -129,7 +129,7 @@ namespace WebApiReserva.Controllers
         [ActionName("GetPersonasByReserva")]
         public IHttpActionResult GetReservaById(int id)
         {
-            var reserva = db.GetReservaById(id);
+            var reserva = db.GetReservaById(id).FirstOrDefault();
             if(reserva == null)
             {
                 log.Ok = false;
