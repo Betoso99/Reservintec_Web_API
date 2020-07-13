@@ -282,10 +282,10 @@ namespace WebApiReserva.Controllers
 
         // Si son grupos, te puedes salir del grupo (si tiene el limite todavia, se mantiene, sino, se dice que esta desocupado)
         [HttpPut]
-        public IHttpActionResult SalirGrupoReserva(GrupoReserva grupoRes)
+        public IHttpActionResult SalirGrupoReserva(int id, int idReserva)
         {
-            tblReserva reserva = db.tblReserva.Find(grupoRes.idReserva);
-            var a = db.sp_PersonaEnReserva(grupoRes.idReserva);
+            tblReserva reserva = db.tblReserva.Find(idReserva);
+            var a = db.sp_PersonaEnReserva(idReserva);
             if (reserva == null)
             {
                 log.Ok = false;
@@ -293,11 +293,11 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            db.sp_DeletePersonaRes(grupoRes.idPersona);
+            db.sp_DeletePersonaRes(id);
             db.SaveChanges();
 
-            var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == grupoRes.idReserva).Distinct().ToList().Count();
-            var cantidadGrupo = db.CantidadPersonasGrupoReserva(grupoRes.idReserva).FirstOrDefault().Value;
+            var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == idReserva).Distinct().ToList().Count();
+            var cantidadGrupo = db.CantidadPersonasGrupoReserva(idReserva).FirstOrDefault().Value;
             //var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
             // GetTipo Select Top 1 
             var res = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList();
@@ -315,7 +315,7 @@ namespace WebApiReserva.Controllers
             {
                 if (cantidadGrupo < 3) 
                 {
-                    var reservaActual = db.tblReserva.Where(r => r.idReserva == grupoRes.idReserva).FirstOrDefault();
+                    var reservaActual = db.tblReserva.Where(r => r.idReserva == idReserva).FirstOrDefault();
                     //Remove(reservaActual);
                     db.deleteReserva(reservaActual.idReserva);
                 
