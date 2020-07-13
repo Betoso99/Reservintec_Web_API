@@ -74,7 +74,7 @@ namespace WebApiReserva.Controllers
 
             var clase = db.tblClase.Where(c => c.idDias == date.idDia).ToList();
             int ocupado = 0, disponible = 0, cont = 0;
-            List<string> cursos = new List<string>();
+            List<int> cursos = new List<int>();
             if (clase != null)
             {
                 foreach (var c in clase)
@@ -91,7 +91,7 @@ namespace WebApiReserva.Controllers
                     if (disponible != 0)
                     {
                         var course = db.tblCurso.Where(l => l.idCurso == c.idCurso).FirstOrDefault();
-                        cursos.Add(course.NumCurso);
+                        cursos.Add(course.idCurso);
                     }
                     cont++;
                 }
@@ -128,10 +128,10 @@ namespace WebApiReserva.Controllers
 
                     var course = db.tblCurso.Where(l => l.idCurso == r.idCurso).FirstOrDefault();
 
-                    //if (disponible != 0 && !cursos.Contains(course.NumCurso))
-                    //{
-                    //    cursos.Add(course.NumCurso);
-                    //}
+                    if (disponible != 0 && !cursos.Contains(course.idCurso))
+                    {
+                        cursos.Add(course.idCurso);
+                    }
                 }
 
             }
@@ -146,13 +146,13 @@ namespace WebApiReserva.Controllers
                 log.ErrorMessage = "No hay cursos disponibles";
                 return Ok(log);
             }
-            if (cursos.Count > 0)
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Lista sin filtro";
-                var res = MergeLogResult(log, cursos);
-                return Ok(res);
-            }
+            //if (cursos.Count > 0)
+            //{
+            //    log.Ok = false;
+            //    log.ErrorMessage = "Lista sin filtro";
+            //    var res = MergeLogResult(log, cursos);
+            //    return Ok(res);
+            //}
 
             List<CursoEdificio> listaResult = new List<CursoEdificio>();
             //int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count();
@@ -166,20 +166,13 @@ namespace WebApiReserva.Controllers
 
                 for (int j = 0; j < cursos.Count(); j++)
                 {
-                    string cursoActual = cursos[j];
-                    if(db.tblCurso.Where(c => c.NumCurso == cursoActual).Select(l => l.idEdificio).FirstOrDefault() == edificioActual)
+                    int idcursoActual = cursos[j];
+                    if(db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.idEdificio).FirstOrDefault() == edificioActual)
                     {
-                        cursoEdificio.Cursos.Add(cursoActual);
+                        cursoEdificio.Cursos.Add((db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault()));
                     }
                 }
                 listaResult.Add(cursoEdificio);
-            }
-
-            if(listaResult.Count == 0)
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Hay un fallo con la lista resultado, ta vacia";
-                return Ok(log);
             }
 
             var result = MergeLogResult(log, listaResult);
