@@ -166,6 +166,26 @@ namespace WebApiReserva.Controllers
             return Ok(log);
         }
 
+
+        /// <summary>
+        /// Verifica que la persona exista a traves del ID
+        /// </summary>
+        [HttpGet]
+        public IHttpActionResult VerifyPersonaExists(int id)
+        {
+            // SELECT COUNT(idPersona) FROM tblPersona WHERE idPersona = @idPersona
+            if (db.CountPersona(id).First() > 0)
+            {
+                Good(log);
+            }
+            else
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Esta persona no existe";
+            }
+            return Ok(log);
+        }
+
         /// <summary>
         /// Verifica que el usuario exista a traves del ID
         /// </summary>
@@ -185,24 +205,6 @@ namespace WebApiReserva.Controllers
             return Ok(log);
         }
 
-        /// <summary>
-        /// Verifica que la persona exista a traves del ID
-        /// </summary>
-        [HttpGet]
-        public IHttpActionResult VerifyPersonaExists(int id)
-        {
-
-            if (db.CountPersona(id).First() > 0)
-            {
-                Good(log);
-            }
-            else
-            {
-                log.Ok = false;
-                log.ErrorMessage = "Esta persona no existe";
-            }
-            return Ok(log);
-        }
 
 
         protected override void Dispose(bool disposing)

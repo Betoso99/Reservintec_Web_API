@@ -259,9 +259,9 @@ namespace WebApiReserva.Controllers
             //var res = db.tblGrupoReserva.Where(g => g.idGrupoReserva == id).FirstOrDefault(); // - El que funcionaba
             // SELECT * FROM tblGrupoReserva WHERE idGrupoReserva = @idGrupoReserva
             var res = db.GetGrupoReservaById(id).FirstOrDefault(); // -sp
-            
+
             //tblReserva reserva = db.tblReserva.Find(res.idReserva); // -El que funcionaba
-            
+            // SELECT * FROM tblReserva WHERE idReserva = @idReserva
             var reserva = db.GetReservaByIdRes(res.idReserva).FirstOrDefault(); // -sp
             if (reserva == null)
             {
@@ -272,6 +272,7 @@ namespace WebApiReserva.Controllers
 
             try
             {
+                // DELETE FROM tblGrupoReserva WHERE idGrupoReserva = @idGrupoReserva
                 db.sp_DeletePersonaRes(id);
                 db.SaveChanges();
             }
@@ -285,6 +286,7 @@ namespace WebApiReserva.Controllers
             var cantidadGrupo = db.CantidadPersonasGrupoReserva(res.idReserva).FirstOrDefault().Value;
 
             //var resi = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList(); // -El que funcionaba
+            // SELECT idTipo FROM tblPersonaTipo WHERE idPersona = @idPersona
             var resi = db.GetEstadoTipo(reserva.idReservante).ToList(); // -sp
 
             int estudiante = 0, profesor = 0, tutor = 0;
@@ -301,9 +303,11 @@ namespace WebApiReserva.Controllers
                 if (cantidadGrupo < 3) 
                 {
                     //var reservaActual = db.tblReserva.Where(r => r.idReserva == res.idReserva).FirstOrDefault(); // - El que funcionaba
+                    // SELECT * FROM tblReserva WHERE idReserva = @idReserva
                     var reservaActual = db.GetReservaByIdRes(res.idReserva).FirstOrDefault(); // -sp
                     try
                     {
+                        //UPDATE tblReserva SET EstadoReserva = 0 WHERE idReserva = @idReserva
                         db.deleteReserva(reservaActual.idReserva);
                         db.SaveChanges();
                     }
@@ -337,6 +341,7 @@ namespace WebApiReserva.Controllers
             int[] dia = new int[15];
             // GetClaseCurso Select * from tblClase where idCurso = idCurso
             //var clase = db.tblClase.Where(c => c.idCurso == idCurso).ToList(); // - El que funcionaba
+            // SELECT * FROM tblClase WHERE idCurso = @idCurso 
             var clase = db.GetClase(idCurso).ToList(); // -sp
 
             for (int i = 0; i < 15; i++)
