@@ -86,7 +86,8 @@ namespace WebApiReserva.Controllers
             try
             {
                 user.Pass = CryptoPass.Hash(user.Pass);
-                // INSERT INTO tblPersona (idPersona, Password) VALUES (@Matricula, @Pass)
+                // INSERT INTO tblPersona (idPersona, Password) 
+                // VALUES (@Matricula, @Pass)
                 db.AddUser(user.Matricula, user.Pass);
                 db.SaveChanges();
                 Good(log);

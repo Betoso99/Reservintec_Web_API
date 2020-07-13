@@ -27,8 +27,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetAll()
         {
             Good(log);
-            // Get reserva where Estado = 1/true - sp
-            //var reserva = db.tblReserva.Where(r => r.EstadoReserva == true).ToList(); // - El que funcionaba
+
             // SELECT * FROM tblReservas WHERE EstadoReserva = 1
             var reserva = db.GetAllReservas().ToList(); // -sp
             var result = MergeLogResult(log, reserva);
@@ -43,8 +42,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetReserva(int id)
         {
             Good(log);
-            //Get reserva where Estado = 1/true and idReservante == id
-            //var reserva = db.tblReserva.Where(r=> r.idReservante == id && r.EstadoReserva == true).ToList(); // - El que funcionaba
+           
             // SELECT * FROM tblReserva WHERE idReservante = @id AND EstadoReserva = 1
             var reserva = db.GetReservaByIdPersona(id).ToList(); // - sp
             var result = MergeLogResult(log, reserva);
@@ -67,6 +65,12 @@ namespace WebApiReserva.Controllers
                 log.ErrorMessage = "El usuario no existe";
                 return Ok(log);
             }
+
+            // SELECT GR.idGrupoReserva, R.idReserva, R.idCurso, R.idSemana, R.idDias, 
+            //        R.idHoraIn, R.idHoraF, R.EstadoReserva, R.FechaReserva, R.FechaRegistro 
+            // FROM tblGrupoReserva AS GR 
+            // INNER JOIN tblReserva AS R ON GR.idReserva = R.idReserva
+            // WHERE GR.idPersona = @idPersona AND R.EstadoReserva = 1
             var getResGrupo = db.GetReservaGrupo(id).ToList();
 
             var result = MergeLogResult(log, getResGrupo);
@@ -83,8 +87,9 @@ namespace WebApiReserva.Controllers
         [ActionName("GetSemana")]
         public IHttpActionResult GetHorarioBySemana(int id, int idCurso) // id = numeroSemana
         {
+            // SELECT * FROM tblReserva 
+            // WHERE idSemana = @numeroSemana AND idCurso = @idCurso
             var semana = db.GetReservaSemana(id, idCurso).ToList(); // - sp
-            //var semana = db.tblReserva.Where(r => r.idSemana == id && r.idCurso == idCurso).ToList(); // - El que funcionaba
 
             List<int[]> horario = GetSemanaList(semana, idCurso);
 
@@ -109,13 +114,11 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
             List<int> idList = new List<int>();
-            // Get ReservaById Select top 1 idReservante from tblReserva where idReserva = @idReserva and Estado = 1
-            //int idPersona = db.tblReserva.Where(r => r.idReserva == id).Select(c => c.idReservante).FirstOrDefault(); // - El que funcionaba
+     
             // SELECT idReservante FROM tblReserva WHERE idReserva = @idReserva AND EstadoResera = 1
             int idPersona = db.GetIdPersonaReserva(id).FirstOrDefault().Value; // - sp
             idList.Add(idPersona);
-            // Get GrupoReservaById Select idPersona from tblGrupoReserva where idReserva = @idReserva and Estado = 1
-            //var idsGrupo = db.tblGrupoReserva.Where(r => r.idReserva == id).Select(c => c.idPersona).ToList(); // - El que funcionaba
+          
             // SELECT * FROM tblGrupoReserva WHERE idReserva = @idReserva AND EstadoReserva = 1
             var idsGrupo = db.GetIdsGrupoReserva(id).ToList(); // -sp
             
@@ -125,14 +128,13 @@ namespace WebApiReserva.Controllers
             for (int i = 0; i < (idsGrupo.Count() + 1); i++)
             {               
                 int idPersonaActual = idList[i];
-                // GetIdPersona Select top 1 idPersona where idPersona = @idPersonaActual - sp
-                //int idP = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.idPersona).FirstOrDefault(); - El que funcionaba
+             
                 // SELECT IdPersona FROM tblPersona WHERE idPersona = @idPersona 
                 int idP = db.GetIdPersona(idPersonaActual).First().GetValueOrDefault(); // -sp
-                // GetNamePersona Select top 1 Nombre where idPersona = @idPersonaActual - sp
-                //string name = db.tblPersona.Where(c => c.idPersona == idPersonaActual).Select(c => c.Nombre).FirstOrDefault(); - El que funcionaba
+         
                 // SELECT Nombre FROM tblPersona WHERE idPersona = @idPersona 
                 string name = db.GetNombrePersona(idPersonaActual).FirstOrDefault(); // -sp
+
                 Persona persona = new Persona() { IdPersona = idP, Nombre= name};
                 personas.Add(persona);
             }
@@ -154,8 +156,10 @@ namespace WebApiReserva.Controllers
 
             try
             {
-                // INSERT INTO tblReserva ( idCurso, idSemana, idDia, idHoraIn, idHoraF, idReservante, idFechaReserva ) VALUES (@idCurso, @idSemana, @idDia, @idHoraIn, @idHoraF, @idReservante, @idFechaReserva)
-                db.AddReserseva(reservaP.Reserva.idCurso, reservaP.Reserva.idSemana, reservaP.Reserva.idDia, reservaP.Reserva.idHoraIn, reservaP.Reserva.idHoraF, reservaP.Reserva.idReservante, reservaP.Reserva.FechaReserva);
+                // INSERT INTO tblReserva ( idCurso, idSemana, idDia, idHoraIn, idHoraF, idReservante, idFechaReserva ) 
+                // VALUES (@idCurso, @idSemana, @idDia, @idHoraIn, @idHoraF, @idReservante, @idFechaReserva)
+                db.AddReserseva(reservaP.Reserva.idCurso, reservaP.Reserva.idSemana, reservaP.Reserva.idDia, 
+                    reservaP.Reserva.idHoraIn, reservaP.Reserva.idHoraF, reservaP.Reserva.idReservante, reservaP.Reserva.FechaReserva);
                 db.SaveChanges();             
             }
             catch (Exception ex)
@@ -200,7 +204,6 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult EditReserva(int id, [FromBody]tblReserva reserva)
         {
             Good(log);
-            //var v = db.tblReserva.Where(r => r.idReservante == id).FirstOrDefault(); // - El que funcionaba
             // SELECT * FROM tblReserva WHERE idReservante = @idReservante AND EstadoReserva = 1
             var v = db.GetReservaByIdPersona(id).ToList(); // -sp
             if (v == null)
@@ -251,16 +254,15 @@ namespace WebApiReserva.Controllers
 
 
         /// <summary>
-        /// Elimina al integrante que quiere salir del grupo, y si no cumple con los requisitos la reserva se elimina
+        /// Elimina al integrante que quiere salir del grupo, y si no cumple 
+        /// con los requisitos la reserva se elimina
         /// </summary>
         [HttpPut]
         public IHttpActionResult SalirGrupoReserva(int id)
         {
-            //var res = db.tblGrupoReserva.Where(g => g.idGrupoReserva == id).FirstOrDefault(); // - El que funcionaba
             // SELECT * FROM tblGrupoReserva WHERE idGrupoReserva = @idGrupoReserva
             var res = db.GetGrupoReservaById(id).FirstOrDefault(); // -sp
 
-            //tblReserva reserva = db.tblReserva.Find(res.idReserva); // -El que funcionaba
             // SELECT * FROM tblReserva WHERE idReserva = @idReserva
             var reserva = db.GetReservaByIdRes(res.idReserva).FirstOrDefault(); // -sp
             if (reserva == null)
@@ -285,7 +287,7 @@ namespace WebApiReserva.Controllers
            
             var cantidadGrupo = db.CantidadPersonasGrupoReserva(res.idReserva).FirstOrDefault().Value;
 
-            //var resi = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList(); // -El que funcionaba
+   
             // SELECT idTipo FROM tblPersonaTipo WHERE idPersona = @idPersona
             var resi = db.GetEstadoTipo(reserva.idReservante).ToList(); // -sp
 
@@ -302,7 +304,7 @@ namespace WebApiReserva.Controllers
             {
                 if (cantidadGrupo < 3) 
                 {
-                    //var reservaActual = db.tblReserva.Where(r => r.idReserva == res.idReserva).FirstOrDefault(); // - El que funcionaba
+                    
                     // SELECT * FROM tblReserva WHERE idReserva = @idReserva
                     var reservaActual = db.GetReservaByIdRes(res.idReserva).FirstOrDefault(); // -sp
                     try
@@ -339,8 +341,7 @@ namespace WebApiReserva.Controllers
         private int[] GetHoras(int nDia, List<GetReservaSemana_sp> semana, int idCurso)
         {
             int[] dia = new int[15];
-            // GetClaseCurso Select * from tblClase where idCurso = idCurso
-            //var clase = db.tblClase.Where(c => c.idCurso == idCurso).ToList(); // - El que funcionaba
+
             // SELECT * FROM tblClase WHERE idCurso = @idCurso 
             var clase = db.GetClase(idCurso).ToList(); // -sp
 

@@ -27,7 +27,6 @@ namespace WebApiReserva.Controllers
             Good(log);
             // SELECT * FROM tblEdificio
             var edif = db.GetEdificio().ToList(); // -sp
-            //var edif = db.tblEdificio.ToList(); // -El que funcionaba
 
             var result = MergeLogResult(log, edif);
 
@@ -43,7 +42,6 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult GetCursosEdificio(int id)
         {
             //SELECT * FROM tblEdificio WHERE idEdificio = @idEdificio
-            //var curso = db.tblCurso.Where(c => c.idEdificio == id).ToList(); // -El que funcionaba
             var curso = db.GetCursoEdificio(id).ToList(); // -sp
 
             if (curso == null)
@@ -74,11 +72,13 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-           //select* from tblCurso where idCurso not in (select idCurso from tblClase where idHoraIn <= @idHora and idHoraF > @idHora and idDias = @idDia) 
-           //intersect
-           //select* from tblCurso where idCurso not in (select idCurso from tblReserva where idHoraIn <= @idHora and idHoraF > @idHora
-           // and idDias = @idDia and idSemana = @idSemana)
-           //order by idCurso
+           // SELECT * FROM tblCurso WHERE idCurso NOT IN (SELECT idCurso FROM tblClase WHERE idHoraIn <= @idHora 
+           // AND idHoraF > @idHora AND idDias = @idDia) 
+           // INTERSECT
+           // SELECT * FROM tblCurso 
+           // WHERE idCurso NOT IN (SELECT idCurso FROM tblReserva WHERE idHoraIn <= @idHora AND idHoraF > @idHora
+           // AND idDias = @idDia and idSemana = @idSemana)
+           // ORDER BY idCurso
             List<tblCurso> cursosDisp = db.GetCursosDisponible(date.idHora, date.idDia, date.idSemana).ToList(); // -sp
 
             List<CursoEdificio> cursoEdificio = new List<CursoEdificio>();
