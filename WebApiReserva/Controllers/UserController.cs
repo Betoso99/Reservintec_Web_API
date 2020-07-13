@@ -192,7 +192,7 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult VerifyPersonaExists(int id)
         {
 
-            if (db.tblPersona.Count(u => u.idPersona == id) > 0)
+            if (db.CountPersona(id).First() > 0)
             {
                 Good(log);
             }

@@ -453,6 +453,9 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
         <Function Name="CantidadPersonasGrupoReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idReserva" Type="int" Mode="In" />
         </Function>
+        <Function Name="CountPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersona" Type="int" Mode="In" />
+        </Function>
         <Function Name="deleteReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idReserva" Type="int" Mode="In" />
         </Function>
@@ -1405,10 +1408,13 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idGrupoReserva" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetCodigoEdificio" ReturnType="Collection(String)">
-            <Parameter Name="idEdificio" Mode="In" Type="Int32" />
+          <Parameter Name="idEdificio" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetCurso" EntitySet="tblCurso" ReturnType="Collection(ReservaModel.tblCurso)">
-            <Parameter Name="idCurso" Mode="In" Type="Int32" />
+          <Parameter Name="idCurso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CountPersona" ReturnType="Collection(Int32)">
+            <Parameter Name="idPersona" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
@@ -2031,6 +2037,7 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <FunctionImportMapping FunctionImportName="GetCodigoEdificio" FunctionName="ReservaModel.Store.GetCodigoEdificio" />
           <FunctionImportMapping FunctionImportName="GetCurso" FunctionName="ReservaModel.Store.GetCurso">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CountPersona" FunctionName="ReservaModel.Store.CountPersona" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

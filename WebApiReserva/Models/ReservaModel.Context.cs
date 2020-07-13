@@ -531,5 +531,14 @@ namespace WebApiReserva.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblCurso>("GetCurso", mergeOption, idCursoParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> CountPersona(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("idPersona", idPersona) :
+                new ObjectParameter("idPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CountPersona", idPersonaParameter);
+        }
     }
 }

@@ -397,11 +397,7 @@ namespace WebApiReserva.Controllers
             return db.tblPersona.Count(e => e.idPersona == id) > 0;
         }
 
-        private void Remove(tblReserva reserva)
-        {
-            reserva.EstadoReserva = false;
-            db.SaveChanges();
-        }
+
 
         public class ReservaR
         {
