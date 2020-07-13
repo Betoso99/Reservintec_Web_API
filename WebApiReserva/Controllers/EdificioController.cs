@@ -170,10 +170,10 @@ namespace WebApiReserva.Controllers
                 for (int j = 0; j < cursos.Count(); j++)
                 {
                     int idcursoActual = cursos[j];
-                    if(db.tblCurso.Where(c => c.idCurso == edificioActual) != null)
+                    if(db.tblCurso.Where(c => c.idCurso == edificioActual).FirstOrDefault() != null)
                     {
-                        var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
-                        cursoEdificio.Cursos.Add(numCurso);
+                        //var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
+                        cursoEdificio.Cursos.Add(idcursoActual);
                     }
                 }
                 listaResult.Add(cursoEdificio);
@@ -195,10 +195,10 @@ namespace WebApiReserva.Controllers
         {
             public CursoEdificio()
             {
-                Cursos = new List<string>();
+                Cursos = new List<int>();
             }
             public string Edificio { get; set; }
-            public List<string> Cursos { get; set; }
+            public List<int> Cursos { get; set; }
         }
 
 
