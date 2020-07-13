@@ -286,7 +286,7 @@ namespace WebApiReserva.Controllers
         {
             var res = db.tblGrupoReserva.Where(g => g.idGrupoReserva == id).FirstOrDefault();
             tblReserva reserva = db.tblReserva.Find(res.idReserva);
-            var a = db.sp_PersonaEnReserva(res.idReserva);
+            //var a = db.sp_PersonaEnReserva(res.idReserva);
             if (reserva == null)
             {
                 log.Ok = false;
@@ -294,21 +294,30 @@ namespace WebApiReserva.Controllers
                 return Ok(log);
             }
 
-            db.sp_DeletePersonaRes(id);
-            db.SaveChanges();
+            try
+            {
+                db.sp_DeletePersonaRes(id);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                log.Ok = false;
+                log.ErrorMessage = "Hubo un error al eliminar al usuario";
+                return Ok(log);
+            }
+           
 
-            var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == res.idReserva).Distinct().ToList().Count();
+            //var cantGrupo = db.tblGrupoReserva.Where(g => g.idReserva == res.idReserva).Distinct().ToList().Count();
             var cantidadGrupo = db.CantidadPersonasGrupoReserva(res.idReserva).FirstOrDefault().Value;
-            //var pers = db.tblPersonaTipo.Where(p => p.idPersona == grupoRes.idPersona).ToList();
-            // GetTipo Select Top 1 
+
             var resi = db.tblPersonaTipo.Where(p => p.idPersona == reserva.idReservante).Select(d => d.idTipo).ToList();
 
             int estudiante = 0, profesor = 0, tutor = 0;
             foreach (int estado in resi)
             {
                 if (estado == 6) estudiante++; // Es estudiante
-                if (estado == 7) profesor++; // Es profesor
-                if (estado == 8) tutor++; // Es tutor
+                else if (estado == 7) profesor++; // Es profesor
+                else if (estado == 8) tutor++; // Es tutor
 
             }
 
@@ -318,7 +327,18 @@ namespace WebApiReserva.Controllers
                 {
                     var reservaActual = db.tblReserva.Where(r => r.idReserva == res.idReserva).FirstOrDefault();
                     //Remove(reservaActual);
-                    db.deleteReserva(reservaActual.idReserva);
+                    try
+                    {
+                        db.deleteReserva(reservaActual.idReserva);
+                        db.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        log.Ok = false;
+                        log.ErrorMessage = "Hubo un problema al eliminar la reserva";
+                        return Ok(log);
+                    }
+                    
                 
                 } // Liberar reserva
             }
