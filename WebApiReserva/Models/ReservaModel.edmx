@@ -433,6 +433,10 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AddGrupoReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReserva" Type="int" Mode="In" />
+          <Parameter Name="idPersona" Type="int" Mode="In" />
+        </Function>
         <Function Name="AddReserseva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idCurso" Type="int" Mode="In" />
           <Parameter Name="idSemana" Type="int" Mode="In" />
@@ -453,6 +457,10 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idReserva" Type="int" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetAllReservas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetClase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCurso" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetCursoEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idEdificio" Type="int" Mode="In" />
         </Function>
@@ -470,7 +478,33 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idDia" Type="int" Mode="In" />
           <Parameter Name="idSemana" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetEdifActual" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEdificio" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetEdificios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetEstadoTipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersona" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetGrupoReservaById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idGrupoReserva" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIdEdificio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEdificio" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIdPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersona" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIdPersonaReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReserva" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIdsGrupoReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReserva" Type="int" Mode="In" />
+        </Function>
         <Function Name="getLastReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetNombrePersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersona" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMatricula" Type="int" Mode="In" />
         </Function>
@@ -481,11 +515,18 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
         <Function Name="GetReservaById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idReserva" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetReservaByIdPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReservante" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetReservaByIdRes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReserva" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetReservaGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idPersona" Type="int" Mode="In" />
         </Function>
         <Function Name="GetReservaSemana" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="numeroSemana" Type="int" Mode="In" />
+          <Parameter Name="idCurso" Type="int" Mode="In" />
         </Function>
         <Function Name="GetUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUsuario" Type="int" Mode="In" />
@@ -1242,7 +1283,8 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Parameter Name="idReserva" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetReservaSemana" ReturnType="Collection(ReservaModel.GetReservaSemana_sp)">
-          <Parameter Name="numeroSemana" Mode="In" Type="Int32" />
+            <Parameter Name="numeroSemana" Mode="In" Type="Int32" />
+            <Parameter Name="idCurso" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUsuario" ReturnType="Collection(ReservaModel.GetUsuario_sp)">
           <Parameter Name="idUsuario" Mode="In" Type="Int32" />
@@ -1315,6 +1357,46 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
             <Parameter Name="idHora" Mode="In" Type="Int32" />
             <Parameter Name="idDia" Mode="In" Type="Int32" />
             <Parameter Name="idSemana" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetEdifActual" ReturnType="Collection(String)">
+          <Parameter Name="idEdificio" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetEdificio" ReturnType="Collection(ReservaModel.GetEdificio_sp)" />
+          <FunctionImport Name="GetEdificios" ReturnType="Collection(ReservaModel.GetEdificios_sp)" />
+          <FunctionImport Name="GetIdEdificio" ReturnType="Collection(Byte)">
+          <Parameter Name="idEdificio" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddGrupoReserva">
+            <Parameter Name="idReserva" Mode="In" Type="Int32" />
+            <Parameter Name="idPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllReservas" ReturnType="Collection(ReservaModel.GetAllReservas_sp)" />
+          <FunctionImport Name="GetClase" ReturnType="Collection(ReservaModel.GetClase_sp)">
+          <Parameter Name="idCurso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetEstadoTipo" ReturnType="Collection(Int32)">
+          <Parameter Name="idPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetIdPersona" ReturnType="Collection(Int32)">
+          <Parameter Name="idPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetIdPersonaReserva" ReturnType="Collection(ReservaModel.GetIdPersonaReserva_sp)">
+          <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetIdsGrupoReserva" ReturnType="Collection(Int32)">
+          <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetNombrePersona" ReturnType="Collection(String)">
+          <Parameter Name="idPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReservaByIdPersona" ReturnType="Collection(ReservaModel.GetReservaByIdPersona_sp)">
+          <Parameter Name="idReservante" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReservaByIdRes" ReturnType="Collection(ReservaModel.GetReservaByIdRes_sp)">
+          <Parameter Name="idReserva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetGrupoReservaById" ReturnType="Collection(ReservaModel.GetGrupoReservaById_sp)">
+            <Parameter Name="idGrupoReserva" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCursoEdificio_sp">
@@ -1417,6 +1499,77 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
           <Property Type="Int32" Name="idCurso" Nullable="false" />
           <Property Type="Byte" Name="idEdificio" Nullable="false" />
           <Property Type="String" Name="NumCurso" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="GetEdificio_sp">
+          <Property Type="Byte" Name="idEdificio" Nullable="false" />
+          <Property Type="String" Name="Edificio" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetEdificios_sp">
+          <Property Type="Byte" Name="idEdificio" Nullable="false" />
+          <Property Type="String" Name="Edificio" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllReservas_sp">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idSemana" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+          <Property Type="Int32" Name="idReservante" Nullable="false" />
+          <Property Type="Boolean" Name="EstadoReserva" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetClase_sp">
+          <Property Type="Int32" Name="idClase" Nullable="false" />
+          <Property Type="Int32" Name="idDocente" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIdPersonaReserva_sp">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idSemana" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+          <Property Type="Int32" Name="idReservante" Nullable="false" />
+          <Property Type="Boolean" Name="EstadoReserva" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReservaByIdPersona_sp">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idSemana" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+          <Property Type="Int32" Name="idReservante" Nullable="false" />
+          <Property Type="Boolean" Name="EstadoReserva" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReservaByIdRes_sp">
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
+          <Property Type="Int32" Name="idCurso" Nullable="false" />
+          <Property Type="Byte" Name="idSemana" Nullable="false" />
+          <Property Type="Byte" Name="idDias" Nullable="false" />
+          <Property Type="Byte" Name="idHoraIn" Nullable="false" />
+          <Property Type="Byte" Name="idHoraF" Nullable="false" />
+          <Property Type="Int32" Name="idReservante" Nullable="false" />
+          <Property Type="Boolean" Name="EstadoReserva" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetGrupoReservaById_sp">
+          <Property Type="Int32" Name="idGrupoReserva" Nullable="false" />
+          <Property Type="Int32" Name="idPersona" Nullable="false" />
+          <Property Type="Int32" Name="idReserva" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1764,6 +1917,116 @@ warning 6002: The table/view 'Intec_SIS_Reserva.sys.database_firewall_rules' doe
                 <ScalarProperty Name="idCurso" ColumnName="idCurso" />
                 <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
                 <ScalarProperty Name="NumCurso" ColumnName="NumCurso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetEdifActual" FunctionName="ReservaModel.Store.GetEdifActual" />
+          <FunctionImportMapping FunctionImportName="GetEdificio" FunctionName="ReservaModel.Store.GetEdificio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetEdificio_sp">
+                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
+                <ScalarProperty Name="Edificio" ColumnName="Edificio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetEdificios" FunctionName="ReservaModel.Store.GetEdificios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetEdificios_sp">
+                <ScalarProperty Name="idEdificio" ColumnName="idEdificio" />
+                <ScalarProperty Name="Edificio" ColumnName="Edificio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIdEdificio" FunctionName="ReservaModel.Store.GetIdEdificio" />
+          <FunctionImportMapping FunctionImportName="AddGrupoReserva" FunctionName="ReservaModel.Store.AddGrupoReserva" />
+          <FunctionImportMapping FunctionImportName="GetAllReservas" FunctionName="ReservaModel.Store.GetAllReservas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetAllReservas_sp">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
+                <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetClase" FunctionName="ReservaModel.Store.GetClase">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetClase_sp">
+                <ScalarProperty Name="idClase" ColumnName="idClase" />
+                <ScalarProperty Name="idDocente" ColumnName="idDocente" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetEstadoTipo" FunctionName="ReservaModel.Store.GetEstadoTipo" />
+          <FunctionImportMapping FunctionImportName="GetIdPersona" FunctionName="ReservaModel.Store.GetIdPersona" />
+          <FunctionImportMapping FunctionImportName="GetIdPersonaReserva" FunctionName="ReservaModel.Store.GetIdPersonaReserva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetIdPersonaReserva_sp">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
+                <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIdsGrupoReserva" FunctionName="ReservaModel.Store.GetIdsGrupoReserva" />
+          <FunctionImportMapping FunctionImportName="GetNombrePersona" FunctionName="ReservaModel.Store.GetNombrePersona" />
+          <FunctionImportMapping FunctionImportName="GetReservaByIdPersona" FunctionName="ReservaModel.Store.GetReservaByIdPersona">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetReservaByIdPersona_sp">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
+                <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReservaByIdRes" FunctionName="ReservaModel.Store.GetReservaByIdRes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetReservaByIdRes_sp">
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
+                <ScalarProperty Name="idCurso" ColumnName="idCurso" />
+                <ScalarProperty Name="idSemana" ColumnName="idSemana" />
+                <ScalarProperty Name="idDias" ColumnName="idDias" />
+                <ScalarProperty Name="idHoraIn" ColumnName="idHoraIn" />
+                <ScalarProperty Name="idHoraF" ColumnName="idHoraF" />
+                <ScalarProperty Name="idReservante" ColumnName="idReservante" />
+                <ScalarProperty Name="EstadoReserva" ColumnName="EstadoReserva" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetGrupoReservaById" FunctionName="ReservaModel.Store.GetGrupoReservaById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReservaModel.GetGrupoReservaById_sp">
+                <ScalarProperty Name="idGrupoReserva" ColumnName="idGrupoReserva" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="idReserva" ColumnName="idReserva" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -183,6 +183,12 @@
     <Compile Include="Models\database_firewall_rules.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAllReservas_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetClase_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetCursoEdificio_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
@@ -195,10 +201,28 @@
     <Compile Include="Models\GetCursosDisponible_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetEdificios_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetEdificio_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetGrupoReservaById_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetIdPersonaReserva_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\getLastReserva_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetPersona_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetReservaByIdPersona_sp.cs">
+      <DependentUpon>ReservaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetReservaByIdRes_sp.cs">
       <DependentUpon>ReservaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetReservaById_sp.cs">

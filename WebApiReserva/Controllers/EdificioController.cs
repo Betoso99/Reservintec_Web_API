@@ -27,7 +27,8 @@ namespace WebApiReserva.Controllers
         {
             Good(log);
             // GetEdificio Select * from tblEdificio
-            var edif = db.tblEdificio.ToList();
+            var edif = db.GetEdificio().ToList(); // -sp
+            //var edif = db.tblEdificio.ToList(); // -El que funcionaba
 
             var result = MergeLogResult(log, edif);
 
@@ -42,8 +43,9 @@ namespace WebApiReserva.Controllers
         [ActionName("GetCursos")]
         public IHttpActionResult GetCursosEdificio(int id)
         {
-            // GetCursoEdif Select top 1 * from 
-            var curso = db.tblCurso.Where(c => c.idEdificio == id).ToList();
+            // GetCursoEdif Select  * from 
+            //var curso = db.tblCurso.Where(c => c.idEdificio == id).ToList(); // -El que funcionaba
+            var curso = db.GetCursoEdificio(id).ToList(); // -sp
 
             if (curso == null)
             {
@@ -77,18 +79,19 @@ namespace WebApiReserva.Controllers
             int cantidadEdificios = db.tblEdificio.Select(e => e.idEdificio).ToList().Count;
             int edificioActual = 0;
 
+            //var EdificioActual = db.GetEdifActual(edificioActual);
+
             for (int i = 0; i < cantidadEdificios; i++)
             {
                 CursoEdificio cursoEdificio = new CursoEdificio();
                 edificioActual = i+1;
-                cursoEdificio.Edificio = db.tblEdificio.Where(e => e.idEdificio == edificioActual).Select(l => l.Edificio).FirstOrDefault();
-
+                //cursoEdificio.Edificio = db.tblEdificio.Where(e => e.idEdificio == edificioActual).Select(l => l.Edificio).FirstOrDefault(); // - el que funcionaba
+                cursoEdificio.Edificio = db.GetEdifActual(edificioActual).ToString(); // -sp
                 for (int j = 0; j < cursosDisp.Count; j++)
                 {
                     var curso = cursosDisp[j];
-                    if(db.tblCurso.Where(c => c.idEdificio == edificioActual).Select(c => c.idEdificio).FirstOrDefault() == curso.idEdificio)
+                    if(/*db.tblCurso.Where(c => c.idEdificio == edificioActual).Select(c => c.idEdificio).FirstOrDefault() // -el que funcionaba*/ db.GetIdEdificio(edificioActual).First() == curso.idEdificio)
                     {
-                        //var numCurso = db.tblCurso.Where(c => c.idCurso == idcursoActual).Select(l => l.NumCurso).FirstOrDefault();
                         cursoEdificio.Cursos.Add(curso);
                     }
                 }

@@ -101,13 +101,17 @@ namespace WebApiReserva.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReservaById_sp>("GetReservaById", idReservaParameter);
         }
     
-        public virtual ObjectResult<GetReservaSemana_sp> GetReservaSemana(Nullable<int> numeroSemana)
+        public virtual ObjectResult<GetReservaSemana_sp> GetReservaSemana(Nullable<int> numeroSemana, Nullable<int> idCurso)
         {
             var numeroSemanaParameter = numeroSemana.HasValue ?
                 new ObjectParameter("numeroSemana", numeroSemana) :
                 new ObjectParameter("numeroSemana", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReservaSemana_sp>("GetReservaSemana", numeroSemanaParameter);
+            var idCursoParameter = idCurso.HasValue ?
+                new ObjectParameter("idCurso", idCurso) :
+                new ObjectParameter("idCurso", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReservaSemana_sp>("GetReservaSemana", numeroSemanaParameter, idCursoParameter);
         }
     
         public virtual ObjectResult<GetUsuario_sp> GetUsuario(Nullable<int> idUsuario)
@@ -350,6 +354,133 @@ namespace WebApiReserva.Models
                 new ObjectParameter("idSemana", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCursosDisponible_sp>("GetCursosDisponible", idHoraParameter, idDiaParameter, idSemanaParameter);
+        }
+    
+        public virtual ObjectResult<string> GetEdifActual(Nullable<int> idEdificio)
+        {
+            var idEdificioParameter = idEdificio.HasValue ?
+                new ObjectParameter("idEdificio", idEdificio) :
+                new ObjectParameter("idEdificio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetEdifActual", idEdificioParameter);
+        }
+    
+        public virtual ObjectResult<GetEdificio_sp> GetEdificio()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEdificio_sp>("GetEdificio");
+        }
+    
+        public virtual ObjectResult<GetEdificios_sp> GetEdificios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEdificios_sp>("GetEdificios");
+        }
+    
+        public virtual ObjectResult<Nullable<byte>> GetIdEdificio(Nullable<int> idEdificio)
+        {
+            var idEdificioParameter = idEdificio.HasValue ?
+                new ObjectParameter("idEdificio", idEdificio) :
+                new ObjectParameter("idEdificio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<byte>>("GetIdEdificio", idEdificioParameter);
+        }
+    
+        public virtual int AddGrupoReserva(Nullable<int> idReserva, Nullable<int> idPersona)
+        {
+            var idReservaParameter = idReserva.HasValue ?
+                new ObjectParameter("idReserva", idReserva) :
+                new ObjectParameter("idReserva", typeof(int));
+    
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("idPersona", idPersona) :
+                new ObjectParameter("idPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddGrupoReserva", idReservaParameter, idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<GetAllReservas_sp> GetAllReservas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllReservas_sp>("GetAllReservas");
+        }
+    
+        public virtual ObjectResult<GetClase_sp> GetClase(Nullable<int> idCurso)
+        {
+            var idCursoParameter = idCurso.HasValue ?
+                new ObjectParameter("idCurso", idCurso) :
+                new ObjectParameter("idCurso", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetClase_sp>("GetClase", idCursoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetEstadoTipo(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("idPersona", idPersona) :
+                new ObjectParameter("idPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetEstadoTipo", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetIdPersona(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("idPersona", idPersona) :
+                new ObjectParameter("idPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdPersona", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<GetIdPersonaReserva_sp> GetIdPersonaReserva(Nullable<int> idReserva)
+        {
+            var idReservaParameter = idReserva.HasValue ?
+                new ObjectParameter("idReserva", idReserva) :
+                new ObjectParameter("idReserva", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetIdPersonaReserva_sp>("GetIdPersonaReserva", idReservaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetIdsGrupoReserva(Nullable<int> idReserva)
+        {
+            var idReservaParameter = idReserva.HasValue ?
+                new ObjectParameter("idReserva", idReserva) :
+                new ObjectParameter("idReserva", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdsGrupoReserva", idReservaParameter);
+        }
+    
+        public virtual ObjectResult<string> GetNombrePersona(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("idPersona", idPersona) :
+                new ObjectParameter("idPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetNombrePersona", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<GetReservaByIdPersona_sp> GetReservaByIdPersona(Nullable<int> idReservante)
+        {
+            var idReservanteParameter = idReservante.HasValue ?
+                new ObjectParameter("idReservante", idReservante) :
+                new ObjectParameter("idReservante", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReservaByIdPersona_sp>("GetReservaByIdPersona", idReservanteParameter);
+        }
+    
+        public virtual ObjectResult<GetReservaByIdRes_sp> GetReservaByIdRes(Nullable<int> idReserva)
+        {
+            var idReservaParameter = idReserva.HasValue ?
+                new ObjectParameter("idReserva", idReserva) :
+                new ObjectParameter("idReserva", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReservaByIdRes_sp>("GetReservaByIdRes", idReservaParameter);
+        }
+    
+        public virtual ObjectResult<GetGrupoReservaById_sp> GetGrupoReservaById(Nullable<int> idGrupoReserva)
+        {
+            var idGrupoReservaParameter = idGrupoReserva.HasValue ?
+                new ObjectParameter("idGrupoReserva", idGrupoReserva) :
+                new ObjectParameter("idGrupoReserva", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetGrupoReservaById_sp>("GetGrupoReservaById", idGrupoReservaParameter);
         }
     }
 }

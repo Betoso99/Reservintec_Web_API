@@ -31,7 +31,6 @@ namespace WebApiReserva.Controllers
         public IHttpActionResult Get()
         {
             var usuario = db.GetPersona().ToList(); // -sp
-            //var usuario = db.tblPersona.ToList(); // - el que funcionaba
             Good(log);
 
             var result = MergeLogResult(log, usuario);
