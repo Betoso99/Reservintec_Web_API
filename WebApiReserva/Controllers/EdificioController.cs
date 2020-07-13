@@ -95,23 +95,6 @@ namespace WebApiReserva.Controllers
                 cursoEdificio[curso.idEdificio - 1].cursos.Add(curso);
             }
 
-            //for (int i = 0; i < cantidadEdificios; i++)
-            //{
-            //    CursoEdificio cursoEdificio = new CursoEdificio();
-            //    edificioActual = i+1;
-            //    //cursoEdificio.Edificio = db.tblEdificio.Where(e => e.idEdificio == edificioActual).Select(l => l.Edificio).FirstOrDefault(); // - el que funcionaba
-            //    cursoEdificio.Edificio = db.GetEdifActual(edificioActual).ToString(); // -sp
-            //    for (int j = 0; j < cursosDisp.Count; j++)
-            //    {
-            //        var curso = cursosDisp[j];
-            //        if(/*db.tblCurso.Where(c => c.idEdificio == edificioActual).Select(c => c.idEdificio).FirstOrDefault() // -el que funcionaba*/ db.GetIdEdificio(edificioActual).First() == curso.idEdificio)
-            //        {
-            //            cursoEdificio.Cursos.Add(curso);
-            //        }
-            //    }
-            //    listaResult.Add(cursoEdificio);
-            //}
-
             var result = MergeLogResult(log, cursoEdificio);
 
             return Ok(result);
@@ -123,10 +106,14 @@ namespace WebApiReserva.Controllers
         {
             tblCurso curso = db.tblCurso.Where(c => c.idCurso == id).FirstOrDefault();
 
+            string numCurso = curso.NumCurso;
             int idEdificio = curso.idEdificio;
             string edificio = db.tblEdificio.Where(e => e.idEdificio == idEdificio).Select(e => e.Edificio).FirstOrDefault();
 
-            return Ok();
+            string cursoEdif = edificio + numCurso;
+            var result = MergeLogResult(log, cursoEdif);
+
+            return Ok(result);
         }
 
         public class Date
